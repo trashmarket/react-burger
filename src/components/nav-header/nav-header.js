@@ -17,15 +17,15 @@ function NavHeader() {
     return (
         <nav className={styles.nav}>
             <ul className={styles.ul}>
-                <li className={styles.li} key={1}>
+                <li className='mr-10' key={1}>
                     <BurgerIcon type={typeBurger === selectIndex ? 'primary' : 'secondary'}/>
-                    <a className={typeBurger === selectIndex ? 'text text_type_main-default' : 'text text_type_main-default text_color_inactive'}  id="1" onClick={handelClickLink} href="#">
+                    <a className={`text text_type_main-default ml-4 ${typeBurger === selectIndex ? '' : 'text_color_inactive'}`}  id="1" onClick={handelClickLink} href="#">
                         Конструктор
                     </a>
                 </li>
                 <li className={styles.li} key={2}>
                     <ListIcon type={typeListIcon === selectIndex ? 'primary' : 'secondary'}/>
-                    <a className={typeListIcon === selectIndex ? 'text text_type_main-default' : 'text text_type_main-default text_color_inactive'}  id="2" onClick={handelClickLink} href="#">
+                    <a className={`text text_type_main-default ml-4 ${typeListIcon === selectIndex ? '' : 'text_color_inactive'}`}  id="2" onClick={handelClickLink} href="#">
                         Лента заказов
                     </a>
                 </li>

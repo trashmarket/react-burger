@@ -16,7 +16,7 @@ function HeaderAccount() {
     return(
         <div className={styles.container}>
             <ProfileIcon type={loginEnter === indexSelect ? 'primary' : 'secondary'}/>
-            <a href="#" className={`text text_type_main-default ${loginEnter === indexSelect ? '' : 'text_color_inactive'}`} id='1' onClick={handelClickLink}>
+            <a href="#" className={`text text_type_main-default ml-4 ${loginEnter === indexSelect ? '' : 'text_color_inactive'}`} id='1' onClick={handelClickLink}>
             Личный кабинет
             </a>
         </div>

@@ -1,6 +1,6 @@
 nav {
-    width: 30%;
-    margin-right: 8%;
+    
+    margin-right: 10%;
 }
 
 ul {
@@ -10,10 +10,7 @@ ul {
 
 li {
     display: flex;
-    width: 44%;
+    
     justify-content: space-between;
 }
 
-li:nth-child(1) {
-    width: 40%;
-}
