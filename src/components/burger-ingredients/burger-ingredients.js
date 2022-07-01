@@ -8,7 +8,7 @@ function BurgerIngredients (props) {
     return (
         <section className={styles.wrapper}>
             <BurgerNavTab/>
-            <BurgerList data={props.data} />
+            <BurgerList data={props.data} setIngredients={props.setIngredients}/>
             <ScrollBar/>
         </section>
     )

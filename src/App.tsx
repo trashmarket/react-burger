@@ -6,13 +6,11 @@ import Main from './components/main/main';
 import {data} from './utils/data';
 
 function App() {
- 
-
 
   return (
     <>
       <AppHeader/>
-      <Main items={data}/>
+      <Main items={data} />
     </>
   );
 }
