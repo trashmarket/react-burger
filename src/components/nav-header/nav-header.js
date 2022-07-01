@@ -17,7 +17,7 @@ function NavHeader() {
     return (
         <nav className={styles.nav}>
             <ul className={styles.ul}>
-                <li className='mr-10' key={1}>
+                <li className={styles.li} key={1}>
                     <BurgerIcon type={typeBurger === selectIndex ? 'primary' : 'secondary'}/>
                     <a className={`text text_type_main-default ml-4 ${typeBurger === selectIndex ? '' : 'text_color_inactive'}`}  id="1" onClick={handelClickLink} href="#">
                         Конструктор

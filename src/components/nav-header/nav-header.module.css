@@ -1,16 +1,19 @@
-nav {
+.nav {
     
     margin-right: 10%;
 }
 
-ul {
+.ul {
     display: flex;
     justify-content: space-between;
 }
 
-li {
+.li {
     display: flex;
     
     justify-content: space-between;
 }
 
+.li:nth-child(1) {
+    margin-right: 35px;
+}

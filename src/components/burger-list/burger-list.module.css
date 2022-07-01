@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+}
+
+.list {
+    position: relative;
+    overflow-y:scroll;
+    position: relative;
+    height: 790px;
+}
+
+.list::-webkit-scrollbar { 
+    display: none; 
+}

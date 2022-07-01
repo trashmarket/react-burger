@@ -1,0 +1,10 @@
+.track {
+    height: 492px;
+    width: 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #8585AD;
+    z-index: 1;
+    transition: top .4s;
+}
