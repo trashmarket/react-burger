@@ -7,14 +7,6 @@ const BurgerCard = React.memo((props) => {
     React.useEffect(()=>{
         if (props.index) {
             setCount(props.count);
-            let i = 0;
-            let arr = [];
-
-            while(i < props.count) {
-                props.setIngredients(props.item);
-                i++;
-            }
-
         }
         else {
             setCount(null)

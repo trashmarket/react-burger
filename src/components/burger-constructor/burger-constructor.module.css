@@ -1,0 +1,46 @@
+.section {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 23px;
+}
+
+.wrapperConstructor { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.li {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    margin-top: 34px;
+    margin-left: 231px;
+    display: flex;
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    align-items: self-end;
+    height: 467px;
+    overflow-y: scroll;
+    padding-right: 6px;
+}
+
+.list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.list::-webkit-scrollbar-track {
+    background-color: #2F2F37;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}

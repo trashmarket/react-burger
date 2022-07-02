@@ -2,6 +2,7 @@ import React from "react";
 import BurgerCard from '../burger-card/burger-card';
 import styles from './burger-list.module.css'
 import ScrollTrack from "../scroll-track/scroll-track";
+import PropTypes from 'prop-types';
 
 
 function BurgerList({data, setIngredients}) {
@@ -28,7 +29,7 @@ function BurgerList({data, setIngredients}) {
             setScroll(e.currentTarget.scrollTop *1.14 )
             
         })
-    })
+    }, [])
 
 
     return (
@@ -78,9 +79,9 @@ function BurgerList({data, setIngredients}) {
 
                      key={item._id}
 
-                    index={index === 2 ? true : false || index === 3 ? true : false || index === 4 ? true : false}
+                    index={(index === 2 ? true : false) || (index === 3 ? true : false) || (index === 4 ? true : false)}
 
-                    count={index === 2 ? 1 : null || index === 3 ? 1 : null || index === 4 ? 2 : null}
+                    count={(index === 2 ? 1 : null) || (index === 3 ? 1 : null) || (index === 4 ? 2 : null)}
 
                     setIngredients={setIngredients}
 
@@ -92,6 +93,25 @@ function BurgerList({data, setIngredients}) {
             <ScrollTrack scroll={scroll}/>
         </ul>
     )
+}
+
+BurgerList.protoTypes = {
+    data: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        proteins: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        carbohydrates: PropTypes.number.isRequired,
+        calories: PropTypes.number.isRequired,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string.isRequired,
+        __v: PropTypes.number.isRequired
+    }).isRequired),
+
+    setIngredients: PropTypes.func
 }
 
 export default BurgerList

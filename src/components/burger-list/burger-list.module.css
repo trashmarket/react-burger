@@ -1,7 +1,7 @@
 .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    padding-bottom: 40px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .list {
