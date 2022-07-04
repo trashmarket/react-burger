@@ -15,10 +15,10 @@ const BurgerCard = React.memo((props) => {
 
 
     return (
-        <div className="pl-1 pr-1 ml-1" style={{width: "272px", position:"relative"}} onClick={() => {setCount(count + 1); props.setIngredients(props.item);}}>
+        <div  className={styles.card} onClick={() => {setCount(count + 1); props.setIngredients(props.item);}}>
             <img className={styles.img} src={props.item.image} alt={props.item.name} />
             <p className={styles.p}> <span className="text text_type_digits-default mr-1 mt-1 mb-1">{props.item.price}</span> <CurrencyIcon className="ml-1"/></p>
-            <p className="text text_type_main-default" style={{textAlign: 'center'}}>{props.item.name}</p>
+            <p className="text text_type_main-default" >{props.item.name}</p>
             {count && <Counter count={count} size="default"/>}
         </div>
     )

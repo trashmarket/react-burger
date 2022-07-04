@@ -10,3 +10,7 @@
     margin-left: 12px;
 }
 
+.card {
+    width: 272px;
+    position: relative;
+}

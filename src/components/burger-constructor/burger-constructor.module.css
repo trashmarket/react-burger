@@ -44,3 +44,10 @@
 .list::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
+
+.span {
+    display: flex;
+    width: 108px;
+    justify-content: space-between;
+    margin-right: 33px;
+}

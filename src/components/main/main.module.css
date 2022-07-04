@@ -1,8 +1,7 @@
 main {
     margin: 0 auto 0;
-    padding: 0 17%;
     box-sizing: border-box;
-    width: 96%;
+    max-width: 1240px;
 }
 
 h1 {

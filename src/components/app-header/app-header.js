@@ -6,9 +6,11 @@ import HeaderAccount from '../header-account/header-account';
 function AppHeader() {
     return (
         <header className={styles.header}>
-            <NavHeader/>
-            <Logo/>
-            <HeaderAccount/>
+            <div className={styles.page}>
+                <NavHeader/>
+                <Logo/>
+                <HeaderAccount/>
+            </div>
         </header>
     )
 }
