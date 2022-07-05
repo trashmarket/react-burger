@@ -5,6 +5,7 @@ import styles from "./burger-ingredients.module.css";
 import ScrollBar from "../scroll-bar/scroll-bar";
 
 function BurgerIngredients(props) {
+  
   return (
     <section className={styles.wrapper}>
       <BurgerNavTab />

@@ -6,7 +6,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function Main(props) {
     const [ingredients, setIngredients] = React.useState([]);
-
+    
     function setNewIngredints(item) {
       setIngredients(prevState => [...prevState, item])
     }
