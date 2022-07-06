@@ -5,18 +5,20 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function Main(props) {
-    const [ingredients, setIngredients] = React.useState([]);
-    
-    function setNewIngredints(item) {
-      setIngredients(prevState => [...prevState, item])
+    const [ingredient, setIngredient] = React.useState(null);
+    const [constructor, setConstructor] = React.useState(null);
+
+    function setNewIngredintmodal(item, typeState) {    
+        (item && ('ingredient' === typeState)) ? setIngredient(item) : setIngredient(null);
+        (item && ('constructor' === typeState)) ? setConstructor(item) : setConstructor(null);
     }
-    
+
     return (
         <main className={styles.main}>
             <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
             <section className={styles.section}>
-                <BurgerIngredients data={props.items} setIngredients={setNewIngredints}/>
-                <BurgerConstructor basket={props.basket}/>                
+                <BurgerIngredients data={props.items} setNewIngredintmodal={setNewIngredintmodal} ingredient={ingredient}/>
+                <BurgerConstructor basket={props.items}/>                
             </section>
         </main>
     )

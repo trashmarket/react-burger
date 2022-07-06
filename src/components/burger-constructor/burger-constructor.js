@@ -8,21 +8,31 @@ import {
 import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
+import {sort} from '../../utils/utils'
 
 function BurgerConstructor(props) {
   return (
     <section className={styles.section}>
       <div className={styles.wrapperConstructor}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${props.basket[0].name} (верх)`}
-          price={props.basket[0].price}
-          thumbnail={props.basket[0].image}
-        />
+        {
+          props.basket.map( (item, index) => {
+            if (index === 0) {
+              return (
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={`${item.name} (верх)`}
+                  price={item.price}
+                  thumbnail={item.image}
+                  key={index}
+                />
+              )
+            }
+          })
+        }
 
         <ul className={styles.list}>
-          {props.basket.map((item, index) => {
+          {props.basket.filter( item => item.type !== 'bun').map((item, index) => {
             if (item.type !== "bun") {
               return (
                 <li className={styles.li} key={index}>
@@ -38,13 +48,22 @@ function BurgerConstructor(props) {
           })}
         </ul>
 
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${props.basket[0].name} (низ)`}
-          price={props.basket[0].price}
-          thumbnail={props.basket[0].image}
-        />
+        {
+          props.basket.map( (item, index) => {
+            if (index === 0) {
+              return (
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={`${item.name} (вниз)`}
+                  price={item.price}
+                  thumbnail={item.image}
+                  key={index}
+                />
+              )
+            }
+          })
+        }
       </div>
       <div className={styles.button}>
         <div className={styles.span}>

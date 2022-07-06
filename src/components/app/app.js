@@ -29,7 +29,8 @@ function App() {
   return (
     <>
       <AppHeader/>
-      <Main items={items} basket={basket}/>
+      {error && <div>{error.message}</div>}
+      {!isLoaded ? <div>...Загрузка</div>:<Main items={items} basket={basket}/>}
     </>
   );
 }
