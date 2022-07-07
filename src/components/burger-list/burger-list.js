@@ -68,7 +68,7 @@ function BurgerList({ data, setNewIngredintmodal }) {
 BurgerList.protoTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType).isRequired),
 
-  setIngredients: PropTypes.func,
+  setIngredients: PropTypes.func.isRequired,
 };
 
 export default BurgerList;

@@ -74,13 +74,15 @@ function BurgerConstructor(props) {
           Оформить заказ
         </Button>
       </div>
-    {props.bull && <Modal deadModal={props.setConstructor}><OrderDetails deadModal={props.setConstructor}/></Modal>}
+    {props.bull && <Modal closeModal={props.setConstructor}><OrderDetails/></Modal>}
     </section>
   );
 }
 
 BurgerConstructor.protoTypes = {
   basket: PropTypes.arrayOf(PropTypes.shape(ingredientType).isRequired),
+  setConstructor: PropTypes.func.isRequired,
+  bull: PropTypes.bool.isRequired
 };
 
 export default BurgerConstructor;

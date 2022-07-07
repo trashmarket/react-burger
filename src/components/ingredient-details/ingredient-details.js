@@ -34,16 +34,12 @@ function IngredientDetails(props) {
           </li>
         </ul>
       </div>
-      <div className={styles.close} onClick={() => props.deadModal(null)}>
-        <CloseIcon type="primary" />
-      </div>
     </>
   );
 }
 
 IngredientDetails.protoTypes = {
   ingredient: PropTypes.object.isRequired,
-  deadModal: PropTypes.func.isRequired
 }
 
 export default IngredientDetails;

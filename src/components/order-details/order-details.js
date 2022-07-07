@@ -2,7 +2,7 @@ import styles from "./order-details.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {modalType} from "../../utils/types";
 
-function OrderDetails(props) {
+function OrderDetails() {
   return (
     <>
       <div className={styles.content}>
@@ -12,13 +12,10 @@ function OrderDetails(props) {
         <p className="text text_type_main-small">Ваш заказ начали готовить</p>
         <p className="text text_type_main-small">Дождитесь готовности на орбитальной станции</p>
       </div>
-      <div className={styles.close} onClick={() => props.deadModal(null)}>
-        <CloseIcon type="primary" />
-      </div>
     </>
   );
 }
 
-OrderDetails.protoTypes = modalType
+OrderDetails.protoTypes = modalType.isRequired
 
 export default OrderDetails;

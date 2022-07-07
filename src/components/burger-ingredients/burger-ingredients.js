@@ -5,6 +5,8 @@ import styles from "./burger-ingredients.module.css";
 import ScrollBar from "../scroll-bar/scroll-bar";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import PropTypes from "prop-types";
+import {ingredientType} from '../../utils/types'
 
 function BurgerIngredients(props) {
   return (
@@ -15,15 +17,20 @@ function BurgerIngredients(props) {
         setNewIngredintmodal={props.setNewIngredintmodal}
       />
       {props.ingredient && (
-        <Modal deadModal={props.setNewIngredintmodal}>
+        <Modal closeModal={props.setNewIngredintmodal}>
           <IngredientDetails
             ingredient={props.ingredient}
-            deadModal={props.setNewIngredintmodal}
           />
         </Modal>
       )}
     </section>
   );
+}
+
+BurgerIngredients.protoTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType).isRequired),
+  setNewIngredintmodal: PropTypes.func.isRequired,
+  ingredient: PropTypes.object.isRequired
 }
 
 export default BurgerIngredients;

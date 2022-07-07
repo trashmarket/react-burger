@@ -16,5 +16,5 @@ export const ingredientType = {
 };
 
 export const modalType = {
-  deadModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
