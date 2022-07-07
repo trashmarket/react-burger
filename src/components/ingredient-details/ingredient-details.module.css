@@ -1,0 +1,24 @@
+.close {
+    position: absolute;
+    right: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.ul {
+    display: flex;
+    min-width: 520px;
+    justify-content: space-between;
+}
+
+.ul > li {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #8585AD;
+}

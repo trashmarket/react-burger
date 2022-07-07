@@ -1,5 +1,8 @@
 import React from "react";
 import styles from './modal-overlay.module.css';
+import {modalType} from "../../utils/types";
+import PropTypes from "prop-types";
+
 
 function ModalOverlay(props){
     function clickOverlay(e) {
@@ -27,5 +30,7 @@ function ModalOverlay(props){
         </div>
     )
 }
+
+ModalOverlay.protoTypes = modalType;
 
 export default ModalOverlay;

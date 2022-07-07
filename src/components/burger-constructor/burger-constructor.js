@@ -8,8 +8,8 @@ import {
 import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
-import {sort} from '../../utils/utils'
-
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
 function BurgerConstructor(props) {
   return (
     <section className={styles.section}>
@@ -70,10 +70,11 @@ function BurgerConstructor(props) {
           <span className="text text_type_digits-medium">610</span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={() =>props.setConstructor(true, 'constructor')}>
           Оформить заказ
         </Button>
       </div>
+    {props.bull && <Modal deadModal={props.setConstructor}><OrderDetails deadModal={props.setConstructor}/></Modal>}
     </section>
   );
 }
