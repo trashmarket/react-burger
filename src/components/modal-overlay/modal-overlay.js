@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 function ModalOverlay(props){
     function clickOverlay(e) {
-        if (e.target.classList.contains('modal-overlay_overlay__B7gln')){
+        if (e.target.classList.contains(styles.overlay)){
             props.closeModal(null)
         }
     }

@@ -39,7 +39,7 @@ function Main(props) {
 }
 
 Main.protoTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape(ingredientType.isRequired))
+    items: PropTypes.arrayOf(PropTypes.shape(ingredientType.isRequired).isRequired)
 }
 
 export default Main;

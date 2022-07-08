@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import styles from './ingredient-details.module.css';
 function IngredientDetails(props) {
   return (
-    <>
+    <div className={styles.container}>
       <h2 className="text text_type_main-large">Детали ингредиента</h2>
       <div className={styles.content}>
         <img
@@ -34,7 +34,7 @@ function IngredientDetails(props) {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 }
 

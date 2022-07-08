@@ -10,12 +10,12 @@ function OrderDetails() {
         <p className="text text_type_main-medium">идентификатор заказа</p>
         <img src="./done.svg" alt="done" width={120} height={120} />
         <p className="text text_type_main-small">Ваш заказ начали готовить</p>
-        <p className="text text_type_main-small">Дождитесь готовности на орбитальной станции</p>
+        <p className="text text_type_main-small text_color_inactive">Дождитесь готовности на орбитальной станции</p>
       </div>
     </>
   );
 }
 
-OrderDetails.protoTypes = modalType.isRequired
+OrderDetails.protoTypes = modalType
 
 export default OrderDetails;

@@ -19,7 +19,6 @@ function App() {
         return Promise.reject(`Ошибка ${res.status}`);
       })
       .then((res) => {
-        setIsLoaded(true);
         setItems(res.data);
       })
       .catch((error) => {
