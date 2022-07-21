@@ -1,0 +1,19 @@
+.nav {
+    
+    margin-right: 154px;
+}
+
+.ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.li {
+    display: flex;
+    
+    justify-content: space-between;
+}
+
+.li:nth-child(1) {
+    margin-right: 35px;
+}

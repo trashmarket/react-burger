@@ -1,0 +1,27 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 85px;
+}
+.content > h2 {
+    margin-bottom: 38px;
+}
+
+.content > p:nth-of-type(1) {
+    margin-bottom: 57px;
+    word-spacing: 2px;
+}
+
+.content > p:nth-of-type(2) {
+    margin-bottom: 11px;
+    word-spacing: 2px
+}
+
+.content > p:nth-of-type(3) {
+    margin-bottom: 93px;
+}
+
+.content > img {
+    margin-bottom: 65px;
+}

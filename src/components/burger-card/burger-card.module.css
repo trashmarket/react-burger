@@ -1,0 +1,16 @@
+.p {
+    display: flex;
+    justify-content: center;
+    word-wrap: break-word;
+    align-items: center;
+}
+
+.img {
+    width: 240px;
+    margin-left: 12px;
+}
+
+.card {
+    width: 272px;
+    position: relative;
+}

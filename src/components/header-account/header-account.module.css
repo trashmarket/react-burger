@@ -1,0 +1,6 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 274px;
+    align-items: center;
+}

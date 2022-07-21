@@ -1,0 +1,14 @@
+main {
+    margin: 0 auto 0;
+    box-sizing: border-box;
+    max-width: 1240px;
+}
+
+h1 {
+    min-width: 615px;
+}
+
+.section {
+    display: flex;
+    justify-content: space-between;
+}
