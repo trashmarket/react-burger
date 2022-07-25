@@ -13,7 +13,6 @@ function BurgerIngredients(props) {
     <section className={styles.wrapper}>
       <BurgerNavTab />
       <BurgerList
-        data={props.data}
         setNewIngredintmodal={props.setNewIngredintmodal}
       />
       {props.ingredient && (
@@ -28,7 +27,6 @@ function BurgerIngredients(props) {
 }
 
 BurgerIngredients.protoTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType).isRequired),
   setNewIngredintmodal: PropTypes.func.isRequired,
   ingredient: PropTypes.object.isRequired
 }

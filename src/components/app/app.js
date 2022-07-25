@@ -2,7 +2,7 @@ import React from "react";
 
 import AppHeader from "../../components/app-header/app-header";
 import Main from "../../components/main/main";
-import { data, basket } from "../../utils/data";
+import {ItemsContext} from '../../services/app-contex.js'
 
 function App() {
   const url = "https://norma.nomoreparties.space/api/ingredients";
@@ -30,14 +30,16 @@ function App() {
   }, []);
 
   return (
-    <>
-      <AppHeader />
-      {error && <div>{error.message}</div>}
-      {!isLoaded ? (
-        <div>...Загрузка</div>
-      ) : (
-        <Main items={items} />
-      )}
+      <>    
+      <ItemsContext.Provider value={{items, setItems}}>      
+        <AppHeader />
+        {error && <div>{error.message}</div>}
+        {!isLoaded ? (
+          <div>...Загрузка</div>
+        ) : (
+          <Main/>
+        )}
+      </ItemsContext.Provider>
     </>
   );
 }
