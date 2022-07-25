@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState, useMemo } from "react";
+import React, { useContext, useReducer, useState, useMemo, useCallback } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -9,14 +9,20 @@ import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { ItemsContext } from "../../services/app-contex";
+import { ItemsContext, CardContext } from "../../services/app-contex";
 
-const initialState = { cost: 0 };
+const initialState = { 
+  cost: 0,
+  ingredients: []
+ };
 
 function reducer(state, action) {
   switch (action.type) {
     case "increment":
-      return { cost: state.cost + action.cost };
+      return {
+        cost: state.cost + action.cost,
+        ingredients: [...state.ingredients, action.id]
+         };
     case "decrement":
       return { cost: state.cost - action.cost };
     default:
@@ -26,6 +32,7 @@ function reducer(state, action) {
 function BurgerConstructor(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { items } = useContext(ItemsContext);
+  const { setCart } = useContext(CardContext);
 
   const ingredients = useMemo(
     () =>
@@ -34,6 +41,7 @@ function BurgerConstructor(props) {
           dispatch({
             type: "increment",
             cost: item.price,
+            id: item._id
           });
           return true;
         }
@@ -48,13 +56,30 @@ function BurgerConstructor(props) {
           dispatch({
             type: "increment",
             cost: item.price * 2,
+            id: item._id
           });
           return true;
         }
       }),
     [items]
   );
-  console.log(state);
+  
+  const postRequest = useCallback(() => {
+    fetch('https://norma.nomoreparties.space/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        ingredients: state.ingredients
+      })
+    }).then(response =>{
+      if (response.ok) return response.json();
+      return new Error(response.status)
+    } )
+    .then(result => setCart(result))
+    .catch(errorMessage=> console.log(errorMessage))
+  }, [state])
 
   return (
     <section className={styles.section}>
@@ -110,6 +135,7 @@ function BurgerConstructor(props) {
           size="large"
           onClick={() => {
             props.setConstructor(true, "constructor");
+            postRequest();
           }}
         >
           Оформить заказ

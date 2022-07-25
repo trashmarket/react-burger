@@ -2,14 +2,14 @@ import React from "react";
 
 import AppHeader from "../../components/app-header/app-header";
 import Main from "../../components/main/main";
-import {ItemsContext} from '../../services/app-contex.js'
+import { ItemsContext, CardContext } from "../../services/app-contex.js";
 
 function App() {
   const url = "https://norma.nomoreparties.space/api/ingredients";
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [items, setItems] = React.useState([]);
-
+  const [cart, setCart] = React.useState(null)
   React.useEffect(() => {
     fetch(url)
       .then((res) => {
@@ -30,15 +30,13 @@ function App() {
   }, []);
 
   return (
-      <>    
-      <ItemsContext.Provider value={{items, setItems}}>      
-        <AppHeader />
-        {error && <div>{error.message}</div>}
-        {!isLoaded ? (
-          <div>...Загрузка</div>
-        ) : (
-          <Main/>
-        )}
+    <>
+      <ItemsContext.Provider value={{ items, setItems }}>
+        <CardContext.Provider value={{cart, setCart}}>
+          <AppHeader />
+          {error && <div>{error.message}</div>}
+          {!isLoaded ? <div>...Загрузка</div> : <Main />}
+        </CardContext.Provider>
       </ItemsContext.Provider>
     </>
   );
