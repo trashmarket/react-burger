@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { ItemsContext, CardContext } from "../../services/app-contex";
+import { baseUrl } from '../../utils/constants'
+import { checkResponse } from '../../utils/utils'
 
 const initialState = { 
   cost: 0,
@@ -65,7 +67,7 @@ function BurgerConstructor(props) {
   );
   
   const postRequest = useCallback(() => {
-    fetch('https://norma.nomoreparties.space/api/orders', {
+    fetch(`${baseUrl}orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -73,10 +75,7 @@ function BurgerConstructor(props) {
       body: JSON.stringify({
         ingredients: state.ingredients
       })
-    }).then(response =>{
-      if (response.ok) return response.json();
-      return new Error(response.status)
-    } )
+    }).then(checkResponse)
     .then(result => setCart(result))
     .catch(errorMessage=> console.log(errorMessage))
   }, [state])
@@ -93,6 +92,7 @@ function BurgerConstructor(props) {
               price={item.price}
               thumbnail={item.image}
               key={index}
+              onClick={(e)=> console.log("hello")}
             />
           );
         })}

@@ -1,6 +1,5 @@
 import styles from "./order-details.module.css";
 import React, {useContext} from "react";
-import {modalType} from "../../utils/types";
 import {CardContext} from '../../services/app-contex'
 function OrderDetails() {
   const {cart} = useContext(CardContext);
@@ -17,7 +16,5 @@ function OrderDetails() {
     </>
   );
 }
-
-OrderDetails.protoTypes = modalType
 
 export default OrderDetails;
