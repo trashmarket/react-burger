@@ -1,23 +1,19 @@
 import React from "react";
-
+import { baseUrl } from '../../utils/constants';
+import { checkResponse } from '../../utils/utils'
 import AppHeader from "../../components/app-header/app-header";
 import Main from "../../components/main/main";
-import { data, basket } from "../../utils/data";
+import { ItemsContext, CardContext } from "../../services/app-contex.js";
 
 function App() {
-  const url = "https://norma.nomoreparties.space/api/ingredients";
+  const url = `${baseUrl}ingredients`;
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [items, setItems] = React.useState([]);
-
+  const [cart, setCart] = React.useState(null)
   React.useEffect(() => {
     fetch(url)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
+      .then(checkResponse)
       .then((res) => {
         setItems(res.data);
       })
@@ -30,15 +26,15 @@ function App() {
   }, []);
 
   return (
-    <>
-      <AppHeader />
-      {error && <div>{error.message}</div>}
-      {!isLoaded ? (
-        <div>...Загрузка</div>
-      ) : (
-        <Main items={items} />
-      )}
-    </>
+    
+      <ItemsContext.Provider value={{ items, setItems }}>
+        <CardContext.Provider value={{cart, setCart}}>
+          <AppHeader />
+          {error && <div>{error.message}</div>}
+          {!isLoaded ? <div>...Загрузка</div> : <Main />}
+        </CardContext.Provider>
+      </ItemsContext.Provider>
+    
   );
 }
 

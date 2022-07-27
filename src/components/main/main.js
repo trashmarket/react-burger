@@ -6,6 +6,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import PropTypes from "prop-types";
 import {ingredientType} from '../../utils/types';
 
+
 function Main(props) {
   const [ingredient, setIngredient] = React.useState(null);
   const [constructor, setConstructor] = React.useState(null);
@@ -24,22 +25,16 @@ function Main(props) {
       <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
       <section className={styles.section}>
         <BurgerIngredients
-          data={props.items}
           setNewIngredintmodal={setUseState}
           ingredient={ingredient}
         />
         <BurgerConstructor
-          basket={props.items}
           setConstructor={setUseState}
           bull={constructor}
         />
       </section>
     </main>
   );
-}
-
-Main.protoTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape(ingredientType.isRequired).isRequired)
 }
 
 export default Main;
