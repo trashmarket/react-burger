@@ -4,6 +4,16 @@ import { checkResponse } from '../../utils/utils'
 import AppHeader from "../../components/app-header/app-header";
 import Main from "../../components/main/main";
 import { ItemsContext, CardContext } from "../../services/app-contex.js";
+import { compose, createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 function App() {
   const url = `${baseUrl}ingredients`;
