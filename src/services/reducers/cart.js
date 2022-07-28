@@ -9,6 +9,8 @@ const initialState = {
   itemsRequest: false,
   itemsFailed: false,
 
+  errorStatus: '',
+
   selectedItems: [],
 };
 
@@ -19,6 +21,7 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         itemsFailed: true,
         itemsRequest: false,
+        errorStatus: action.status
       };
     }
     case GET_ITEMS_REQUEST: {
@@ -32,7 +35,7 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         itemsFailed: false,
         itemsRequest: false,
-        items: action.items,
+        items: action.data,
       };
     }
     default: {

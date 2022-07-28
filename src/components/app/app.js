@@ -24,29 +24,15 @@ function App() {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [cart, setCart] = React.useState(null)
-  React.useEffect(() => {
-    fetch(url)
-      .then(checkResponse)
-      .then((res) => {
-        setItems(res.data);
-      })
-      .catch((error) => {
-        {
-          setError(error);
-        }
-      })
-      .finally(() => setIsLoaded(true));
-  }, []);
 
   return (
     
-      <ItemsContext.Provider value={{ items, setItems }}>
+      <Provider store={store}>
         <CardContext.Provider value={{cart, setCart}}>
           <AppHeader />
-          {error && <div>{error.message}</div>}
-          {!isLoaded ? <div>...Загрузка</div> : <Main />}
+          <Main />
         </CardContext.Provider>
-      </ItemsContext.Provider>
+      </Provider>
     
   );
 }

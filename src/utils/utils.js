@@ -4,7 +4,7 @@ const sort = (item, type) => {
 
 const checkResponse = (response) => {
   if (response.ok) return response.json();
-  return new Error(response.status);
+  return Promise.reject(`Ошибка: ${response.status}`);
 };
 
 export {sort, checkResponse}

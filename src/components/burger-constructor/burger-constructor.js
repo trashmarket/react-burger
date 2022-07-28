@@ -12,6 +12,8 @@ import OrderDetails from "../order-details/order-details";
 import { ItemsContext, CardContext } from "../../services/app-contex";
 import { baseUrl } from '../../utils/constants'
 import { checkResponse } from '../../utils/utils'
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const initialState = { 
   cost: 0,
@@ -33,8 +35,8 @@ function reducer(state, action) {
 }
 function BurgerConstructor(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items } = useContext(ItemsContext);
-  const { setCart } = useContext(CardContext);
+  const { items } = useSelector(state => state.cart);
+ 
 
   const ingredients = useMemo(
     () =>
@@ -76,7 +78,7 @@ function BurgerConstructor(props) {
         ingredients: state.ingredients
       })
     }).then(checkResponse)
-    .then(result => setCart(result))
+    .then(result => result)
     .catch(errorMessage=> console.log(errorMessage))
   }, [state])
 
