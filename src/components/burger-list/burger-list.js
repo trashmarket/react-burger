@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import BurgerCard from "../burger-card/burger-card";
 import styles from "./burger-list.module.css";
 import PropTypes from "prop-types";
@@ -10,17 +10,23 @@ import { getItems } from "../../services/actions/cart";
 function BurgerList({ setNewIngredintmodal }) {
   const dispatch = useDispatch();
   const { items, itemsRequest, itemsFailed, errorStatus} = useSelector((state) => state.cart);
-
+  const ulRef = useRef(null);
+  const h3Ref = useRef(null)
   useEffect(() => {
     dispatch(getItems());
+    ulRef.current.addEventListener('scroll', (e) => {
+      const elementCurrent = e.currentTarget 
+      console.log(h3Ref.current.offsetTop);
+      console.log(elementCurrent.pageXOffset)
+    })
   }, []);
 
   return (
-    <ul className={styles.list}>
+    <ul className={styles.list} ref={ulRef}>
     {itemsRequest && <div>...ЗАГРУЗКА</div>}
     {itemsFailed && <div>{errorStatus}</div>}
       <li>
-        <h3 className="text text_type_main-medium mt-10 mb-6">Булки</h3>
+        <h3 className="text text_type_main-medium mt-10 mb-6" ref={h3Ref}>Булки</h3>
         <div className={styles.wrapper}>
           {items
             .filter((item) => sort(item, "bun"))
