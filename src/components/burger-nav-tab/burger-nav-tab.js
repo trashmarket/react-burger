@@ -1,6 +1,7 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import styles from './burger-nav-tab.module.css'
+import styles from './burger-nav-tab.module.css';
+import { GET_CURRENT_TAB } from '../../services/actions/cart'
 
 function BurgerNavTab () {
     const [current, setCurrent] = React.useState('one')

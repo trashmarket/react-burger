@@ -6,7 +6,8 @@ import {
   GET_ITEM_CART,
   GET_INCREMENT_CART,
   GET_DECREMENT_CATR,
-  APPLY_ORDER_DETAILS
+  APPLY_ORDER_DETAILS,
+  GET_CURRENT_TAB
 } from "../actions/cart";
 
 const initialState = {
@@ -27,7 +28,9 @@ const initialState = {
     ingredientsId: []
   },
 
-  orderDetails:{}
+  orderDetails:{},
+
+  currentTab: 'one'
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -52,6 +55,14 @@ export const cartReducer = (state = initialState, action) => {
         itemsFailed: false,
         itemsRequest: false,
         items: action.data,
+        selectedItems: action.data.filter((item, index) => index !== 1),
+        basketIngredients: {
+          ingredientsId: action.data.filter((item, index) => index !== 1).map(item => item._id),
+          cost: [...action.data.filter((item, index) => index !== 1)].reduce((previousValue, currentValue) => {
+            if (currentValue.type === 'bun') return previousValue + currentValue.price * 2;
+            return previousValue + currentValue.price;
+          },0)
+        }
       };
     }
     case GET_ITEM_CART: {
@@ -84,6 +95,12 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         orderDetails: action.orderDetails,
         currentModal: action.currentModal
+      }
+    }
+    case GET_CURRENT_TAB: {
+      return {
+        ...state,
+        currentTab: action.currentTab        
       }
     }
     default: {

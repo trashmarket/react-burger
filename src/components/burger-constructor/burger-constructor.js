@@ -19,39 +19,17 @@ import { ItemsContext, CardContext } from "../../services/app-contex";
 import { baseUrl } from "../../utils/constants";
 import { checkResponse } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_ITEM_CART, GET_INCREMENT_CART, APPLY_ORDER_DETAILS } from "../../services/actions/cart";
+import { APPLY_ORDER_DETAILS, postOrder } from "../../services/actions/cart";
 
-// const initialState = {
-//   cost: 0,
-//   ingredients: []
-//  };
-
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case "increment":
-//       return {
-//         cost: state.cost + action.cost,
-//         ingredients: [...state.ingredients, action.id]
-//          };
-//     case "decrement":
-//       return { cost: state.cost - action.cost };
-//     default:
-//       throw new Error("что то не так");
-//   }
-// }
 function BurgerConstructor(props) {
-  // const [state, dispatch] = useReducer(reducer, initialState);
-  const { items, basketIngredients, currentModal } = useSelector((state) => state.cart);
-  const  dispatch  = useDispatch();
+  const { items, basketIngredients, currentModal, selectedItems } = useSelector(
+    (state) => state.cart
+  );
+  const dispatch = useDispatch();
   const ingredients = useMemo(
     () =>
-      items.filter((item) => {
+      selectedItems.filter((item) => {
         if (item.type !== "bun") {
-          dispatch({
-            type: GET_INCREMENT_CART,
-            cost: item.price,
-            id: item._id,
-          });
           return true;
         }
       }),
@@ -60,13 +38,8 @@ function BurgerConstructor(props) {
 
   const bun = useMemo(
     () =>
-      items.filter((item, index) => {
-        if (index === 0) {
-          dispatch({
-            type: GET_INCREMENT_CART,
-            cost: item.price * 2,
-            id: item._id,
-          });
+      selectedItems.filter((item, index) => {
+        if (item.type === "bun") {
           return true;
         }
       }),
@@ -74,23 +47,8 @@ function BurgerConstructor(props) {
   );
 
   const postRequest = useCallback(() => {
-    fetch(`${baseUrl}orders`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify({
-        ingredients: basketIngredients.ingredientsId,
-      }),
-    })
-      .then(checkResponse)
-      .then((result) => dispatch({
-        type: APPLY_ORDER_DETAILS,
-        orderDetails: result,
-        currentModal: 'orderDetails'
-      }))
-      .catch((errorMessage) => console.log(errorMessage));
-  },[basketIngredients]);
+    dispatch(postOrder(`${baseUrl}orders`, basketIngredients.ingredientsId));
+  }, [basketIngredients]);
 
   return (
     <section className={styles.section}>
@@ -139,7 +97,9 @@ function BurgerConstructor(props) {
       </div>
       <div className={styles.button}>
         <div className={styles.span}>
-          <span className="text text_type_digits-medium">{basketIngredients.cost}</span>
+          <span className="text text_type_digits-medium">
+            {basketIngredients.cost}
+          </span>
           <CurrencyIcon type="primary" />
         </div>
         <Button
@@ -152,15 +112,13 @@ function BurgerConstructor(props) {
           Оформить заказ
         </Button>
       </div>
-      {currentModal === 'orderDetails' && (
-        <Modal >
+      {currentModal === "orderDetails" && (
+        <Modal>
           <OrderDetails />
         </Modal>
       )}
     </section>
   );
 }
-
-
 
 export default BurgerConstructor;
