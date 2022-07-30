@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { baseUrl } from '../../utils/constants';
 import { checkResponse } from '../../utils/utils'
 import AppHeader from "../../components/app-header/app-header";
@@ -8,6 +8,7 @@ import { ItemsContext, CardContext } from "../../services/app-contex.js";
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { useDispatch, useSelector } from "react-redux";
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -22,8 +23,8 @@ function App() {
   const url = `${baseUrl}ingredients`;
   const [error, setError] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
-  const [items, setItems] = React.useState([]);
   const [cart, setCart] = React.useState(null)
+
 
   return (
     

@@ -4,13 +4,20 @@ import styles from "./modal.module.css";
 import React from "react";
 import { modalType } from "../../utils/types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { useDispatch } from "react-redux";
+import { GET_ITEM_CART } from "../../services/actions/cart";
 const modalRoot = document.getElementById("modal-root");
 
 function Modal(props) {
+  const dispatch = useDispatch();
+
   function handleEscClose(e) {
     if (e.key === "Escape") {
-      props.closeModal(null);
+      dispatch({
+        type: GET_ITEM_CART,
+        itemCart: {},
+        currentModal: ''
+      });
     }
   }
 
@@ -25,7 +32,16 @@ function Modal(props) {
     <ModalOverlay closeModal={props.closeModal}>
       <div className={styles.modal}>
         {props.children}
-        <div className={styles.close} onClick={() => props.closeModal(null)}>
+        <div
+          className={styles.close}
+          onClick={() =>
+            dispatch({
+              type: GET_ITEM_CART,
+              itemCart: {},
+              currentModal: ''
+            })
+          }
+        >
           <CloseIcon type="primary" />
         </div>
       </div>

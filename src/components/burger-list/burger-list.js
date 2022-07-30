@@ -76,7 +76,7 @@ function BurgerList({ setNewIngredintmodal }) {
         </div>
       </li>
 
-      {/* <ScrollTrack scroll={scroll} /> */}
+      
     </ul>
   );
 }
