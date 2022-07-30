@@ -6,18 +6,40 @@ import { ingredientType } from "../../utils/types";
 import { sort } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { getItems } from "../../services/actions/cart";
+import { GET_CURRENT_TAB } from "../../services/actions/cart";
 
 function BurgerList({ setNewIngredintmodal }) {
   const dispatch = useDispatch();
   const { items, itemsRequest, itemsFailed, errorStatus} = useSelector((state) => state.cart);
   const ulRef = useRef(null);
-  const h3Ref = useRef(null)
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null)
+
   useEffect(() => {
     dispatch(getItems());
+
     ulRef.current.addEventListener('scroll', (e) => {
-      const elementCurrent = e.currentTarget 
-      console.log(h3Ref.current.offsetTop);
-      console.log(elementCurrent.pageXOffset)
+      const elementScroll = e.currentTarget.scrollTop 
+
+      if (elementScroll >= bunRef.current.offsetTop && elementScroll <= sauceRef.current.offsetTop) {
+        dispatch({
+          type:GET_CURRENT_TAB,
+          currentTab: "one"
+        });
+      }
+      if (elementScroll >= sauceRef.current.offsetTop - 30  && elementScroll <= mainRef.current.offsetTop) {
+        dispatch({
+          type:GET_CURRENT_TAB,
+          currentTab: "two"
+        });
+      }
+      if (elementScroll >= mainRef.current.offsetTop) {
+        dispatch({
+          type:GET_CURRENT_TAB,
+          currentTab: "three"
+        });
+      }
     })
   }, []);
 
@@ -26,7 +48,7 @@ function BurgerList({ setNewIngredintmodal }) {
     {itemsRequest && <div>...ЗАГРУЗКА</div>}
     {itemsFailed && <div>{errorStatus}</div>}
       <li>
-        <h3 className="text text_type_main-medium mt-10 mb-6" ref={h3Ref}>Булки</h3>
+        <h3 className="text text_type_main-medium mt-10 mb-6" ref={bunRef}>Булки</h3>
         <div className={styles.wrapper}>
           {items
             .filter((item) => sort(item, "bun"))
@@ -42,7 +64,7 @@ function BurgerList({ setNewIngredintmodal }) {
         </div>
       </li>
       <li>
-        <h3 className="text text_type_main-medium mt-10 mb-6">Соусы</h3>
+        <h3 className="text text_type_main-medium mt-10 mb-6" ref={sauceRef}>Соусы</h3>
         <div className={styles.wrapper}>
           {items
             .filter((item) => sort(item, "sauce"))
@@ -58,7 +80,7 @@ function BurgerList({ setNewIngredintmodal }) {
         </div>
       </li>
       <li>
-        <h3 className="text text_type_main-medium mt-10 mb-6">Начинки</h3>
+        <h3 className="text text_type_main-medium mt-10 mb-6" ref={mainRef}>Начинки</h3>
         <div className={styles.wrapper}>
           {items
             .filter((item) => sort(item, "main"))
