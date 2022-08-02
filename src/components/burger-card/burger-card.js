@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   CurrencyIcon,
   Counter,
@@ -6,30 +6,33 @@ import {
 import styles from "./burger-card.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ITEM_CART } from "../../services/actions/cart";
+import { useDrag } from "react-dnd";
 
 const BurgerCard = React.memo((props) => {
-  const [count, setCount] = React.useState(null);
   const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    if (props.index) {
-      setCount(props.count);
-    } else {
-      setCount(null);
-    }
-  }, []);
+  const { selectedItems } = useSelector((state) => state.cart);
+  const count = useMemo(() => {
+    return [
+      ...selectedItems.filter((item, index) => item._id === props.item._id),
+    ].reduce((previousValue, item) => previousValue + 1, 0);
+  }, [selectedItems]);
+  
+  const [collected, dragRef] = useDrag({
+    type: 'ingredient',
+    item: props.item
+  })
 
   return (
     <div
       className={styles.card}
       onClick={() => {
-        setCount(count + 1);
         dispatch({
           type: GET_ITEM_CART,
           itemCart: props.item,
-          currentModal: 'ingredient'
+          currentModal: "ingredient",
         });
       }}
+      ref={dragRef}
     >
       <img
         className={styles.img}

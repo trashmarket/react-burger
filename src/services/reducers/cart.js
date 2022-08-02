@@ -7,7 +7,8 @@ import {
   GET_INCREMENT_CART,
   GET_DECREMENT_CATR,
   APPLY_ORDER_DETAILS,
-  GET_CURRENT_TAB
+  GET_CURRENT_TAB,
+  GET_DROP_ITEM
 } from "../actions/cart";
 
 const initialState = {
@@ -76,16 +77,20 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         basketIngredients: {
-          cost: state.basketIngredients.cost + action.cost,
-          ingredientsId: [...state.basketIngredients.ingredientsId, action.id]                     
+          cost: state.selectedItems.reduce((previousValue, currentValue) => {
+            if (currentValue.type === 'bun') return previousValue + currentValue.price * 2;
+            return previousValue + currentValue.price;
+          },0),
+          ingredientsId: [...state.selectedItems.map(item => item._id)]                     
         }
       };
     }
     case GET_DECREMENT_CATR: {
       return {
         ...state,
+        selectedItems: [...state.selectedItems.filter((item, index) => index !== action.index)],
         basketIngredients: {
-          cost: state.basketIngredients.cost ? state.cost + action.cost : 0,
+          cost: state.basketIngredients.cost - action.cost,
           ingredientsId: [...state.basketIngredients.ingredientsId].filter(id => id !== action.id)
         }
       };
@@ -103,8 +108,20 @@ export const cartReducer = (state = initialState, action) => {
         currentTab: action.currentTab        
       }
     }
+    case GET_DROP_ITEM: {
+      return {
+        ...state,
+        selectedItems: [...state.selectedItems.filter(item => {
+          if (action.itemType === 'bun') {
+           return item.type !== action.itemType 
+          } return true
+        }), action.item],
+
+      }
+    }
     default: {
         return state
     }
   }
 };
+// .filter(item => item.type !== action.itemType)

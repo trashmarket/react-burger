@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getItems } from "../../services/actions/cart";
 import { GET_CURRENT_TAB } from "../../services/actions/cart";
 
-function BurgerList({ setNewIngredintmodal }) {
+function BurgerList() {
   const dispatch = useDispatch();
   const { items, itemsRequest, itemsFailed, errorStatus} = useSelector((state) => state.cart);
   const ulRef = useRef(null);
@@ -54,11 +54,8 @@ function BurgerList({ setNewIngredintmodal }) {
             .filter((item) => sort(item, "bun"))
             .map((item, index) => (
               <BurgerCard
-                index={index === 0 ? true : false}
                 item={item}
-                count={index === 0 ? 1 : null}
                 key={item._id}
-                setIngredients={setNewIngredintmodal}
               />
             ))}
         </div>
@@ -70,11 +67,9 @@ function BurgerList({ setNewIngredintmodal }) {
             .filter((item) => sort(item, "sauce"))
             .map((item, index) => (
               <BurgerCard
-                index={index === 1 ? true : false}
-                count={index === 1 ? 1 : null}
                 item={item}
                 key={item._id}
-                setIngredients={setNewIngredintmodal}
+
               />
             ))}
         </div>
@@ -88,17 +83,6 @@ function BurgerList({ setNewIngredintmodal }) {
               <BurgerCard
                 item={item}
                 key={item._id}
-                index={
-                  (index === 2 ? true : false) ||
-                  (index === 3 ? true : false) ||
-                  (index === 4 ? true : false)
-                }
-                count={
-                  (index === 2 ? 1 : null) ||
-                  (index === 3 ? 1 : null) ||
-                  (index === 4 ? 2 : null)
-                }
-                setIngredients={setNewIngredintmodal}
               />
             ))}
         </div>

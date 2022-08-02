@@ -15,17 +15,35 @@ import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { ItemsContext, CardContext } from "../../services/app-contex";
 import { baseUrl } from "../../utils/constants";
-import { checkResponse } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { APPLY_ORDER_DETAILS, postOrder } from "../../services/actions/cart";
+import {
+  GET_DECREMENT_CATR,
+  GET_DROP_ITEM,
+  GET_INCREMENT_CART,
+  postOrder,
+} from "../../services/actions/cart";
+import { useDrop } from "react-dnd";
 
 function BurgerConstructor(props) {
   const { items, basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
   const dispatch = useDispatch();
+  const [collected, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch({
+        type: GET_DROP_ITEM,
+        itemType: item.type,
+        item,
+      });
+      dispatch({
+        type: GET_INCREMENT_CART,
+      });
+    },
+  });
+
   const ingredients = useMemo(
     () =>
       selectedItems.filter((item) => {
@@ -33,7 +51,7 @@ function BurgerConstructor(props) {
           return true;
         }
       }),
-    [items]
+    [selectedItems]
   );
 
   const bun = useMemo(
@@ -43,15 +61,21 @@ function BurgerConstructor(props) {
           return true;
         }
       }),
-    [items]
+    [selectedItems]
   );
+
+  const handleClose = (e) => {
+    dispatch({
+      type: GET_DECREMENT_CATR,
+    });
+  };
 
   const postRequest = useCallback(() => {
     dispatch(postOrder(`${baseUrl}orders`, basketIngredients.ingredientsId));
   }, [basketIngredients]);
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} ref={dropTarget}>
       <div className={styles.wrapperConstructor}>
         {bun.map((item, index) => {
           return (
@@ -62,7 +86,6 @@ function BurgerConstructor(props) {
               price={item.price}
               thumbnail={item.image}
               key={index}
-              onClick={(e) => console.log("hello")}
             />
           );
         })}
@@ -76,6 +99,14 @@ function BurgerConstructor(props) {
                   text={item.name}
                   price={item.price}
                   thumbnail={item.image}
+                  handleClose={() =>
+                    dispatch({
+                      type: GET_DECREMENT_CATR,
+                      index: index,
+                      cost: item.price,
+                      id: item.id
+                    })
+                  }
                 />
               </li>
             );
