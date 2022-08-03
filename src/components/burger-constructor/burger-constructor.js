@@ -19,6 +19,7 @@ import { baseUrl } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GET_DECREMENT_CATR,
+  GET_DROP_BUN,
   GET_DROP_ITEM,
   GET_INCREMENT_CART,
   postOrder,
@@ -33,11 +34,19 @@ function BurgerConstructor(props) {
   const [collected, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
-      dispatch({
-        type: GET_DROP_ITEM,
-        itemType: item.type,
-        item,
-      });
+      if (item.type === "bun") {
+        dispatch({
+          type: GET_DROP_BUN,
+          itemType: item.type,
+          item,
+        });
+      } else {
+        dispatch({
+          type: GET_DROP_ITEM,
+          itemType: item.type,
+          item,
+        });
+      }
       dispatch({
         type: GET_INCREMENT_CART,
       });
@@ -104,7 +113,7 @@ function BurgerConstructor(props) {
                       type: GET_DECREMENT_CATR,
                       index: index,
                       cost: item.price,
-                      id: item.id
+                      id: item._id,
                     })
                   }
                 />

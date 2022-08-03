@@ -1,4 +1,4 @@
-import OrderDetails from "../../components/order-details/order-details";
+import update from 'immutability-helper';
 import {
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
@@ -8,7 +8,8 @@ import {
   GET_DECREMENT_CATR,
   APPLY_ORDER_DETAILS,
   GET_CURRENT_TAB,
-  GET_DROP_ITEM
+  GET_DROP_ITEM,
+  GET_DROP_BUN
 } from "../actions/cart";
 
 const initialState = {
@@ -88,10 +89,10 @@ export const cartReducer = (state = initialState, action) => {
     case GET_DECREMENT_CATR: {
       return {
         ...state,
-        selectedItems: [...state.selectedItems.filter((item, index) => index !== action.index)],
+        selectedItems: [...state.selectedItems.filter((item, index) => index !== action.index + 1)],
         basketIngredients: {
           cost: state.basketIngredients.cost - action.cost,
-          ingredientsId: [...state.basketIngredients.ingredientsId].filter(id => id !== action.id)
+          ingredientsId: [...state.basketIngredients.ingredientsId].filter((id, index) => index !== action.index + 1)
         }
       };
     }
@@ -111,12 +112,13 @@ export const cartReducer = (state = initialState, action) => {
     case GET_DROP_ITEM: {
       return {
         ...state,
-        selectedItems: [...state.selectedItems.filter(item => {
-          if (action.itemType === 'bun') {
-           return item.type !== action.itemType 
-          } return true
-        }), action.item],
-
+        selectedItems: [...state.selectedItems, action.item]
+      }
+    }
+    case GET_DROP_BUN: {
+      return {
+        ...state,
+        selectedItems: [action.item, ...state.selectedItems.filter(item => item.type !== action.itemType )]
       }
     }
     default: {

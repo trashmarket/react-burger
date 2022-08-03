@@ -8,7 +8,8 @@ export const GET_INCREMENT_CART = 'GET_INCREMENT_CART';
 export const GET_DECREMENT_CATR = 'GET_DECREMENT_CATR';
 export const APPLY_ORDER_DETAILS = 'APPLY_ORDER_DETAILS';
 export const GET_CURRENT_TAB = 'GET_CURRENT_TAB';
-export const GET_DROP_ITEM = 'GET_DROP_ITEM'
+export const GET_DROP_ITEM = 'GET_DROP_ITEM';
+export const GET_DROP_BUN = 'GET_DROP_BUN';
 
 export const getItems = () => (dispatch) => {
   dispatch({
