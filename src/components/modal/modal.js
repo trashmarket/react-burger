@@ -29,7 +29,7 @@ function Modal(props) {
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay closeModal={props.closeModal}>
+    <ModalOverlay>
       <div className={styles.modal}>
         {props.children}
         <div
@@ -49,7 +49,5 @@ function Modal(props) {
     modalRoot
   );
 }
-
-Modal.protoTypes = modalType;
 
 export default Modal;

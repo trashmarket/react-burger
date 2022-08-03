@@ -38,8 +38,5 @@ function IngredientDetails() {
   );
 }
 
-IngredientDetails.protoTypes = {
-  ingredient: PropTypes.object.isRequired,
-}
 
 export default IngredientDetails;

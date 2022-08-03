@@ -1,7 +1,4 @@
 import React, {
-  useContext,
-  useReducer,
-  useState,
   useMemo,
   useCallback,
 } from "react";
@@ -17,6 +14,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { baseUrl } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
+import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop.js";
 import {
   GET_DECREMENT_CATR,
   GET_DROP_BUN,
@@ -26,8 +24,8 @@ import {
 } from "../../services/actions/cart";
 import { useDrop } from "react-dnd";
 
-function BurgerConstructor(props) {
-  const { items, basketIngredients, currentModal, selectedItems } = useSelector(
+function BurgerConstructor() {
+  const { basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
   const dispatch = useDispatch();
@@ -73,11 +71,7 @@ function BurgerConstructor(props) {
     [selectedItems]
   );
 
-  const handleClose = (e) => {
-    dispatch({
-      type: GET_DECREMENT_CATR,
-    });
-  };
+
 
   const postRequest = useCallback(() => {
     dispatch(postOrder(`${baseUrl}orders`, basketIngredients.ingredientsId));
@@ -101,24 +95,7 @@ function BurgerConstructor(props) {
 
         <ul className={styles.list}>
           {ingredients.map((item, index) => {
-            return (
-              <li className={styles.li} key={index}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                  handleClose={() =>
-                    dispatch({
-                      type: GET_DECREMENT_CATR,
-                      index: index,
-                      cost: item.price,
-                      id: item._id,
-                    })
-                  }
-                />
-              </li>
-            );
+            return <LiDragAndDrop {...item} index={index} key={index} />;
           })}
         </ul>
 

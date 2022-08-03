@@ -9,7 +9,8 @@ import {
   APPLY_ORDER_DETAILS,
   GET_CURRENT_TAB,
   GET_DROP_ITEM,
-  GET_DROP_BUN
+  GET_DROP_BUN,
+  GET_DRAG_DROP_LI
 } from "../actions/cart";
 
 const initialState = {
@@ -121,9 +122,17 @@ export const cartReducer = (state = initialState, action) => {
         selectedItems: [action.item, ...state.selectedItems.filter(item => item.type !== action.itemType )]
       }
     }
+    case GET_DRAG_DROP_LI: {
+      return {
+        ...state,
+        selectedItems: update(state.selectedItems, {$splice:[
+          [action.dragIndex, 1],
+          [action.hoverIndex, 0, state.selectedItems[action.dragIndex]]
+        ]})
+      }
+    }
     default: {
         return state
     }
   }
 };
-// .filter(item => item.type !== action.itemType)

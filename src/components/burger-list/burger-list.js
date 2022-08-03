@@ -93,10 +93,4 @@ function BurgerList() {
   );
 }
 
-BurgerList.protoTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType).isRequired),
-
-  setIngredients: PropTypes.func.isRequired,
-};
-
 export default BurgerList;

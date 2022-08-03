@@ -22,6 +22,4 @@ function ModalOverlay(props){
     )
 }
 
-ModalOverlay.protoTypes = modalType;
-
 export default ModalOverlay;

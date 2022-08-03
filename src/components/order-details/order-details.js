@@ -1,7 +1,6 @@
 import styles from "./order-details.module.css";
-import React, {useContext} from "react";
-import {CardContext} from '../../services/app-contex';
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 
 function OrderDetails() {
   const {orderDetails} = useSelector(state => state.cart);

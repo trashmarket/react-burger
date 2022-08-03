@@ -7,6 +7,8 @@ import styles from "./burger-card.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ITEM_CART } from "../../services/actions/cart";
 import { useDrag } from "react-dnd";
+import PropTypes from 'prop-types';
+import {ingredientType} from '../../utils/types';
 
 const BurgerCard = React.memo((props) => {
   const dispatch = useDispatch();
@@ -53,3 +55,7 @@ const BurgerCard = React.memo((props) => {
 });
 
 export default BurgerCard;
+
+BurgerCard.propTypes = {
+  item: PropTypes.shape(ingredientType)
+}
