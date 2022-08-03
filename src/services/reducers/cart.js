@@ -6,7 +6,9 @@ import {
   GET_ITEM_CART,
   GET_INCREMENT_CART,
   GET_DECREMENT_CATR,
-  APPLY_ORDER_DETAILS,
+  APPLY_ORDER_DETAILS_SUCCESS,
+  APPLY_ORDER_DETAILS_REQUEST,
+  APPLY_ORDER_DETAILS_FAILED,
   GET_CURRENT_TAB,
   GET_DROP_ITEM,
   GET_DROP_BUN,
@@ -31,8 +33,9 @@ const initialState = {
     ingredientsId: []
   },
 
-  orderDetails:{},
-
+  orderDetails: {},
+  orderDetailsRequest: false,
+  orderDetailsFailed: false,
   currentTab: 'one'
 };
 
@@ -97,11 +100,26 @@ export const cartReducer = (state = initialState, action) => {
         }
       };
     }
-    case APPLY_ORDER_DETAILS: {
+    case APPLY_ORDER_DETAILS_SUCCESS: {
       return {
         ...state,
         orderDetails: action.orderDetails,
-        currentModal: action.currentModal
+        currentModal: action.currentModal,
+        orderDetailsRequest: false,
+        orderDetailsFailed: false
+      }
+    }
+    case APPLY_ORDER_DETAILS_REQUEST: {
+      return {
+        ...state,
+        orderDetailsRequest: true
+      }
+    }
+    case APPLY_ORDER_DETAILS_FAILED: {
+      return {
+        ...state,
+        orderDetailsRequest: false,
+        orderDetailsFailed: true
       }
     }
     case GET_CURRENT_TAB: {
