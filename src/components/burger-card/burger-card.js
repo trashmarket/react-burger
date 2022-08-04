@@ -4,18 +4,16 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-card.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { GET_ITEM_CART } from "../../services/actions/cart";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import PropTypes from 'prop-types';
 import {ingredientType} from '../../utils/types';
 
 const BurgerCard = React.memo((props) => {
-  const dispatch = useDispatch();
   const { selectedItems } = useSelector((state) => state.cart);
   const count = useMemo(() => {
     return [
-      ...selectedItems.filter((item, index) => item._id === props.item._id),
+      ...selectedItems.filter((item, index) => item.name === props.item.name),
     ].reduce((previousValue, item) => previousValue + 1, 0);
   }, [selectedItems]);
   
@@ -28,11 +26,7 @@ const BurgerCard = React.memo((props) => {
     <div
       className={styles.card}
       onClick={() => {
-        dispatch({
-          type: GET_ITEM_CART,
-          itemCart: props.item,
-          currentModal: "ingredient",
-        });
+        props.setNewIngredintmodal(props.item, 'ingredient')
       }}
       ref={dragRef}
     >

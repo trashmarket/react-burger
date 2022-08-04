@@ -9,15 +9,9 @@ import { GET_ITEM_CART } from "../../services/actions/cart";
 const modalRoot = document.getElementById("modal-root");
 
 function Modal(props) {
-  const dispatch = useDispatch();
-
   function handleEscClose(e) {
     if (e.key === "Escape") {
-      dispatch({
-        type: GET_ITEM_CART,
-        itemCart: {},
-        currentModal: ''
-      });
+      props.setNewIngredintmodal(null)
     }
   }
 
@@ -29,17 +23,13 @@ function Modal(props) {
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay>
+    <ModalOverlay setNewIngredintmodal={props.setNewIngredintmodal}>
       <div className={styles.modal}>
         {props.children}
         <div
           className={styles.close}
           onClick={() =>
-            dispatch({
-              type: GET_ITEM_CART,
-              itemCart: {},
-              currentModal: ''
-            })
+            props.setNewIngredintmodal(null)
           }
         >
           <CloseIcon type="primary" />

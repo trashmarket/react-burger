@@ -23,8 +23,10 @@ import {
   postOrder,
 } from "../../services/actions/cart";
 import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
 
-function BurgerConstructor() {
+
+function BurgerConstructor({ setNewIngredintmodal, bull }) {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
@@ -36,13 +38,13 @@ function BurgerConstructor() {
         dispatch({
           type: GET_DROP_BUN,
           itemType: item.type,
-          item,
+          item:{...item, uuid:uuidv4()}
         });
       } else {
         dispatch({
           type: GET_DROP_ITEM,
           itemType: item.type,
-          item,
+          item: {...item, uuid:uuidv4()}
         });
       }
       dispatch({
@@ -78,7 +80,8 @@ function BurgerConstructor() {
   }, [basketIngredients]);
 
   return (
-    <section className={styles.section} ref={dropTarget}>
+    <section className={`${styles.section} ${!selectedItems.length && styles.boxEmty}`} ref={dropTarget}>
+    {selectedItems.length ?
       <div className={styles.wrapperConstructor}>
         {bun.map((item, index) => {
           return (
@@ -88,14 +91,14 @@ function BurgerConstructor() {
               text={`${item.name} (верх)`}
               price={item.price}
               thumbnail={item.image}
-              key={index}
+              key={item.uuid}
             />
           );
         })}
 
         <ul className={styles.list}>
-          {ingredients.map((item, index) => {
-            return <LiDragAndDrop {...item} index={index} key={index} />;
+          { ingredients.map((item, index) => {
+            return <LiDragAndDrop {...item} index={index} key={item.uuid} />;
           })}
         </ul>
 
@@ -107,11 +110,16 @@ function BurgerConstructor() {
               text={`${item.name} (вниз)`}
               price={item.price}
               thumbnail={item.image}
-              key={index}
+              key={item.uuid}
             />
           );
         })}
       </div>
+      : <h3>Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа</h3>
+      }
+
+      {
+      selectedItems.length &&
       <div className={styles.button}>
         <div className={styles.span}>
           <span className="text text_type_digits-medium">
@@ -124,18 +132,25 @@ function BurgerConstructor() {
           size="large"
           onClick={() => {
             postRequest();
+            setNewIngredintmodal(true, 'constructor')
           }}
         >
           Оформить заказ
         </Button>
       </div>
-      {currentModal === "orderDetails" && (
-        <Modal>
+      }
+
+      {bull && (
+        <Modal setNewIngredintmodal={setNewIngredintmodal}>
           <OrderDetails />
         </Modal>
       )}
     </section>
   );
+}
+
+BurgerConstructor.propTypes = {
+  setNewIngredintmodal: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

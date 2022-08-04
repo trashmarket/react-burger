@@ -7,16 +7,17 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useSelector } from "react-redux";
 
 
-function BurgerIngredients() {
+function BurgerIngredients({setNewIngredintmodal, ingredient}) {
   const {currentModal} = useSelector(state => state.cart)
   return (
     <section className={styles.wrapper}>
       <BurgerNavTab />
       <BurgerList
+      setNewIngredintmodal={setNewIngredintmodal}
       />
-      {currentModal === 'ingredient' && (
-        <Modal>
-          <IngredientDetails/>
+      {ingredient && (
+        <Modal setNewIngredintmodal={setNewIngredintmodal}>
+          <IngredientDetails ingredient={ingredient}/>
         </Modal>
       )}
     </section>

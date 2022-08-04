@@ -51,3 +51,7 @@
     justify-content: space-between;
     margin-right: 33px;
 }
+.boxEmty { 
+ justify-content:center;
+ border: 2px dashed #fff;
+} 

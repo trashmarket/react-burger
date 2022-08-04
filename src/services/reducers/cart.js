@@ -1,9 +1,9 @@
 import update from 'immutability-helper';
+import { v4 as uuidv4 } from 'uuid';
 import {
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
-  GET_ITEM_CART,
   GET_INCREMENT_CART,
   GET_DECREMENT_CATR,
   APPLY_ORDER_DETAILS_SUCCESS,
@@ -12,7 +12,8 @@ import {
   GET_CURRENT_TAB,
   GET_DROP_ITEM,
   GET_DROP_BUN,
-  GET_DRAG_DROP_LI
+  GET_DRAG_DROP_LI,
+  GET_CURRENT_CLICK_TAB
 } from "../actions/cart";
 
 const initialState = {
@@ -22,11 +23,7 @@ const initialState = {
 
   errorStatus: '',
 
-  itemCart: {},
-
   selectedItems: [],
-
-  currentModal: '',
 
   basketIngredients: {
     cost: 0,
@@ -36,7 +33,8 @@ const initialState = {
   orderDetails: {},
   orderDetailsRequest: false,
   orderDetailsFailed: false,
-  currentTab: 'one'
+  currentTab: 'one',
+  currentTabClick: ''
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -61,21 +59,7 @@ export const cartReducer = (state = initialState, action) => {
         itemsFailed: false,
         itemsRequest: false,
         items: action.data,
-        selectedItems: action.data.filter((item, index) => index !== 1),
-        basketIngredients: {
-          ingredientsId: action.data.filter((item, index) => index !== 1).map(item => item._id),
-          cost: [...action.data.filter((item, index) => index !== 1)].reduce((previousValue, currentValue) => {
-            if (currentValue.type === 'bun') return previousValue + currentValue.price * 2;
-            return previousValue + currentValue.price;
-          },0)
-        }
-      };
-    }
-    case GET_ITEM_CART: {
-      return {
-        ...state,
-        itemCart: action.itemCart,
-        currentModal: action.currentModal
+
       };
     }
     case GET_INCREMENT_CART: {
@@ -106,7 +90,8 @@ export const cartReducer = (state = initialState, action) => {
         orderDetails: action.orderDetails,
         currentModal: action.currentModal,
         orderDetailsRequest: false,
-        orderDetailsFailed: false
+        orderDetailsFailed: false,
+        selectedItems: []
       }
     }
     case APPLY_ORDER_DETAILS_REQUEST: {
@@ -126,6 +111,12 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         currentTab: action.currentTab        
+      }
+    }
+    case GET_CURRENT_CLICK_TAB: {
+      return {
+        ...state,
+        currentTabClick: action.currentTabClick
       }
     }
     case GET_DROP_ITEM: {

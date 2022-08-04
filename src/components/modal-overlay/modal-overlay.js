@@ -1,17 +1,13 @@
 import React from "react";
 import styles from './modal-overlay.module.css';
 import {modalType} from "../../utils/types";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { GET_ITEM_CART } from '../../services/actions/cart'
 function ModalOverlay(props){
   const dispatch = useDispatch()
     function clickOverlay(e) {
         if (e.target.classList.contains(styles.overlay)){
-          dispatch({
-            type: GET_ITEM_CART,
-            itemCart: {},
-            currentModal: ''
-          })
+          props.setNewIngredintmodal(null)
         }
     }
 
@@ -20,6 +16,10 @@ function ModalOverlay(props){
             {props.children}
         </div>
     )
+}
+
+ModalOverlay.propTypes = {
+  setNewIngredintmodal: PropTypes.func.isRequired
 }
 
 export default ModalOverlay;
