@@ -2,12 +2,12 @@ import React from "react";
 import styles from './modal-overlay.module.css';
 import {modalType} from "../../utils/types";
 import PropTypes from "prop-types";
-
-
+import { useDispatch } from "react-redux";
 function ModalOverlay(props){
+  const dispatch = useDispatch()
     function clickOverlay(e) {
         if (e.target.classList.contains(styles.overlay)){
-            props.closeModal(null)
+          props.setNewIngredintmodal(null)
         }
     }
 
@@ -18,6 +18,8 @@ function ModalOverlay(props){
     )
 }
 
-ModalOverlay.protoTypes = modalType;
+ModalOverlay.propTypes = {
+  setNewIngredintmodal: PropTypes.func.isRequired
+}
 
 export default ModalOverlay;

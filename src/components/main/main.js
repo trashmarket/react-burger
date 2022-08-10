@@ -1,13 +1,11 @@
 import React from "react";
 import styles from "./main.module.css";
-import BurgerNavTab from "../burger-nav-tab/burger-nav-tab";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import PropTypes from "prop-types";
-import {ingredientType} from '../../utils/types';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-
-function Main(props) {
+function Main() {
   const [ingredient, setIngredient] = React.useState(null);
   const [constructor, setConstructor] = React.useState(null);
 
@@ -24,14 +22,13 @@ function Main(props) {
     <main className={styles.main}>
       <h1 className="text text_type_main-large mt-10">Соберите бургер</h1>
       <section className={styles.section}>
-        <BurgerIngredients
-          setNewIngredintmodal={setUseState}
-          ingredient={ingredient}
-        />
-        <BurgerConstructor
-          setConstructor={setUseState}
-          bull={constructor}
-        />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients
+            setNewIngredintmodal={setUseState}
+            ingredient={ingredient}
+          />
+          <BurgerConstructor setNewIngredintmodal={setUseState} bull={constructor}/>
+        </DndProvider>
       </section>
     </main>
   );

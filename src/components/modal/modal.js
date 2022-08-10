@@ -4,13 +4,14 @@ import styles from "./modal.module.css";
 import React from "react";
 import { modalType } from "../../utils/types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { useDispatch } from "react-redux";
+import { GET_ITEM_CART } from "../../services/actions/cart";
 const modalRoot = document.getElementById("modal-root");
 
 function Modal(props) {
   function handleEscClose(e) {
     if (e.key === "Escape") {
-      props.closeModal(null);
+      props.setNewIngredintmodal(null)
     }
   }
 
@@ -22,10 +23,15 @@ function Modal(props) {
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay closeModal={props.closeModal}>
+    <ModalOverlay setNewIngredintmodal={props.setNewIngredintmodal}>
       <div className={styles.modal}>
         {props.children}
-        <div className={styles.close} onClick={() => props.closeModal(null)}>
+        <div
+          className={styles.close}
+          onClick={() =>
+            props.setNewIngredintmodal(null)
+          }
+        >
           <CloseIcon type="primary" />
         </div>
       </div>
@@ -33,7 +39,5 @@ function Modal(props) {
     modalRoot
   );
 }
-
-Modal.protoTypes = modalType;
 
 export default Modal;

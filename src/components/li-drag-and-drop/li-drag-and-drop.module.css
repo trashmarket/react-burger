@@ -1,0 +1,9 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  align-items: self-end;
+  height: 467px;
+  overflow-y: scroll;
+  padding-right: 6px;
+}

@@ -1,4 +1,7 @@
-import React, { useContext, useReducer, useState, useMemo, useCallback } from "react";
+import React, {
+  useMemo,
+  useCallback,
+} from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
@@ -9,79 +12,76 @@ import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { ItemsContext, CardContext } from "../../services/app-contex";
-import { baseUrl } from '../../utils/constants'
-import { checkResponse } from '../../utils/utils'
+import { baseUrl } from "../../utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop.js";
+import {
+  GET_DECREMENT_CATR,
+  GET_DROP_BUN,
+  GET_DROP_ITEM,
+  GET_INCREMENT_CART,
+  postOrder,
+} from "../../services/actions/cart";
+import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
 
-const initialState = { 
-  cost: 0,
-  ingredients: []
- };
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "increment":
-      return {
-        cost: state.cost + action.cost,
-        ingredients: [...state.ingredients, action.id]
-         };
-    case "decrement":
-      return { cost: state.cost - action.cost };
-    default:
-      throw new Error("что то не так");
-  }
-}
-function BurgerConstructor(props) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { items } = useContext(ItemsContext);
-  const { setCart } = useContext(CardContext);
+function BurgerConstructor({ setNewIngredintmodal, bull }) {
+  const { basketIngredients, currentModal, selectedItems } = useSelector(
+    (state) => state.cart
+  );
+  const dispatch = useDispatch();
+  const [collected, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      if (item.type === "bun") {
+        dispatch({
+          type: GET_DROP_BUN,
+          itemType: item.type,
+          item:{...item, uuid:uuidv4()}
+        });
+      } else {
+        dispatch({
+          type: GET_DROP_ITEM,
+          itemType: item.type,
+          item: {...item, uuid:uuidv4()}
+        });
+      }
+      dispatch({
+        type: GET_INCREMENT_CART,
+      });
+    },
+  });
 
   const ingredients = useMemo(
     () =>
-      items.filter((item) => {
+      selectedItems.filter((item) => {
         if (item.type !== "bun") {
-          dispatch({
-            type: "increment",
-            cost: item.price,
-            id: item._id
-          });
           return true;
         }
       }),
-    [items]
+    [selectedItems]
   );
 
   const bun = useMemo(
     () =>
-      items.filter((item, index) => {
-        if (index === 0) {
-          dispatch({
-            type: "increment",
-            cost: item.price * 2,
-            id: item._id
-          });
+      selectedItems.filter((item, index) => {
+        if (item.type === "bun") {
           return true;
         }
       }),
-    [items]
+    [selectedItems]
   );
-  
+
+
+
   const postRequest = useCallback(() => {
-    fetch(`${baseUrl}orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        ingredients: state.ingredients
-      })
-    }).then(checkResponse)
-    .then(result => setCart(result))
-    .catch(errorMessage=> console.log(errorMessage))
-  }, [state])
+    dispatch(postOrder(`${baseUrl}orders`, basketIngredients.ingredientsId));
+  }, [basketIngredients]);
 
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} ${!selectedItems.length && styles.boxEmty}`} ref={dropTarget}>
+    {selectedItems.length ?
       <div className={styles.wrapperConstructor}>
         {bun.map((item, index) => {
           return (
@@ -91,24 +91,14 @@ function BurgerConstructor(props) {
               text={`${item.name} (верх)`}
               price={item.price}
               thumbnail={item.image}
-              key={index}
-              onClick={(e)=> console.log("hello")}
+              key={item.uuid}
             />
           );
         })}
 
         <ul className={styles.list}>
-          {ingredients.map((item, index) => {
-            return (
-              <li className={styles.li} key={index}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
-              </li>
-            );
+          { ingredients.map((item, index) => {
+            return <LiDragAndDrop {...item} index={index} key={item.uuid} />;
           })}
         </ul>
 
@@ -120,29 +110,38 @@ function BurgerConstructor(props) {
               text={`${item.name} (вниз)`}
               price={item.price}
               thumbnail={item.image}
-              key={index}
+              key={item.uuid}
             />
           );
         })}
       </div>
+      : <h3>Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа</h3>
+      }
+
+      {
+      selectedItems.length &&
       <div className={styles.button}>
         <div className={styles.span}>
-          <span className="text text_type_digits-medium">{state.cost}</span>
+          <span className="text text_type_digits-medium">
+            {basketIngredients.cost}
+          </span>
           <CurrencyIcon type="primary" />
         </div>
         <Button
           type="primary"
           size="large"
           onClick={() => {
-            props.setConstructor(true, "constructor");
             postRequest();
+            setNewIngredintmodal(true, 'constructor')
           }}
         >
           Оформить заказ
         </Button>
       </div>
-      {props.bull && (
-        <Modal closeModal={props.setConstructor}>
+      }
+
+      {bull && (
+        <Modal setNewIngredintmodal={setNewIngredintmodal}>
           <OrderDetails />
         </Modal>
       )}
@@ -150,9 +149,8 @@ function BurgerConstructor(props) {
   );
 }
 
-BurgerConstructor.protoTypes = {
-  setConstructor: PropTypes.func.isRequired,
-  bull: PropTypes.bool.isRequired,
-};
+BurgerConstructor.propTypes = {
+  setNewIngredintmodal: PropTypes.func.isRequired,
+}
 
 export default BurgerConstructor;
