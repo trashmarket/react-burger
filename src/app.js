@@ -1,8 +1,6 @@
-import AppHeader from "./components/app-header/app-header";
-import Main from "./components/main/main";
 import { Provider } from "react-redux";
 import { store } from './services/store';
-import {Constructor, LoginPage} from './pages'
+import {Constructor, LoginPage, RegisterPage, ForgotPasswordPage} from './pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -10,9 +8,15 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          <Router path='/login'>
+          <Route path='/forgot-password'>
+            <ForgotPasswordPage/>
+          </Route>
+          <Route path='/register'>
+            <RegisterPage/>
+          </Route>
+          <Route path='/login'>
             <LoginPage/>
-          </Router>
+          </Route>
           <Route path='/'>
             <Constructor/>
           </Route>

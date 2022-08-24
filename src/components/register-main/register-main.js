@@ -1,17 +1,25 @@
 import { useState } from 'react';
-import styles from './login-main.module.css';
+
+import styles from './register-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink } from 'react-router-dom';
 
- function LoginMain() {
+function RegisterMain() {
+  const [textValue, setTextValue] = useState('');
   const [valuePass, setValuePass] = useState('');
   const [valueEmail, setValueEmail] = useState('');
 
   return (
     <main className={styles.main}>
-      <div className={styles.loginFormWrapper}>
-        <form className={styles.loginForm}>
-          <legend className="text text_type_main-medium">Вход</legend>
+      <div className={styles.registerFormWrapper}>
+      <form className={styles.registerForm}>
+          <legend className="text text_type_main-medium">Регистрация</legend>
+          <Input
+            type="text"
+            value={textValue}
+            placeholder='Имя'
+            onChange={e => setTextValue(e.target.value)}
+          />
           <Input
             type="email"
             value={valueEmail}
@@ -25,25 +33,20 @@ import { Link, NavLink } from 'react-router-dom';
             placeholder='Пароль'
             onChange={e => setValuePass(e.target.value)}/>
           <Button type="primary" size="medium">
-            Войти
+            Зарегистрироваться
           </Button>
         </form>
         <nav>
           <ul>
-            <li className={`text text_type_main-small ${styles.loginLi}`}>
-              <span className={styles.formSpan}>Вы — новый пользователь?</span>
-              <Link to='/register' className={styles.navLink}>Зарегистрироваться</Link>
-            </li>
-            <li className={`text text_type_main-small ${styles.loginLi}`}>
-              <span className={styles.formSpan}>Забыли пароль?</span>
-              <Link to='/forgot-password' className={styles.navLink}>Восстановить пароль</Link>
+            <li className={`text text_type_main-small ${styles.registerLi}`}>
+              <span className={styles.formSpan}>Уже зарегистрированы?</span>
+              <Link to='/login' className={styles.navLink}>Войти</Link>
             </li>
           </ul>
         </nav>
       </div>
     </main>
-  );
+  )
 }
 
-export default LoginMain;
-
+export default RegisterMain

@@ -6,25 +6,31 @@
   align-items: center;
 }
 
-.loginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 480px;
-  min-height: 286px;
-  justify-content: space-between;
-}
-
-.loginForm > div > div {
-  width: 480px;
-}
-
-.loginFormWrapper {
+.registerFormWrapper {
   min-height: 427px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-top: 138px;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 480px;
+  min-height: 326px;
+  justify-content: space-between;
+}
+
+.registerForm > div > div {
+  width: 480px;
+}
+
+.registerLi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .formSpan {
@@ -34,10 +40,4 @@
 
 .navLink {
   color: #4C4CFF;
-}
-
-.loginLi {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
