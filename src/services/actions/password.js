@@ -18,7 +18,7 @@ export const postEmail = (url, email) => (dispatch) => {
         message: res,
       });
     })
-    .then((error) => {
+    .catch((error) => {
       dispatch({
         type: APPLY_PASS_FAILED,
       });

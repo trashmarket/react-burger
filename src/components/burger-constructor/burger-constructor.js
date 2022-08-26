@@ -76,7 +76,7 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
 
 
   const postRequest = useCallback(() => {
-    dispatch(postOrder(`${baseUrl}orders`, basketIngredients.ingredientsId));
+    dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
   }, [basketIngredients]);
 
   return (

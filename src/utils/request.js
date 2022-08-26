@@ -4,8 +4,6 @@ export const postRequest = (url, body) => {
   headers: {
     "Content-Type": "application/json;charset=utf-8",
   },
-  body: JSON.stringify({
-    ingredients: body
-  })
+  body: JSON.stringify(body)
  }) 
 }

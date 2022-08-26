@@ -13,7 +13,9 @@ function ForgotPasswordMain() {
 
   const handleClick = (e) => {
     e.preventDefault()
-    dispatch(postEmail(forgotPassword, valueEmail))
+    dispatch(postEmail(forgotPassword, {
+      email: valueEmail
+    }))
   }
   
   return (
