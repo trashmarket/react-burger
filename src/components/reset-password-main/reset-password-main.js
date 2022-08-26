@@ -1,25 +1,17 @@
-import { useState, } from 'react';
-import styles from './forgot-password-main.module.css';
+import { useState } from 'react';
+import styles from './reset-password-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { postEmail } from '../../services/actions/password';
-import { forgotPassword } from '../../utils/constants';
 
-
-function ForgotPasswordMain() {
+function ResetPassworldPage() {
   const [valueEmail, setValueEmail] = useState('');
-  const dispatch = useDispatch();
+  const [code, setCode] = useState('');
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    dispatch(postEmail(forgotPassword, valueEmail))
-  }
-  
   return (
     <main className={styles.main}>
-      <div className={styles.forgotFormWrapper}>
-        <form className={styles.forgotForm}>
+      <div className={styles.resetFormWrapper}>
+        <form className={styles.resetForm}>
           <legend className="text text_type_main-medium">Восстановление пароля</legend>
           <Input
             type="email"
@@ -27,8 +19,14 @@ function ForgotPasswordMain() {
             placeholder='E-mail'
             onChange={e => setValueEmail(e.target.value)}
           />
-          <Button type="primary" size="medium" onClick={handleClick}>
-            Восстановить
+          <Input
+            type='text'
+            value={code}
+            placeholder='Введите код из письма'
+            onChange={e => setCode(e.target.value)}
+          />
+          <Button type="primary" size="medium" onClick={null}>
+            Сохранить
           </Button>
         </form>
         <nav>
@@ -44,4 +42,4 @@ function ForgotPasswordMain() {
   )
 }
 
-export default ForgotPasswordMain;
+export default ResetPassworldPage
