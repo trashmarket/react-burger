@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { postEmail } from '../../services/actions/password';
-import { forgotPassword } from '../../utils/constants';
+import { passwordReset } from '../../utils/constants';
 
 
 function ForgotPasswordMain() {
@@ -13,7 +13,7 @@ function ForgotPasswordMain() {
 
   const handleClick = (e) => {
     e.preventDefault()
-    dispatch(postEmail(forgotPassword, {
+    dispatch(postEmail(passwordReset, {
       email: valueEmail
     }))
   }

@@ -5,7 +5,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { postEmail } from '../../services/actions/password';
 import { forgotPassword, passwordFogot } from '../../utils/constants';
-import { postRequest } from "../../utils/request"
 import { checkResponse } from "../../utils/utils";
 
 function ResetPassworldPage() {
@@ -15,14 +14,6 @@ function ResetPassworldPage() {
   
   const handleClick = (e) => {
     e.preventDefault()
-    // postRequest('https://norma.nomoreparties.space/api/auth/register',{
-    //   email: "test-dataцsds34fd@yandex.ru", 
-    //   password: "aisjdhoiqajidjaiodwipdjiodaj", 
-    //   name: "aSLDKhjoidwhjaiodj" 
-    // })
-    // .then(checkResponse)
-    // .then(res => console.log(res))
-    // .catch(error=>console.log(error));
 
     dispatch(postEmail(passwordFogot, {
       password: newPass,

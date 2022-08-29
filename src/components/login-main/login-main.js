@@ -1,11 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './login-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { postPerson } from '../../services/actions/person';
+import { postLogin } from '../../utils/constants';
+
+const selectPassword = state => state.person;
+
 
  function LoginMain() {
   const [valuePass, setValuePass] = useState('');
   const [valueEmail, setValueEmail] = useState('');
+
+  const dispatch = useDispatch();
+  const personStore = useSelector(selectPassword);
+
+  
+  const handleClickRegister = (e) => {
+    e.preventDefault();
+
+    dispatch(postPerson(postLogin, {
+      email: valueEmail,
+      password: valuePass 
+    }))
+  }
+
+  useEffect(() => {
+    console.log(personStore);
+  }, [personStore])
+
+  if(personStore.success) {
+    return (
+      <Redirect 
+        to={{
+          pathname: '/'
+        }}
+      />
+    )
+  }
 
   return (
     <main className={styles.main}>
@@ -24,7 +57,7 @@ import { Link, NavLink } from 'react-router-dom';
             value={valuePass}
             placeholder='Пароль'
             onChange={e => setValuePass(e.target.value)}/>
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" onClick={handleClickRegister}>
             Войти
           </Button>
         </form>

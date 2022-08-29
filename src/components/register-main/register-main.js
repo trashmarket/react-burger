@@ -1,13 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './register-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { postPerson } from '../../services/actions/person';
+import { postRegister } from '../../utils/constants';
+
+const selectPassword = state => state.person;
 
 function RegisterMain() {
-  const [textValue, setTextValue] = useState('');
+  const [valueName, setValueName] = useState('');
   const [valuePass, setValuePass] = useState('');
   const [valueEmail, setValueEmail] = useState('');
+
+  const dispatch = useDispatch();
+  const personStore = useSelector(selectPassword);
+
+  const handleClickRegister = (e) => {
+    e.preventDefault();
+
+    dispatch(postPerson(postRegister, {
+      email: valueEmail,
+      password: valuePass,
+      name: valueName 
+    }))
+  }
+
+  useEffect(() => {
+    console.log(personStore);
+  }, [personStore])
 
   return (
     <main className={styles.main}>
@@ -16,9 +38,9 @@ function RegisterMain() {
           <legend className="text text_type_main-medium">Регистрация</legend>
           <Input
             type="text"
-            value={textValue}
+            value={valueName}
             placeholder='Имя'
-            onChange={e => setTextValue(e.target.value)}
+            onChange={e => setValueName(e.target.value)}
           />
           <Input
             type="email"
@@ -32,7 +54,7 @@ function RegisterMain() {
             value={valuePass}
             placeholder='Пароль'
             onChange={e => setValuePass(e.target.value)}/>
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" onClick={handleClickRegister}>
             Зарегистрироваться
           </Button>
         </form>
