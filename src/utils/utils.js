@@ -4,7 +4,7 @@ const sort = (item, type) => {
 
 const checkResponse = (response) => {
   if (response.ok) return response.json();
-  return Promise.reject(`Ошибка: ${response.status}`);
+  return response.json().then((res) => Promise.reject(res)) 
 };
 
  function setCookie(name, value, props) {
@@ -42,6 +42,12 @@ const checkResponse = (response) => {
 
  function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
+}
+
+export function setCookieCompleteDoble(res) {
+  let authToken = res.accessToken.split('Bearer ')[1];
+  setCookie('token', authToken);
+  setCookie('refreshToken', res.refreshToken);
 }
 
 export {sort, checkResponse, setCookie, getCookie, deleteCookie}

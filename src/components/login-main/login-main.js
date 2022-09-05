@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, NavLink, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { postPerson } from '../../services/actions/person';
-import { postLogin } from '../../utils/constants';
+import { loginAuth } from '../../utils/constants';
 
 const selectPassword = state => state.person;
 
@@ -20,7 +20,7 @@ const selectPassword = state => state.person;
   const handleClickRegister = (e) => {
     e.preventDefault();
 
-    dispatch(postPerson(postLogin, {
+    dispatch(postPerson(loginAuth, {
       email: valueEmail,
       password: valuePass 
     }))

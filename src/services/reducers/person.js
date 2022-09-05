@@ -5,7 +5,10 @@ import {
   MAKE_PERSON_TOKE,
   APPLY_PERSON_EXIT_REQUEST,
   APPLY_PERSON_EXIT_FAILED,
-  APPLY_PERSON_EXIT_SUCCESS
+  APPLY_PERSON_EXIT_SUCCESS,
+  APPLY_REFRESH_TOKEN_REQUEST,
+  APPLY_REFRESH_TOKEN_SUCCES,
+  APPLY_REFRESH_TOKEN_FAILED
 } from '../actions/person'
 
 const initialState = {
@@ -20,6 +23,8 @@ const initialState = {
   exitSuccess: false,
   exitFailed: false,
   exitBody: {}
+
+  
 }
 
 const personReduser = (state = initialState, action) => {
@@ -38,8 +43,6 @@ const personReduser = (state = initialState, action) => {
         passRequest: false,
         passRequestFailed: false,
         success: action.person.success,
-        accessToken: action.person.accessToken,
-        refreshToken: action.person.refreshToken,
         user: action.person.user
       };
     }

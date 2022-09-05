@@ -3,6 +3,7 @@ import { store } from './services/store';
 import {Constructor, LoginPage, RegisterPage, ForgotPasswordPage, ResetPassworldPage, ProfilePage} from './pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+
 function App() {
   return (
     <Provider store={store}>

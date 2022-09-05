@@ -1,6 +1,7 @@
-import { postRequest } from "../../utils/request"
-import { checkResponse } from "../../utils/utils";
+import { postRequest, getUserRequest, patchUserRequest, upadateToken } from "../../utils/request"
+import { checkResponse, setCookieCompleteDoble } from "../../utils/utils";
 import { setCookie } from '../../utils/utils'
+import { authToken } from '../../utils/constants'
 
 export const APPLY_PERSON_REQUEST = 'APPLY_NEW_PERSON_REQUEST';
 export const APPLY_PERSON_FAILED = 'APPLY_NEW_PERSON_FAILED';
@@ -10,6 +11,8 @@ export const APPLY_PERSON_EXIT_REQUEST = 'APPLY_PERSON_EXIT_REQUEST';
 export const APPLY_PERSON_EXIT_FAILED = 'APPLY_PERSON_EXIT_FAILED';
 export const APPLY_PERSON_EXIT_SUCCESS = 'APPLY_PERSON_EXIT_SUCCESS';
 
+
+
 export const postPerson = (url, form) => (dispatch) => {
   dispatch({
     type: APPLY_PERSON_REQUEST
@@ -18,14 +21,13 @@ export const postPerson = (url, form) => (dispatch) => {
   postRequest(url, form)
     .then(checkResponse)
     .then((res) => {
+      console.log(res)
       dispatch({
         type: APPLY_PERSON_SUCCESS,
         person: res,
       });
 
-      let authToken = res.accessToken.split('Bearer ')[1];
-      setCookie('token', authToken);
-      setCookie('refreshToken', res.refreshToken);
+      setCookieCompleteDoble(res)
     })
     .catch((error) => {
       dispatch({
@@ -53,5 +55,71 @@ export const postLogOut = (url, refreshToken) => (dispatch) => {
         type: APPLY_PERSON_EXIT_FAILED
       })
       console.log(error);
-    })
+    });
 }
+
+export const getUserAuth = (url) => {
+
+return function updateUserAction(dispatch) {
+
+  dispatch({
+    type: APPLY_PERSON_REQUEST,
+  });
+
+  getUserRequest(url)
+    .then(checkResponse)
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: APPLY_PERSON_SUCCESS,
+        person: res,
+      });
+    })
+    .catch((error) => {
+      if (error.message === "jwt expired") {
+        upadateToken().then((res) =>{
+          setCookieCompleteDoble(res)
+          updateUserAction(dispatch)
+        })
+      }
+      dispatch({
+        type: APPLY_PERSON_FAILED,
+      });
+      console.log(error);
+    });
+};
+}
+
+export const patchUserAuth = (url, body) => {
+  return function updateUserAction(dispatch) {
+  dispatch({
+    type: APPLY_PERSON_REQUEST
+  });
+
+  patchUserRequest(url, body)
+    .then(checkResponse)
+    .then(res => {
+      dispatch({
+        type: APPLY_PERSON_SUCCESS,
+        person: res
+      })
+    })
+    .catch((error) => {
+      if (error.message === "jwt expired") {
+        upadateToken().then((res) =>{
+          setCookieCompleteDoble(res)
+          updateUserAction(dispatch)
+        })
+      }
+      
+      dispatch({
+        type: APPLY_PERSON_FAILED
+      });
+      console.log(error);
+    })  
+}
+}
+
+
+
+
