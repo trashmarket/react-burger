@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import styles from './login-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink, Redirect } from 'react-router-dom';
+import { Link, NavLink, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { postPerson } from '../../services/actions/person';
-import { loginAuth } from '../../utils/constants';
+import { postPerson, getUserAuth } from '../../services/actions/person';
+import { loginAuth, authUser } from '../../utils/constants';
 
 const selectPassword = state => state.person;
 
@@ -14,9 +14,10 @@ const selectPassword = state => state.person;
   const [valueEmail, setValueEmail] = useState('');
 
   const dispatch = useDispatch();
-  const personStore = useSelector(selectPassword);
+  const {success, isLoaded} = useSelector(selectPassword);
+  const location  = useLocation()
+  const history = useHistory();
 
-  
   const handleClickRegister = (e) => {
     e.preventDefault();
 
@@ -27,14 +28,19 @@ const selectPassword = state => state.person;
   }
 
   useEffect(() => {
-    console.log(personStore);
-  }, [personStore])
+    console.log(location);
+    dispatch(getUserAuth(authUser));
+  }, [])
 
-  if(personStore.success) {
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (success) {
     return (
       <Redirect 
         to={{
-          pathname: '/'
+          pathname: location.state ? location.state.from.pathname : '/'
         }}
       />
     )

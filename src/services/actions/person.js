@@ -11,7 +11,7 @@ export const APPLY_PERSON_EXIT_REQUEST = 'APPLY_PERSON_EXIT_REQUEST';
 export const APPLY_PERSON_EXIT_FAILED = 'APPLY_PERSON_EXIT_FAILED';
 export const APPLY_PERSON_EXIT_SUCCESS = 'APPLY_PERSON_EXIT_SUCCESS';
 
-
+export const selectPerson = state => state.person;
 
 export const postPerson = (url, form) => (dispatch) => {
   dispatch({

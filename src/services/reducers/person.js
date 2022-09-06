@@ -18,6 +18,7 @@ const initialState = {
   accessToken: '',
   refreshToken: '',
   user: {},
+  isLoaded: false,
 
   exitRequest: false,
   exitSuccess: false,
@@ -43,7 +44,8 @@ const personReduser = (state = initialState, action) => {
         passRequest: false,
         passRequestFailed: false,
         success: action.person.success,
-        user: action.person.user
+        user: action.person.user,
+        isLoaded: true
       };
     }
 
@@ -52,7 +54,8 @@ const personReduser = (state = initialState, action) => {
         ...state,
         passRequest: false,
         passRequestFailed: true,
-        success: false
+        success: false,
+        isLoaded: true
       };
     }
 
@@ -69,7 +72,8 @@ const personReduser = (state = initialState, action) => {
         exitBody: action.exitBody,
         exitRequest: false,
         exitFailed: false,
-        exitSuccess: action.exitBody.success
+        exitSuccess: action.exitBody.success,
+        user: {}
       };
     }
 
