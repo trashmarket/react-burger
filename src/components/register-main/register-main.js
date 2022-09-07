@@ -4,8 +4,8 @@ import styles from './register-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { postPerson } from '../../services/actions/person';
-import { authRegister } from '../../utils/constants';
+import { postPerson, getUserAuth } from '../../services/actions/person';
+import { authRegister, authUser } from '../../utils/constants';
 
 const selectPassword = state => state.person;
 
@@ -15,7 +15,7 @@ function RegisterMain() {
   const [valueEmail, setValueEmail] = useState('');
 
   const dispatch = useDispatch();
-  const personStore = useSelector(selectPassword);
+  const {success, isLoaded} = useSelector(selectPassword);
 
   const handleClickRegister = (e) => {
     e.preventDefault();
@@ -28,8 +28,22 @@ function RegisterMain() {
   }
 
   useEffect(() => {
-    console.log(personStore);
-  }, [personStore])
+    dispatch(getUserAuth(authUser));
+  }, [])
+
+  if (!isLoaded) {
+    return null
+  }
+
+  if (success) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+        }}
+      />
+    );
+  }
 
   return (
     <main className={styles.main}>

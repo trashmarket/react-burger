@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './reset-password-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, NavLink, useLocation, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { postEmail } from '../../services/actions/password';
-import { forgotPassword, passwordFogot } from '../../utils/constants';
+import { forgotPassword, passwordFogot, authUser } from '../../utils/constants';
 import { checkResponse } from "../../utils/utils";
+import { getUserAuth, selectPerson } from '../../services/actions/person';
+
 
 function ResetPassworldPage() {
   const [newPass, setNewPass] = useState('');
   const [code, setCode] = useState('');
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
+  const { success, isLoaded } = useSelector(selectPerson);
+
+  const location = useLocation();
+
   const handleClick = (e) => {
     e.preventDefault()
 
@@ -19,6 +24,36 @@ function ResetPassworldPage() {
       password: newPass,
       token: code
     }))
+  }
+
+  useEffect(()=>{
+    console.groupCollapsed(location)
+    dispatch(getUserAuth(authUser))
+  }, [])
+
+  if (!isLoaded) {
+    return null
+  }
+
+  if (success) {
+
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+        }}
+      />
+    );
+  }
+
+  if (location?.state?.from !== 'forgot-password') {
+    return (
+      <Redirect
+        to={{
+          pathname: "/forgot-password",
+        }}
+      />
+    );
   }
   
   return (

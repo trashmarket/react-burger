@@ -15,14 +15,14 @@ function App() {
           <Route path='/login'>
             <LoginPage/>
           </Route>
+          <Route path='/reset-password'>
+            <ResetPassworldPage/>
+          </Route>
+          <Route path='/forgot-password'>
+            <ForgotPasswordPage/>
+          </Route>
           <ProtectedRoute path='/profile'>
             <ProfilePage/>
-          </ProtectedRoute>
-          <ProtectedRoute path='/reset-password'>
-            <ResetPassworldPage/>
-          </ProtectedRoute>
-          <ProtectedRoute path='/forgot-password'>
-            <ForgotPasswordPage/>
           </ProtectedRoute>
           <ProtectedRoute path='/'>
             <Constructor/>

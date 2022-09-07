@@ -15,7 +15,7 @@ const selectPassword = state => state.person;
 
   const dispatch = useDispatch();
   const {success, isLoaded} = useSelector(selectPassword);
-  const location  = useLocation()
+  const location  = useLocation();
   const history = useHistory();
 
   const handleClickRegister = (e) => {

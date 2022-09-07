@@ -7,6 +7,7 @@ import {
 const initialState = {
   passRequest: false,
   passRequestFailed: false,
+  passwordSuccess: false,
   passwordMessage: {}
 }
 
@@ -23,7 +24,8 @@ export const passReducer = (state = initialState, action) => {
         ...state,
         passRequest: false,
         passRequestFailed: false,
-        passwordMessage: action.message
+        passwordMessage: action.message,
+        passwordSuccess: action.message.success
       };
     }
 

@@ -1,23 +1,57 @@
-import { useState, } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './forgot-password-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { postEmail } from '../../services/actions/password';
-import { passwordReset } from '../../utils/constants';
+import { Link, NavLink, useHistory, useLocation, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { postEmail, selectPassword } from '../../services/actions/password';
+import { getUserAuth, selectPerson } from '../../services/actions/person';
+import { passwordReset, authUser } from '../../utils/constants';
 
 
 function ForgotPasswordMain() {
   const [valueEmail, setValueEmail] = useState('');
   const dispatch = useDispatch();
 
+  const { isLoaded, success } = useSelector(selectPerson);
+  const { passwordSuccess } = useSelector(selectPassword)
+  const history = useHistory();
+
   const handleClick = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(postEmail(passwordReset, {
       email: valueEmail
     }))
   }
+
+  useEffect(()=>{
+    if (passwordSuccess) {
+      history.replace({
+        pathname: '/reset-password',
+        state: {from: 'forgot-password'}
+      });
+      
+    }
+  }, [passwordSuccess])
+
+  useEffect(()=> {
+    console.log(passwordSuccess)
+    dispatch(getUserAuth(authUser));
+  }, [])
   
+  if (!isLoaded) {
+    return null
+  }
+  
+  if (success) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/'
+        }}
+      />
+    )
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.forgotFormWrapper}>

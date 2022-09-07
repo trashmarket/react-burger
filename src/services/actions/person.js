@@ -77,10 +77,11 @@ return function updateUserAction(dispatch) {
     })
     .catch((error) => {
       if (error.message === "jwt expired") {
-        upadateToken().then((res) =>{
-          setCookieCompleteDoble(res)
-          updateUserAction(dispatch)
-        })
+        upadateToken().then((res) => {
+          setCookieCompleteDoble(res);
+          updateUserAction(dispatch);
+        });
+        return;
       }
       dispatch({
         type: APPLY_PERSON_FAILED,
