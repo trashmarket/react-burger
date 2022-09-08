@@ -6,11 +6,16 @@ import { modalType } from "../../utils/types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { GET_ITEM_CART } from "../../services/actions/cart";
+import {  useHistory } from 'react-router-dom';
+
 const modalRoot = document.getElementById("modal-root");
 
 function Modal(props) {
+  const history = useHistory()
+
   function handleEscClose(e) {
     if (e.key === "Escape") {
+      history.goBack()
       props.setNewIngredintmodal(null)
     }
   }

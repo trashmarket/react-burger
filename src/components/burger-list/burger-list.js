@@ -19,6 +19,7 @@ function BurgerList({ setNewIngredintmodal }) {
 
   useEffect(() => {
     dispatch(getItems());
+    
     if (currentTabClick === "bun") {
       bunRef.current.scrollIntoView({ behavior: "smooth" });
     }

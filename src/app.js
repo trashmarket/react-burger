@@ -1,14 +1,34 @@
+import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { store } from './services/store';
-import {Constructor, LoginPage, RegisterPage, ForgotPasswordPage, ResetPassworldPage, ProfilePage} from './pages'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  Constructor,
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPassworldPage,
+  ProfilePage,
+  IngredientsPage
+} from './pages'
+import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 import ProtectedRoute from './components/protected-route';
+import AppHeader from "./components/app-header/app-header";
+
 
 function App() {
+  const location = useLocation()
+
+  const background = location.state && location.state.background;
+  useEffect(()=>{
+    console.log(location);
+  }, [])
   return (
     <Provider store={store}>
-      <Router>
-        <Switch>
+        <AppHeader/>
+        <Switch location={background || location}>
+          <Route path='/ingredients/:id'>
+            <IngredientsPage/>
+          </Route>
           <Route path='/register'>
             <RegisterPage/>
           </Route>
@@ -28,7 +48,6 @@ function App() {
             <Constructor/>
           </ProtectedRoute>
         </Switch>
-      </Router>
     </Provider>
   );
 }

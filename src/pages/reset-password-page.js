@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import AppHeader from "../components/app-header/app-header";
+
 import ResetPassworldMain from '../components/reset-password-main/reset-password-main';
 import { useSelector } from 'react-redux';
 
@@ -12,12 +12,7 @@ function ResetPassworldPage() {
     console.log(password);
   }, [password])
 
-  return (
-    <>
-      <AppHeader/>
-      <ResetPassworldMain/>
-    </>
-  )  
+  return (<ResetPassworldMain />);  
 }
 
 export { ResetPassworldPage }

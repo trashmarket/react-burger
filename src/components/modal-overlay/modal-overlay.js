@@ -3,10 +3,14 @@ import styles from './modal-overlay.module.css';
 import {modalType} from "../../utils/types";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import {  useHistory } from 'react-router-dom';
+
 function ModalOverlay(props){
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const dispatch = useDispatch();
     function clickOverlay(e) {
         if (e.target.classList.contains(styles.overlay)){
+          history.goBack()
           props.setNewIngredintmodal(null)
         }
     }

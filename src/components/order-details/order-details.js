@@ -1,9 +1,21 @@
 import styles from "./order-details.module.css";
-
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import {  useHistory, useLocation } from 'react-router-dom';
 
 function OrderDetails() {
   const { orderDetails, orderDetailsRequest } = useSelector((state) => state.cart);
+
+  const history = useHistory()
+  const location = useLocation()
+  // useEffect(()=>{
+  //   if(orderDetails?.order?.number) {
+  //     history.push({
+  //       pathname: 'order/detail',
+  //       state: { background: location }
+  //     })
+  //   }
+  // }, [orderDetails])
 
   return (
     <div className={styles.content}>
