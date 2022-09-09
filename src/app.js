@@ -20,7 +20,7 @@ function App() {
 
   const background = location.state && location.state.background;
   useEffect(()=>{
-    console.log(location);
+    console.log(location.state);
   }, [])
   return (
     <Provider store={store}>
@@ -44,9 +44,9 @@ function App() {
           <ProtectedRoute path='/profile'>
             <ProfilePage/>
           </ProtectedRoute>
-          <ProtectedRoute path='/'>
+          <Route path='/'>
             <Constructor/>
-          </ProtectedRoute>
+          </Route>
         </Switch>
     </Provider>
   );

@@ -14,6 +14,7 @@ export const GET_DROP_ITEM = "GET_DROP_ITEM";
 export const GET_DROP_BUN = "GET_DROP_BUN";
 export const GET_DRAG_DROP_LI = "GET_DRAG_DROP_LI";
 export const GET_CURRENT_CLICK_TAB = "GET_CURRENT_CLICK_TAB";
+export const GET_CURENT_LOCAL_STATE = "GET_CURENT_LOCAL_STATE";
 
 export const getItems = () => (dispatch) => {
   dispatch({

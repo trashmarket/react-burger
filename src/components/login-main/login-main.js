@@ -3,18 +3,15 @@ import styles from './login-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { postPerson, getUserAuth } from '../../services/actions/person';
+import { postPerson, getUserAuth, selectPerson  } from '../../services/actions/person';
 import { loginAuth, authUser } from '../../utils/constants';
-
-const selectPassword = state => state.person;
-
 
  function LoginMain() {
   const [valuePass, setValuePass] = useState('');
   const [valueEmail, setValueEmail] = useState('');
 
   const dispatch = useDispatch();
-  const {success, isLoaded} = useSelector(selectPassword);
+  const {success, isLoaded} = useSelector(selectPerson);
   const location  = useLocation();
   const history = useHistory();
 
@@ -40,7 +37,8 @@ const selectPassword = state => state.person;
     return (
       <Redirect 
         to={{
-          pathname: location.state ? location.state.from.pathname : '/'
+          pathname: location?.state?.from ? location.state.from.pathname : '/',
+          state: location?.state?.fromLogin ? location.state.fromLogin : null 
         }}
       />
     )

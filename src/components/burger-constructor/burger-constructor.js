@@ -1,6 +1,7 @@
 import React, {
   useMemo,
   useCallback,
+  useEffect
 } from "react";
 import {
   ConstructorElement,
@@ -16,7 +17,7 @@ import { baseUrl } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop.js";
 import {
-  GET_DECREMENT_CATR,
+  GET_CURENT_LOCAL_STATE,
   GET_DROP_BUN,
   GET_DROP_ITEM,
   GET_INCREMENT_CART,
@@ -24,12 +25,19 @@ import {
 } from "../../services/actions/cart";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
+import { authUser } from '../../utils/constants'
+import { getUserAuth, selectPerson } from '../../services/actions/person'
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 function BurgerConstructor({ setNewIngredintmodal, bull }) {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
+  const {success, passRequestFailed} = useSelector(selectPerson);
+  const history = useHistory();
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const [collected, dropTarget] = useDrop({
     accept: "ingredient",
@@ -59,7 +67,8 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
         if (item.type !== "bun") {
           return true;
         }
-      }),
+      })
+      ,
     [selectedItems]
   );
 
@@ -72,12 +81,31 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
       }),
     [selectedItems]
   );
-
+  
+  useEffect(() => {
+    // location.state = [selectedItems? ...se]
+    if (location.state?.fromLogin) {
+      dispatch({
+        type: GET_CURENT_LOCAL_STATE,
+        locationState: location.state.fromLogin
+      })
+    }
+    console.log(location)
+    if (success) {
+      dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
+    }
+    if (passRequestFailed) {
+      history.replace({
+        pathname: '/login',
+        state: {fromLogin: [...selectedItems]}
+      })
+    }
+  }, [success, passRequestFailed, basketIngredients, selectedItems])
 
 
   const postRequest = useCallback(() => {
-    dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
-  }, [basketIngredients]);
+    dispatch(getUserAuth(authUser));
+  }, [basketIngredients, success]);
 
   return (
     <section className={`${styles.section} ${!selectedItems.length && styles.boxEmty}`} ref={dropTarget}>
