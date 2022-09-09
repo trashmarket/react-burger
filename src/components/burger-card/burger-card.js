@@ -33,7 +33,10 @@ const BurgerCard = React.memo((props) => {
       onClick={() => {
         history.push({
           pathname: '/ingredients/' + props.item._id,
-          state: { background: location }
+          state: { 
+            background: location,
+            ingredientId: props.item._id
+          }
         })
         props.setNewIngredintmodal(props.item, 'ingredient')
       }}

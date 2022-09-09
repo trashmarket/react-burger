@@ -27,7 +27,7 @@ import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { authUser } from '../../utils/constants'
 import { getUserAuth, selectPerson } from '../../services/actions/person'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
 
 function BurgerConstructor({ setNewIngredintmodal, bull }) {
@@ -37,6 +37,8 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
   const {success, passRequestFailed} = useSelector(selectPerson);
   const history = useHistory();
   const location = useLocation();
+  const match = useRouteMatch()  
+
 
   const dispatch = useDispatch();
   const [collected, dropTarget] = useDrop({
@@ -83,13 +85,25 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
   );
   
   useEffect(() => {
-    // location.state = [selectedItems? ...se]
+    if (
+      history.location?.pathname &&
+      history.location?.state?.ingredientId &&
+      history.location.pathname.indexOf(history.location.state.ingredientId)
+    ) {
+      history.replace({
+        pathname: history.location.pathname,
+      });
+    }
+  }, [])
+
+  useEffect(() => {
     if (location.state?.fromLogin) {
       dispatch({
         type: GET_CURENT_LOCAL_STATE,
         locationState: location.state.fromLogin
       })
     }
+    console.log(history)
     console.log(location)
     if (success) {
       dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
