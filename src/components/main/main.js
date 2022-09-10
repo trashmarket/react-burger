@@ -7,7 +7,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 function Main() {
   const [ingredient, setIngredient] = React.useState(null);
-  const [constructor, setConstructor] = React.useState(null);
+  const [constructor, setConstructor] = React.useState(false);
 
   function setUseState(item, typeState) {
     item && "ingredient" === typeState
@@ -15,7 +15,7 @@ function Main() {
       : setIngredient(null);
     item && "constructor" === typeState
       ? setConstructor(item)
-      : setConstructor(null);
+      : setConstructor(false);
   }
 
   return (

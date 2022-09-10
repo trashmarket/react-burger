@@ -1,5 +1,5 @@
 import { getCookie } from "./utils";
-import { authToken } from './constants'
+import { baseUrl } from './constants'
 import { checkResponse } from '../utils/utils'
 
 export const postRequest = (url, body) => {
@@ -30,7 +30,7 @@ export const patchUserRequest = (url, body) => fetch(url, {
   body: JSON.stringify(body)
 })
 
-export const upadateToken = () => fetch(authToken, {
+export const upadateToken = () => fetch(baseUrl + 'auth/token', {
   method: "POST",
   headers: {
     "Content-Type": "application/json;charset=utf-8",

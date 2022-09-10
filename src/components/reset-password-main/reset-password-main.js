@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import styles from './reset-password-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink, useLocation, Redirect } from 'react-router-dom';
+import {  NavLink, useLocation, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { postEmail } from '../../services/actions/password';
-import { forgotPassword, passwordFogot, authUser } from '../../utils/constants';
-import { checkResponse } from "../../utils/utils";
+import {  baseUrl } from '../../utils/constants';
 import { getUserAuth, selectPerson } from '../../services/actions/person';
 
 
@@ -20,7 +19,7 @@ function ResetPassworldPage() {
   const handleClick = (e) => {
     e.preventDefault()
 
-    dispatch(postEmail(passwordFogot, {
+    dispatch(postEmail(baseUrl + 'password-reset/reset', {
       password: newPass,
       token: code
     }))
@@ -28,7 +27,7 @@ function ResetPassworldPage() {
 
   useEffect(()=>{
     console.groupCollapsed(location)
-    dispatch(getUserAuth(authUser))
+    dispatch(getUserAuth(baseUrl + 'auth/user'))
   }, [])
 
   if (!isLoaded) {

@@ -4,3 +4,6 @@
     margin-left: 274px;
     align-items: center;
 }
+.navLinkActive {
+  color: #fff;
+}

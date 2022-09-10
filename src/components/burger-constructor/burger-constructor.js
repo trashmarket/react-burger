@@ -13,7 +13,6 @@ import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { baseUrl } from "../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop.js";
 import {
@@ -25,7 +24,7 @@ import {
 } from "../../services/actions/cart";
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
-import { authUser } from '../../utils/constants'
+import { baseUrl } from '../../utils/constants'
 import { getUserAuth, selectPerson } from '../../services/actions/person'
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
@@ -118,7 +117,7 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
 
 
   const postRequest = useCallback(() => {
-    dispatch(getUserAuth(authUser));
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
   }, [basketIngredients, success]);
 
   return (
@@ -159,9 +158,8 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
       </div>
       : <h3>Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа</h3>
       }
-
       {
-      selectedItems.length &&
+      selectedItems.length != 0 &&
       <div className={styles.button}>
         <div className={styles.span}>
           <span className="text text_type_digits-medium">
@@ -181,7 +179,6 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
         </Button>
       </div>
       }
-
       {bull && (
         <Modal setNewIngredintmodal={setNewIngredintmodal}>
           <OrderDetails />

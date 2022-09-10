@@ -5,7 +5,7 @@ import { Link, NavLink, useHistory, useLocation, Redirect } from 'react-router-d
 import { useDispatch, useSelector } from 'react-redux';
 import { postEmail, selectPassword } from '../../services/actions/password';
 import { getUserAuth, selectPerson } from '../../services/actions/person';
-import { passwordReset, authUser } from '../../utils/constants';
+import { baseUrl } from '../../utils/constants';
 
 
 function ForgotPasswordMain() {
@@ -18,7 +18,7 @@ function ForgotPasswordMain() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(postEmail(passwordReset, {
+    dispatch(postEmail(baseUrl + 'password-reset', {
       email: valueEmail
     }))
   }
@@ -35,7 +35,7 @@ function ForgotPasswordMain() {
 
   useEffect(()=> {
     console.log(passwordSuccess)
-    dispatch(getUserAuth(authUser));
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
   }, [])
   
   if (!isLoaded) {

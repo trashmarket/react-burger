@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import styles from './login-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink, Redirect, useLocation, useHistory } from 'react-router-dom';
+import { Link,  Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { postPerson, getUserAuth, selectPerson  } from '../../services/actions/person';
-import { loginAuth, authUser } from '../../utils/constants';
+import { baseUrl } from '../../utils/constants';
 
  function LoginMain() {
   const [valuePass, setValuePass] = useState('');
@@ -13,12 +13,12 @@ import { loginAuth, authUser } from '../../utils/constants';
   const dispatch = useDispatch();
   const {success, isLoaded} = useSelector(selectPerson);
   const location  = useLocation();
-  const history = useHistory();
+
 
   const handleClickRegister = (e) => {
     e.preventDefault();
 
-    dispatch(postPerson(loginAuth, {
+    dispatch(postPerson(baseUrl + 'auth/login', {
       email: valueEmail,
       password: valuePass 
     }))
@@ -26,7 +26,7 @@ import { loginAuth, authUser } from '../../utils/constants';
 
   useEffect(() => {
     console.log(location);
-    dispatch(getUserAuth(authUser));
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
   }, [])
 
   if (!isLoaded) {
@@ -47,7 +47,7 @@ import { loginAuth, authUser } from '../../utils/constants';
   return (
     <main className={styles.main}>
       <div className={styles.loginFormWrapper}>
-        <form className={styles.loginForm}>
+        <form className={styles.loginForm} onSubmit={handleClickRegister}>
           <legend className="text text_type_main-medium">Вход</legend>
           <Input
             type="email"
@@ -61,7 +61,7 @@ import { loginAuth, authUser } from '../../utils/constants';
             value={valuePass}
             placeholder='Пароль'
             onChange={e => setValuePass(e.target.value)}/>
-          <Button type="primary" size="medium" onClick={handleClickRegister}>
+          <Button type="primary" size="medium">
             Войти
           </Button>
         </form>

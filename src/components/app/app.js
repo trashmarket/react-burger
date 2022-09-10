@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Provider } from "react-redux";
-import { store } from './services/store';
+import { store } from '../../services/store';
 import {
   Constructor,
   LoginPage,
@@ -9,10 +9,10 @@ import {
   ResetPassworldPage,
   ProfilePage,
   IngredientsPage
-} from './pages'
+} from '../../pages'
 import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
-import ProtectedRoute from './components/protected-route';
-import AppHeader from "./components/app-header/app-header";
+import ProtectedRoute from '../protected-route';
+import AppHeader from "../app-header/app-header";
 
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   const background = location.state && location.state.background;
   useEffect(()=>{
     console.log(location.state);
-  }, [])
+  })
   return (
     <Provider store={store}>
         <AppHeader/>

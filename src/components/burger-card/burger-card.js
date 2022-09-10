@@ -55,7 +55,7 @@ const BurgerCard = React.memo((props) => {
         <CurrencyIcon className="ml-1" />
       </p>
       <p className="text text_type_main-default">{props.item.name}</p>
-      {count && <Counter count={count} size="default" />}
+      {count != 0 && <Counter count={count} size="default" />}
     </div>
   );
 });

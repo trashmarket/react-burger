@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, NavLink } from 'react-router-dom';
 import styles from './profile-main.module.css';
 import { patchUserAuth, getUserAuth} from '../../services/actions/person';
-import { authUser} from '../../utils/constants'
+import { authUser, baseUrl} from '../../utils/constants'
 
 const selectPerson = state => state.person;
 
@@ -18,7 +18,7 @@ function ProfileMain() {
   const personStore = useSelector(selectPerson);
 
   useEffect(() => {
-    dispatch(getUserAuth(authUser));
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
   }, [])
 
   useEffect(() => {
@@ -30,9 +30,10 @@ function ProfileMain() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(e.type)
     setValueEmail('...сохранение');
     setValueName('...сохранение');
-    dispatch(patchUserAuth(authUser, {
+    dispatch(patchUserAuth(baseUrl + 'auth/user', {
       email: valueEmail,
       password: valuePass,
       name: valueName
@@ -86,7 +87,7 @@ function ProfileMain() {
           В этом разделе вы можете изменить&nbsp;свои&nbsp;персональные данные
         </p>
       </div>
-      <form className={styles.inputWrapper}>
+      <form className={styles.inputWrapper} onSubmit={onSubmit}>
         <Input
           placeholder="Имя"
           value={valueName}
@@ -109,7 +110,7 @@ function ProfileMain() {
           <Button type="primary" size="medium" onClick={resetClick}>
             отмена
           </Button>
-          <Button type="primary" size="medium" onClick={onSubmit}>
+          <Button type="primary" size="medium">
             сохранить
           </Button>
         </div>

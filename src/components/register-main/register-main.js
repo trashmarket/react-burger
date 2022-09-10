@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 
 import styles from './register-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { postPerson, getUserAuth } from '../../services/actions/person';
-import { authRegister, authUser } from '../../utils/constants';
+import { baseUrl } from '../../utils/constants';
 
 const selectPassword = state => state.person;
 
@@ -20,7 +20,7 @@ function RegisterMain() {
   const handleClickRegister = (e) => {
     e.preventDefault();
 
-    dispatch(postPerson(authRegister, {
+    dispatch(postPerson(baseUrl + 'auth/register', {
       email: valueEmail,
       password: valuePass,
       name: valueName 
@@ -28,7 +28,7 @@ function RegisterMain() {
   }
 
   useEffect(() => {
-    dispatch(getUserAuth(authUser));
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
   }, [])
 
   if (!isLoaded) {

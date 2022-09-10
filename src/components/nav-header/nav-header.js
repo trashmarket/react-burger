@@ -1,33 +1,37 @@
 import styles from "./nav-header.module.css";   
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import React from "react";
+import { NavLink, useLocation } from 'react-router-dom';
+
 
 function NavHeader() {
-    const [typeBurger, setTypeBurger] = React.useState(1);
-    const [typeListIcon, setTypeListIcon] = React.useState(2);
 
-    const [selectIndex, setSelectIndex] = React.useState(1);
-   
-    function handelClickLink(e) {
-        const id = parseInt(e.target.id, 10);
-        setSelectIndex(id);
-     }
-    
+    const { pathname } = useLocation();
 
     return (
         <nav className={styles.nav}>
             <ul className={styles.ul}>
                 <li className={styles.li} key={1}>
-                    <BurgerIcon type={typeBurger === selectIndex ? 'primary' : 'secondary'}/>
-                    <a className={`text text_type_main-default ml-4 ${typeBurger === selectIndex ? '' : 'text_color_inactive'}`}  id="1" onClick={handelClickLink} href="#">
+                    <BurgerIcon type={pathname === '/' ? 'primary' : 'secondary'}/>
+                    <NavLink 
+                      to='/'
+                      className={`text text_type_main-default ml-4 text_color_inactive`} 
+                      exact
+                      activeClassName={styles.navLinkActive}
+                    >
                         Конструктор
-                    </a>
+                    </NavLink>
                 </li>
                 <li className={styles.li} key={2}>
-                    <ListIcon type={typeListIcon === selectIndex ? 'primary' : 'secondary'}/>
-                    <a className={`text text_type_main-default ml-4 ${typeListIcon === selectIndex ? '' : 'text_color_inactive'}`}  id="2" onClick={handelClickLink} href="#">
+                    <ListIcon type={pathname === '/feed' ? 'primary' : 'secondary'}/>
+                    <NavLink
+                      to='/feed' 
+                      className={`text text_type_main-default ml-4 text_color_inactive`}
+                      exact
+                      activeClassName={styles.navLinkActive}
+                    >
                         Лента заказов
-                    </a>
+                    </NavLink>
                 </li>
             </ul>
         </nav>
