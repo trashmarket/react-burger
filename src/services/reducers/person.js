@@ -73,6 +73,7 @@ const personReduser = (state = initialState, action) => {
         exitRequest: false,
         exitFailed: false,
         exitSuccess: action.exitBody.success,
+        success: false,
         user: {}
       };
     }

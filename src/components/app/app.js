@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { store } from '../../services/store';
 import {
   Constructor,
@@ -13,17 +13,21 @@ import {
 import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../protected-route';
 import AppHeader from "../app-header/app-header";
+import { getUserAuth, selectPerson } from '../../services/actions/person';
+import { baseUrl } from '../../utils/constants'
 
 
 function App() {
   const location = useLocation()
-
+  const dispatch = useDispatch();
   const background = location.state && location.state.background;
+
   useEffect(()=>{
-    console.log(location.state);
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
+    console.log('hello')
   })
   return (
-    <Provider store={store}>
+    <>
         <AppHeader/>
         <Switch location={background || location}>
           <Route path='/ingredients/:id'>
@@ -48,7 +52,7 @@ function App() {
             <Constructor/>
           </Route>
         </Switch>
-    </Provider>
+    </>
   );
 }
 

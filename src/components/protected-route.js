@@ -1,22 +1,14 @@
 import { Redirect, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getUserAuth, selectPerson } from '../services/actions/person';
-import { useSelector, useDispatch } from 'react-redux';
-import { baseUrl } from '../utils/constants'
+import { selectPerson } from '../services/actions/person';
+import { useSelector, } from 'react-redux';
 
 export default function ProtectedRoute({ children, ...rest }) {
   const { isLoaded, success } = useSelector(selectPerson);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUserAuth(baseUrl + 'auth/user'));
-  }, []);
-
+  console.log(success)
   if (!isLoaded) {
-    
     return null;
   }
-
+  
   return (
     <Route
       {...rest}

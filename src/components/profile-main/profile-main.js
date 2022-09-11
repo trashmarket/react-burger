@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './profile-main.module.css';
-import { patchUserAuth, getUserAuth} from '../../services/actions/person';
-import { authUser, baseUrl} from '../../utils/constants'
+import { patchUserAuth, postLogOut } from '../../services/actions/person';
+import {baseUrl} from '../../utils/constants';
+import { getCookie } from '../../utils/utils';
 
 const selectPerson = state => state.person;
 
@@ -16,10 +17,6 @@ function ProfileMain() {
 
   const dispatch = useDispatch();
   const personStore = useSelector(selectPerson);
-
-  useEffect(() => {
-    dispatch(getUserAuth(baseUrl + 'auth/user'));
-  }, [])
 
   useEffect(() => {
     if (personStore.success) {
@@ -44,6 +41,10 @@ function ProfileMain() {
     e.preventDefault();
     setValueEmail(personStore.user.email);
     setValueName(personStore.user.name);
+  }
+
+  const exitProfile = () => {
+    dispatch(postLogOut(baseUrl + 'auth/logout', { token: getCookie('refreshToken')}))
   }
 
   return (
@@ -72,14 +73,16 @@ function ProfileMain() {
               </NavLink>
             </li>
             <li className="pb-3 pt-3">
-              <NavLink
-                to="/profile/orders/:id"
-                exact
-                activeClassName={styles.navLinkActive}
-                className={styles.navLink}
+              <a className={styles.navLink}
+                  onClick={() => exitProfile()}
+                // to="/profile/orders/:id"
+                // exact
+                // activeClassName={styles.navLinkActive}
+                // className={styles.navLink}
+                // 
               >
                 Выход
-              </NavLink>
+              </a>
             </li>
           </ul>
         </nav>

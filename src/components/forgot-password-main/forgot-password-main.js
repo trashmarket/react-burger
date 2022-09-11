@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, NavLink, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { postEmail, selectPassword } from '../../services/actions/password';
-import { getUserAuth, selectPerson } from '../../services/actions/person';
+import { selectPerson } from '../../services/actions/person';
 import { baseUrl } from '../../utils/constants';
 
 
@@ -33,10 +33,6 @@ function ForgotPasswordMain() {
     }
   }, [passwordSuccess])
 
-  useEffect(()=> {
-    console.log(passwordSuccess)
-    dispatch(getUserAuth(baseUrl + 'auth/user'));
-  }, [])
   
   if (!isLoaded) {
     return null

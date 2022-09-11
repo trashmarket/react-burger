@@ -104,20 +104,17 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
       })
     }
     
-    if (passRequestFailed) {
-      history.replace({
-        pathname: '/login',
-        state: {fromLogin: [...selectedItems]}
-      })
-    }
-  }, [success, passRequestFailed, basketIngredients, selectedItems])
+  }, [ passRequestFailed, basketIngredients, selectedItems])
 
 
   const postRequest = useCallback(() => {
     if (success) {
       dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
     } else {
-      dispatch(getUserAuth(baseUrl + 'auth/user'));
+      history.replace({
+        pathname: '/login',
+        state: {fromLogin: [...selectedItems]}
+      })
     }
   }, [basketIngredients, success]);
 

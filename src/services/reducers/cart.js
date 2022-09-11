@@ -92,7 +92,7 @@ export const cartReducer = (state = initialState, action) => {
         currentModal: action.currentModal,
         orderDetailsRequest: false,
         orderDetailsFailed: false,
-        // selectedItems: []
+        selectedItems: []
       }
     }
     case APPLY_ORDER_DETAILS_REQUEST: {

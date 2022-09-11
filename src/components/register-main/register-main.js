@@ -4,7 +4,7 @@ import styles from './register-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { postPerson, getUserAuth } from '../../services/actions/person';
+import { postPerson } from '../../services/actions/person';
 import { baseUrl } from '../../utils/constants';
 
 const selectPassword = state => state.person;
@@ -26,10 +26,6 @@ function RegisterMain() {
       name: valueName 
     }))
   }
-
-  useEffect(() => {
-    dispatch(getUserAuth(baseUrl + 'auth/user'));
-  }, [])
 
   if (!isLoaded) {
     return null
