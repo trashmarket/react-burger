@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { sort } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../../services/actions/cart";
 import { GET_CURRENT_TAB } from "../../services/actions/cart";
 
 function BurgerList({ setUseModalState }) {
@@ -18,7 +17,6 @@ function BurgerList({ setUseModalState }) {
   const mainRef = useRef(null);
 
   useEffect(() => {
-    dispatch(getItems());
     
     if (currentTabClick === "bun") {
       bunRef.current.scrollIntoView({ behavior: "smooth" });

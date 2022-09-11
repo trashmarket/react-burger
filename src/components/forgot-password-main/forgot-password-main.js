@@ -16,7 +16,7 @@ function ForgotPasswordMain() {
   const { passwordSuccess } = useSelector(selectPassword)
   const history = useHistory();
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postEmail(baseUrl + 'password-reset', {
       email: valueEmail
@@ -51,7 +51,7 @@ function ForgotPasswordMain() {
   return (
     <main className={styles.main}>
       <div className={styles.forgotFormWrapper}>
-        <form className={styles.forgotForm}>
+        <form className={styles.forgotForm} onSubmit={handleSubmit}>
           <legend className="text text_type_main-medium">Восстановление пароля</legend>
           <Input
             type="email"
@@ -59,7 +59,7 @@ function ForgotPasswordMain() {
             placeholder='E-mail'
             onChange={e => setValueEmail(e.target.value)}
           />
-          <Button type="primary" size="medium" onClick={handleClick}>
+          <Button type="primary" size="medium">
             Восстановить
           </Button>
         </form>

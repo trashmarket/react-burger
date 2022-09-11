@@ -16,7 +16,7 @@ function ResetPassworldPage() {
 
   const location = useLocation();
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     dispatch(postEmail(baseUrl + 'password-reset/reset', {
@@ -53,7 +53,7 @@ function ResetPassworldPage() {
   return (
     <main className={styles.main}>
       <div className={styles.resetFormWrapper}>
-        <form className={styles.resetForm}>
+        <form className={styles.resetForm} onSubmit={handleSubmit}>
           <legend className="text text_type_main-medium">Восстановление пароля</legend>
           <Input
             type="email"
@@ -67,7 +67,7 @@ function ResetPassworldPage() {
             placeholder='Введите код из письма'
             onChange={e => setCode(e.target.value)}
           />
-          <Button type="primary" size="medium" onClick={handleClick}>
+          <Button type="primary" size="medium">
             Сохранить
           </Button>
         </form>

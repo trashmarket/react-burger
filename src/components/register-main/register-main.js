@@ -17,7 +17,7 @@ function RegisterMain() {
   const dispatch = useDispatch();
   const {success, isLoaded} = useSelector(selectPassword);
 
-  const handleClickRegister = (e) => {
+  const handleSubmitRegister = (e) => {
     e.preventDefault();
 
     dispatch(postPerson(baseUrl + 'auth/register', {
@@ -44,7 +44,7 @@ function RegisterMain() {
   return (
     <main className={styles.main}>
       <div className={styles.registerFormWrapper}>
-      <form className={styles.registerForm}>
+      <form className={styles.registerForm} onSubmit={handleSubmitRegister}>
           <legend className="text text_type_main-medium">Регистрация</legend>
           <Input
             type="text"
@@ -64,7 +64,7 @@ function RegisterMain() {
             value={valuePass}
             placeholder='Пароль'
             onChange={e => setValuePass(e.target.value)}/>
-          <Button type="primary" size="medium" onClick={handleClickRegister}>
+          <Button type="primary" size="medium">
             Зарегистрироваться
           </Button>
         </form>

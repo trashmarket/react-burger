@@ -14,7 +14,9 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-route
 import ProtectedRoute from '../protected-route';
 import AppHeader from "../app-header/app-header";
 import { getUserAuth, selectPerson } from '../../services/actions/person';
-import { baseUrl } from '../../utils/constants'
+import { baseUrl } from '../../utils/constants';
+import { getItems } from "../../services/actions/cart";
+
 
 
 function App() {
@@ -26,6 +28,10 @@ function App() {
     dispatch(getUserAuth(baseUrl + 'auth/user'));
     console.log('hello')
   })
+
+  useEffect(()=>{
+    dispatch(getItems());
+  },[])
   return (
     <>
         <AppHeader/>

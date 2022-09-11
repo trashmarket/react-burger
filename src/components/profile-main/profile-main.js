@@ -75,11 +75,6 @@ function ProfileMain() {
             <li className="pb-3 pt-3">
               <a className={styles.navLink}
                   onClick={() => exitProfile()}
-                // to="/profile/orders/:id"
-                // exact
-                // activeClassName={styles.navLinkActive}
-                // className={styles.navLink}
-                // 
               >
                 Выход
               </a>
