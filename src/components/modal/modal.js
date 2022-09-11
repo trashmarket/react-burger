@@ -10,31 +10,24 @@ import {  useHistory } from 'react-router-dom';
 
 const modalRoot = document.getElementById("modal-root");
 
-function Modal(props) {
-  const history = useHistory()
-
-  function handleEscClose(e) {
-    if (e.key === "Escape") {
-      history.goBack()
-      props.setNewIngredintmodal(null)
-    }
-  }
-
+function Modal({ onClose, children }) {
   React.useEffect(() => {
-    document.addEventListener("keydown", handleEscClose);
+    document.addEventListener("keydown", onClose);
     return () => {
-      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("keydown", onClose);
     };
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay setNewIngredintmodal={props.setNewIngredintmodal}>
+    <ModalOverlay onClose={onClose}>
       <div className={styles.modal}>
-        {props.children}
+        {children}
         <div
           className={styles.close}
-          onClick={() =>
-            props.setNewIngredintmodal(null)
+          onClick={(e) => {
+            onClose(e, 'button')
+          }
+            
           }
         >
           <CloseIcon type="primary" />

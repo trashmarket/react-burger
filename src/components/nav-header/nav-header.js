@@ -14,7 +14,9 @@ function NavHeader() {
                 <li className={styles.li} key={1}>
                     <BurgerIcon type={pathname === '/' ? 'primary' : 'secondary'}/>
                     <NavLink 
-                      to='/'
+                      to={{
+                        pathname:'/'
+                      }}
                       className={`text text_type_main-default ml-4 text_color_inactive`} 
                       exact
                       activeClassName={styles.navLinkActive}

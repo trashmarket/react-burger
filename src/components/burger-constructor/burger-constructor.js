@@ -29,7 +29,7 @@ import { getUserAuth, selectPerson } from '../../services/actions/person'
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
 
-function BurgerConstructor({ setNewIngredintmodal, bull }) {
+function BurgerConstructor({ setUseModalState, bull, onClose }) {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
@@ -96,17 +96,14 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
   }, [])
 
   useEffect(() => {
+
     if (location.state?.fromLogin) {
       dispatch({
         type: GET_CURENT_LOCAL_STATE,
         locationState: location.state.fromLogin
       })
     }
-    console.log(history)
-    console.log(location)
-    if (success) {
-      dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
-    }
+    
     if (passRequestFailed) {
       history.replace({
         pathname: '/login',
@@ -117,7 +114,11 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
 
 
   const postRequest = useCallback(() => {
-    dispatch(getUserAuth(baseUrl + 'auth/user'));
+    if (success) {
+      dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
+    } else {
+      dispatch(getUserAuth(baseUrl + 'auth/user'));
+    }
   }, [basketIngredients, success]);
 
   return (
@@ -172,7 +173,7 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
           size="large"
           onClick={() => {
             postRequest();
-            setNewIngredintmodal(true, 'constructor')
+            setUseModalState(true, 'constructor')
           }}
         >
           Оформить заказ
@@ -180,7 +181,7 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
       </div>
       }
       {bull && (
-        <Modal setNewIngredintmodal={setNewIngredintmodal}>
+        <Modal onClose={onClose}>
           <OrderDetails />
         </Modal>
       )}
@@ -189,7 +190,7 @@ function BurgerConstructor({ setNewIngredintmodal, bull }) {
 }
 
 BurgerConstructor.propTypes = {
-  setNewIngredintmodal: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 export default BurgerConstructor;

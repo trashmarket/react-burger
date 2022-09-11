@@ -38,7 +38,7 @@ const BurgerCard = React.memo((props) => {
             ingredientId: props.item._id
           }
         })
-        props.setNewIngredintmodal(props.item, 'ingredient')
+        props.setUseModalState(props.item, 'ingredient')
       }}
       ref={dragRef}
     >
