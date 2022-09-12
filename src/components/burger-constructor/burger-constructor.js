@@ -25,7 +25,7 @@ import {
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { baseUrl } from '../../utils/constants'
-import { getUserAuth, selectPerson } from '../../services/actions/person'
+import { getUserAuth, selectPerson, CLEAN_SUCCES_CONSTRUCTOR } from '../../services/actions/person'
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
 
@@ -36,10 +36,8 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   const {success, passRequestFailed} = useSelector(selectPerson);
   const history = useHistory();
   const location = useLocation();
-  const match = useRouteMatch()  
-
-
   const dispatch = useDispatch();
+
   const [collected, dropTarget] = useDrop({
     accept: "ingredient",
     drop(item) {
@@ -84,6 +82,10 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   );
   
   useEffect(() => {
+      // dispatch({
+      //   type: CLEAN_SUCCES_CONSTRUCTOR
+      // })
+      
     if (
       history.location?.pathname &&
       history.location?.state?.ingredientId &&
@@ -97,6 +99,13 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
 
   useEffect(() => {
 
+    if (passRequestFailed) {
+      history.replace({
+        pathname: '/login',
+        state: {fromLogin: [...selectedItems]}
+      })
+    }
+
     if (location.state?.fromLogin) {
       dispatch({
         type: GET_CURENT_LOCAL_STATE,
@@ -104,17 +113,16 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
       })
     }
     
-  }, [ passRequestFailed, basketIngredients, selectedItems])
+  }, [success, passRequestFailed, basketIngredients, selectedItems])
 
 
   const postRequest = useCallback(() => {
+    if (!success) {
+      dispatch(getUserAuth(baseUrl + 'auth/user'));
+    }
+    
     if (success) {
       dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
-    } else {
-      history.replace({
-        pathname: '/login',
-        state: {fromLogin: [...selectedItems]}
-      })
     }
   }, [basketIngredients, success]);
 
@@ -170,7 +178,9 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
           size="large"
           onClick={() => {
             postRequest();
-            setUseModalState(true, 'constructor')
+            if (success){
+              setUseModalState(true, 'constructor')
+            }
           }}
         >
           Оформить заказ

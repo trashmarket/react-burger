@@ -5,7 +5,7 @@ import {  NavLink, useLocation, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { postEmail } from '../../services/actions/password';
 import {  baseUrl } from '../../utils/constants';
-import { selectPerson } from '../../services/actions/person';
+import { selectPerson, getUserAuth } from '../../services/actions/person';
 
 
 function ResetPassworldPage() {
@@ -15,6 +15,11 @@ function ResetPassworldPage() {
   const { success, isLoaded } = useSelector(selectPerson);
 
   const location = useLocation();
+
+  useEffect(()=>{
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
+    console.log('hello')
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()

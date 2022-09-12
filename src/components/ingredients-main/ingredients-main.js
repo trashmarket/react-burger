@@ -7,15 +7,14 @@ import { getItems } from "../../services/actions/cart";
 
 export default function IngredientsMain() {
   const [item, setItem] = useState('');
-  const dispatch = useDispatch()
   const { 
     items
     } = useSelector((state) => state.cart);
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(getItems())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getItems())
+  // }, [])
   
   useEffect(() => {
     setItem(items.find(item => item._id === id));  

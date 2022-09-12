@@ -25,13 +25,9 @@ function App() {
   const background = location.state && location.state.background;
 
   useEffect(()=>{
-    dispatch(getUserAuth(baseUrl + 'auth/user'));
-    console.log('hello')
-  })
-
-  useEffect(()=>{
     dispatch(getItems());
   },[])
+  
   return (
     <>
         <AppHeader/>

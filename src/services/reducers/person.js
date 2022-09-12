@@ -2,13 +2,10 @@ import {
   APPLY_PERSON_REQUEST,
   APPLY_PERSON_FAILED,
   APPLY_PERSON_SUCCESS,
-  MAKE_PERSON_TOKE,
   APPLY_PERSON_EXIT_REQUEST,
   APPLY_PERSON_EXIT_FAILED,
   APPLY_PERSON_EXIT_SUCCESS,
-  APPLY_REFRESH_TOKEN_REQUEST,
-  APPLY_REFRESH_TOKEN_SUCCES,
-  APPLY_REFRESH_TOKEN_FAILED
+  CLEAN_SUCCES_CONSTRUCTOR
 } from '../actions/person'
 
 const initialState = {
@@ -30,6 +27,13 @@ const initialState = {
 
 const personReduser = (state = initialState, action) => {
   switch(action.type) {
+
+    case CLEAN_SUCCES_CONSTRUCTOR: {
+      return {
+        ...state,
+        success: false
+      }
+    }
 
     case APPLY_PERSON_REQUEST: {
       return {

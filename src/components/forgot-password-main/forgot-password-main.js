@@ -4,7 +4,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, NavLink, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { postEmail, selectPassword } from '../../services/actions/password';
-import { selectPerson } from '../../services/actions/person';
+import { selectPerson, getUserAuth } from '../../services/actions/person';
 import { baseUrl } from '../../utils/constants';
 
 
@@ -15,6 +15,11 @@ function ForgotPasswordMain() {
   const { isLoaded, success } = useSelector(selectPerson);
   const { passwordSuccess } = useSelector(selectPassword)
   const history = useHistory();
+
+  useEffect(()=>{
+    dispatch(getUserAuth(baseUrl + 'auth/user'));
+    console.log('hello')
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
