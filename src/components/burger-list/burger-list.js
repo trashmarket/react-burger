@@ -5,10 +5,9 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 import { sort } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../../services/actions/cart";
 import { GET_CURRENT_TAB } from "../../services/actions/cart";
 
-function BurgerList({ setNewIngredintmodal }) {
+function BurgerList({ setUseModalState }) {
   const dispatch = useDispatch();
   const { items, itemsRequest, itemsFailed, errorStatus, currentTabClick } =
     useSelector((state) => state.cart);
@@ -18,7 +17,7 @@ function BurgerList({ setNewIngredintmodal }) {
   const mainRef = useRef(null);
 
   useEffect(() => {
-    dispatch(getItems());
+    
     if (currentTabClick === "bun") {
       bunRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -74,7 +73,7 @@ function BurgerList({ setNewIngredintmodal }) {
               <BurgerCard
                 item={item}
                 key={item._id}
-                setNewIngredintmodal={setNewIngredintmodal}
+                setUseModalState={setUseModalState}
               />
             ))}
         </div>
@@ -90,7 +89,7 @@ function BurgerList({ setNewIngredintmodal }) {
               <BurgerCard
                 item={item}
                 key={item._id}
-                setNewIngredintmodal={setNewIngredintmodal}
+                setUseModalState={setUseModalState}
               />
             ))}
         </div>
@@ -106,7 +105,7 @@ function BurgerList({ setNewIngredintmodal }) {
               <BurgerCard
                 item={item}
                 key={item._id}
-                setNewIngredintmodal={setNewIngredintmodal}
+                setUseModalState={setUseModalState}
               />
             ))}
         </div>

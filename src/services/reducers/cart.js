@@ -13,7 +13,8 @@ import {
   GET_DROP_ITEM,
   GET_DROP_BUN,
   GET_DRAG_DROP_LI,
-  GET_CURRENT_CLICK_TAB
+  GET_CURRENT_CLICK_TAB,
+  GET_CURENT_LOCAL_STATE
 } from "../actions/cart";
 
 const initialState = {
@@ -138,6 +139,12 @@ export const cartReducer = (state = initialState, action) => {
           [action.dragIndex, 1],
           [action.hoverIndex, 0, state.selectedItems[action.dragIndex]]
         ]})
+      }
+    }
+    case GET_CURENT_LOCAL_STATE: {
+      return {
+        ...state,
+        selectedItems: action.locationState
       }
     }
     default: {

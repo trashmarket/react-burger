@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  padding-top: 120px;
+}
+
+.navWrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+}
+
+.navP {
+  width: 320px;
+  color: #8585AD;
+  opacity: 0.4;
+}
+
+.ul {
+  margin: 0;
+}
+
+.navLink {
+  color: #8585AD;
+}
+
+.navLinkActive {
+  color: #fff;
+}
+
+.inputWrapper > div {
+  margin-bottom: 24px;
+}
+
+.inputWrapper > div > div {
+  width: 480px;
+}

@@ -13,4 +13,7 @@
     position: absolute;
     right: 34px;
     top: 37px;
+    z-index: 1;
+    width: 24px;
+    height: 28px;
 }

@@ -8,9 +8,14 @@ import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import PropTypes from 'prop-types';
 import {ingredientType} from '../../utils/types';
+import { useLocation, useHistory } from 'react-router-dom';
+
 
 const BurgerCard = React.memo((props) => {
   const { selectedItems } = useSelector((state) => state.cart);
+  const location = useLocation();
+  const history = useHistory();
+
   const count = useMemo(() => {
     return [
       ...selectedItems.filter((item, index) => item.name === props.item.name),
@@ -26,7 +31,14 @@ const BurgerCard = React.memo((props) => {
     <div
       className={styles.card}
       onClick={() => {
-        props.setNewIngredintmodal(props.item, 'ingredient')
+        history.push({
+          pathname: '/ingredients/' + props.item._id,
+          state: { 
+            background: location,
+            ingredientId: props.item._id
+          }
+        })
+        props.setUseModalState(props.item, 'ingredient')
       }}
       ref={dragRef}
     >
@@ -43,7 +55,7 @@ const BurgerCard = React.memo((props) => {
         <CurrencyIcon className="ml-1" />
       </p>
       <p className="text text_type_main-default">{props.item.name}</p>
-      {count && <Counter count={count} size="default" />}
+      {count != 0 && <Counter count={count} size="default" />}
     </div>
   );
 });

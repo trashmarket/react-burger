@@ -6,30 +6,28 @@ import { modalType } from "../../utils/types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { GET_ITEM_CART } from "../../services/actions/cart";
+import {  useHistory } from 'react-router-dom';
+
 const modalRoot = document.getElementById("modal-root");
 
-function Modal(props) {
-  function handleEscClose(e) {
-    if (e.key === "Escape") {
-      props.setNewIngredintmodal(null)
-    }
-  }
-
+function Modal({ onClose, children }) {
   React.useEffect(() => {
-    document.addEventListener("keydown", handleEscClose);
+    document.addEventListener("keydown", onClose);
     return () => {
-      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("keydown", onClose);
     };
   }, []);
 
   return ReactDOM.createPortal(
-    <ModalOverlay setNewIngredintmodal={props.setNewIngredintmodal}>
+    <ModalOverlay onClose={onClose}>
       <div className={styles.modal}>
-        {props.children}
+        {children}
         <div
           className={styles.close}
-          onClick={() =>
-            props.setNewIngredintmodal(null)
+          onClick={(e) => {
+            onClose(e, 'button')
+          }
+            
           }
         >
           <CloseIcon type="primary" />

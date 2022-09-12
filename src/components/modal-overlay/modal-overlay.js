@@ -3,23 +3,20 @@ import styles from './modal-overlay.module.css';
 import {modalType} from "../../utils/types";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-function ModalOverlay(props){
-  const dispatch = useDispatch()
-    function clickOverlay(e) {
-        if (e.target.classList.contains(styles.overlay)){
-          props.setNewIngredintmodal(null)
-        }
-    }
+import {  useHistory } from 'react-router-dom';
 
-    return(
-        <div className={styles.overlay} onClick={clickOverlay}>
-            {props.children}
-        </div>
-    )
+function ModalOverlay({children, onClose}){
+
+
+  return(
+    <div className={styles.overlay} onClick={(e) => onClose(e, styles.overlay)}>
+      {children}
+    </div>
+  )
 }
 
 ModalOverlay.propTypes = {
-  setNewIngredintmodal: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired
 }
 
 export default ModalOverlay;
