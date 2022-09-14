@@ -8,7 +8,8 @@ import {
   ForgotPasswordPage,
   ResetPassworldPage,
   ProfilePage,
-  IngredientsPage
+  IngredientsPage,
+  FeedPage
 } from '../../pages'
 import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 import ProtectedRoute from '../protected-route';
@@ -32,27 +33,30 @@ function App() {
     <>
         <AppHeader/>
         <Switch location={background || location}>
-          <Route path='/ingredients/:id'>
-            <IngredientsPage/>
+          <Route path='/feed'exact>
+            <FeedPage/>
           </Route>
-          <Route path='/register'>
-            <RegisterPage/>
-          </Route>
-          <Route path='/login'>
-            <LoginPage/>
-          </Route>
-          <Route path='/reset-password'>
-            <ResetPassworldPage/>
-          </Route>
-          <Route path='/forgot-password'>
-            <ForgotPasswordPage/>
-          </Route>
-          <ProtectedRoute path='/profile'>
-            <ProfilePage/>
-          </ProtectedRoute>
-          <Route path='/'>
+          <Route path='/'exact>
             <Constructor/>
           </Route>
+          <Route path='/ingredients/:id'exact>
+            <IngredientsPage/>
+          </Route>
+          <Route path='/register'exact>
+            <RegisterPage/>
+          </Route>
+          <Route path='/login'exact>
+            <LoginPage/>
+          </Route>
+          <Route path='/reset-password'exact>
+            <ResetPassworldPage/>
+          </Route>
+          <Route path='/forgot-password'exact>
+            <ForgotPasswordPage/>
+          </Route>
+          <ProtectedRoute path='/profile'exact>
+            <ProfilePage/>
+          </ProtectedRoute>
         </Switch>
     </>
   );

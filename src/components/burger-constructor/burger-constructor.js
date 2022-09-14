@@ -1,7 +1,8 @@
 import React, {
   useMemo,
   useCallback,
-  useEffect
+  useEffect,
+  useState
 } from "react";
 import {
   ConstructorElement,
@@ -25,14 +26,15 @@ import {
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { baseUrl } from '../../utils/constants'
-import { getUserAuth, selectPerson, CLEAN_SUCCES_CONSTRUCTOR } from '../../services/actions/person'
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { getUserAuth, selectPerson } from '../../services/actions/person'
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 function BurgerConstructor({ setUseModalState, bull, onClose }) {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
+  const [orderButton, SetOrderButton] = useState(null);
   const {success, passRequestFailed} = useSelector(selectPerson);
   const history = useHistory();
   const location = useLocation();
@@ -98,27 +100,30 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   }, [])
 
   useEffect(() => {
-
-    if (passRequestFailed) {
-      history.replace({
-        pathname: '/login',
-        state: {fromLogin: [...selectedItems]}
-      })
-    }
-
-    if (location.state?.fromLogin) {
-      dispatch({
-        type: GET_CURENT_LOCAL_STATE,
-        locationState: location.state.fromLogin
-      })
+    if (orderButton) {
+      if (passRequestFailed) {
+        console.log('hello failed');
+        history.replace({
+          pathname: '/login',
+          state: {fromLogin: [...selectedItems]}
+        })
+      }
+  
+      if (location.state?.fromLogin) {
+        dispatch({
+          type: GET_CURENT_LOCAL_STATE,
+          locationState: location.state.fromLogin
+        })
+      }
     }
     
-  }, [success, passRequestFailed, basketIngredients, selectedItems])
+  }, [success, passRequestFailed, basketIngredients, selectedItems, orderButton])
 
 
   const postRequest = useCallback(() => {
     if (!success) {
       dispatch(getUserAuth(baseUrl + 'auth/user'));
+      SetOrderButton(true);
     }
     
     if (success) {
