@@ -34,8 +34,6 @@ export const wsReduser = (state = initionState, action) => {
         ...state,
         wsConnectede: false,
         oreders: [],
-        total: 0,
-        totalToday:0
       };
     }
 

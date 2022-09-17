@@ -5,4 +5,4 @@ export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR';
 export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED';
 export const WS_GET_ITEMS_MESSAGE = 'WS_GET_ITEMS_MESSAGE';
 
-export const selectOrders = state => state.orders
+export const selectOrders = state => state.wsSocketOrders

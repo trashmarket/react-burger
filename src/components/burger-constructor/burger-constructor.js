@@ -84,9 +84,6 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   );
   
   useEffect(() => {
-      // dispatch({
-      //   type: CLEAN_SUCCES_CONSTRUCTOR
-      // })
       
     if (
       history.location?.pathname &&

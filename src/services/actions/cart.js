@@ -16,6 +16,8 @@ export const GET_DRAG_DROP_LI = "GET_DRAG_DROP_LI";
 export const GET_CURRENT_CLICK_TAB = "GET_CURRENT_CLICK_TAB";
 export const GET_CURENT_LOCAL_STATE = "GET_CURENT_LOCAL_STATE";
 
+export const selectCart = state => state.cart
+
 export const getItems = () => (dispatch) => {
   dispatch({
     type: GET_ITEMS_REQUEST,

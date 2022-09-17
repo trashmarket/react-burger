@@ -8,5 +8,5 @@ export const rootReduser = combineReducers({
     cart: cartReducer,
     password: passReducer,
     person: personReduser,
-    orders: wsReduser
+    wsSocketOrders: wsReduser
 })
