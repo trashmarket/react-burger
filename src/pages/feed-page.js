@@ -1,7 +1,7 @@
 import FeedMain from '../components/feed-main/feed-main';
 
-function FeedPage() {
-  return <FeedMain/>
+function FeedPage(props) {
+  return <FeedMain {...props}/>
 }
 
 export { FeedPage }

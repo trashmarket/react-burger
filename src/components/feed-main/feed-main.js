@@ -11,8 +11,11 @@ import {
   useState
  } from 'react';
 import  OrdersList  from '../orders-list/orders-list';
+import Modal from "../modal/modal";
+import { OrderFullCard } from '../order-full-card/order-full-card';
 
-export default function FeedMain() {
+
+export default function FeedMain({setUseModalState, ingredient, onClose}) {
   const { orders, total, totalToday }  = useSelector(selectOrders);
   const { items } = useSelector(selectCart);
   const dispatch = useDispatch();
@@ -27,13 +30,13 @@ export default function FeedMain() {
       })
     }
   }, [dispatch])
-
+  
   return (
     <main className={styles.main}>
       <h1 className="text text_type_main-large mt-10">Лента заказов</h1>
       <section className={styles.section}>
         <div className={styles.ordersWrapper}>
-          <OrdersList orders={orders} itemsCart={items} />
+          <OrdersList orders={orders} itemsCart={items} setUseModalState={setUseModalState}/>
         </div>
         <div className={styles.generalInformation}>
           <div className={styles.generalInformationWraperList}>
@@ -64,6 +67,11 @@ export default function FeedMain() {
             <h3 className="text text_type_main-medium">Выполнено за сегодня:</h3>
             <p className={`${styles.totalPrice} text text_type_digits-large`}>{totalToday}</p>
         </div>
+        {ingredient && (
+        <Modal onClose={onClose}>
+          <OrderFullCard ingredient={ingredient}/>
+        </Modal>
+        )}
       </section>
     </main>
   );

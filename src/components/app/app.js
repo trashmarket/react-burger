@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect , useState} from "react";
 import { Provider, useDispatch } from "react-redux";
 import { store } from '../../services/store';
 import {
@@ -11,7 +11,7 @@ import {
   IngredientsPage,
   FeedPage
 } from '../../pages'
-import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import ProtectedRoute from '../protected-route';
 import AppHeader from "../app-header/app-header";
 import { getUserAuth, selectPerson } from '../../services/actions/person';
@@ -25,6 +25,41 @@ function App() {
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
+  const [ingredient, setIngredient] = useState(null);
+  const [constructor, setConstructor] = useState(false);
+  const history = useHistory()
+
+  function setUseModalState(item, typeState) {
+    item && "ingredient" === typeState
+      ? setIngredient(item)
+      : setIngredient(null);
+    item && "constructor" === typeState
+      ? setConstructor(item)
+      : setConstructor(false);
+  }
+
+  function goback(path) {
+    history.replace({
+      pathname: path
+    })
+    setUseModalState(null)    
+  }
+
+  function onClose(e, typeCode, path) {
+    if (e.key === "Escape") {
+      goback(path)
+    }
+
+    if (e.target.classList.contains(typeCode)){
+      goback(path)
+    }
+
+    if ('button' === typeCode) {
+      goback(path)
+    }
+
+  }
+
   useEffect(()=>{
     dispatch(getItems());
   },[])
@@ -34,10 +69,19 @@ function App() {
         <AppHeader/>
         <Switch location={background || location}>
           <Route path='/feed'exact>
-            <FeedPage/>
+            <FeedPage
+              setUseModalState={setUseModalState}
+              ingredient={ingredient}
+              onClose={onClose}
+            />
           </Route>
           <Route path='/'exact>
-            <Constructor/>
+            <Constructor
+             setUseModalState={setUseModalState}
+             ingredient={ingredient}
+             onClose={onClose}
+             constructor={constructor}
+             />
           </Route>
           <Route path='/ingredients/:id'exact>
             <IngredientsPage/>

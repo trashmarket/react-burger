@@ -1,6 +1,8 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, memo } from 'react';
 import styles from './orders-list.module.css';
+import { useLocation, useHistory } from 'react-router-dom';
+
 const countImgIngredients = (sortCarts, ingredients) => {
  return sortCarts.map( imagesItem => ingredients.reduce((acc, ingredientId)=>{
     if (imagesItem._id === ingredientId) {
@@ -8,20 +10,33 @@ const countImgIngredients = (sortCarts, ingredients) => {
         return {
           ...imagesItem,
           count: 2,
-          price: imagesItem.price * 2 
+          fullPrice: imagesItem.price * 2 
         }  
       }
       return {
         ...imagesItem,
         count: acc.count ? acc.count + 1 : 1,
-        price: acc.price ? acc.price + acc.price : imagesItem.price
+        fullPrice: acc.fullPrice ? acc.fullPrice + acc.price : imagesItem.price
       }  
     } else return acc
   },{}))
 }
 
-function OrdersList({ orders, itemsCart }) {
-  
+function OrdersList({ orders, itemsCart, setUseModalState }) {
+  const location = useLocation();
+  const history = useHistory();
+
+  const onClick = (item) => {
+    history.push({
+      pathname: '/feed/' + item._id,
+      state: { 
+        background: location,
+        ingredientId: item._id
+      }
+    })
+    setUseModalState(item, "ingredient")
+  }
+
   return (
     <ul>
       {orders.map(item => {
@@ -31,11 +46,17 @@ function OrdersList({ orders, itemsCart }) {
         const todayOrNotetoday = getDate() === 0 ? 'Сегодня' : getDate() === 1 ? 'Вчера' : getDate() + ' дня назад';   
         const time = date.toLocaleTimeString().split(':').slice(0, -1).join(':');
         const imagesItems = itemsCart.filter(({_id}) =>  item.ingredients.some(id => _id === id));
-        const cartIngredient = countImgIngredients(imagesItems, item.ingredients) //.reverse();
-        const costFull = cartIngredient.reduce((acc, currentItem)=> acc + currentItem.price ,0);
+        const cartIngredient = countImgIngredients(imagesItems, item.ingredients);
+        const costFull = cartIngredient.reduce((acc, currentItem)=> (acc + currentItem.fullPrice) ,0);
 
         return (
-        <li key={item._id} className={styles.conteiner}>
+        <li key={item._id} className={styles.conteiner} onClick={ () => onClick({
+          item,
+          cartIngredient,
+          time,
+          costFull,
+          todayOrNotetoday
+          })}>
           <div className={styles.numberWrapper}>
             <p className="text text_type_digits-default">{'#' + item.number}</p>
             <p className="text text_type_main-default text_color_inactive">{`${todayOrNotetoday} ${time} i-GMT+3`}</p>
