@@ -9,7 +9,8 @@ import {
   ResetPassworldPage,
   ProfilePage,
   IngredientsPage,
-  FeedPage
+  FeedPage,
+  OrderFullCardPage
 } from '../../pages'
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import ProtectedRoute from '../protected-route';
@@ -68,7 +69,11 @@ function App() {
     <>
         <AppHeader/>
         <Switch location={background || location}>
-          <Route path='/feed'exact>
+          <Route path='/feed/:id'exact>
+            {/* <OrderFullCardPage/> */}
+            <h1>hello</h1>
+          </Route>
+          <Route path='/feed'>
             <FeedPage
               setUseModalState={setUseModalState}
               ingredient={ingredient}

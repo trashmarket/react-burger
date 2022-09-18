@@ -22,11 +22,30 @@ const countImgIngredients = (sortCarts, ingredients) => {
   },{}))
 }
 
+export const createrOrderObject = (orderItem, itemsCart) => {
+  const date = new Date(orderItem.createdAt);
+  const nowDate = new Date();
+  const getDate = () => nowDate.getDate() - date.getDate();
+  const todayOrNotetoday = getDate() === 0 ? 'Сегодня' : getDate() === 1 ? 'Вчера' : getDate() + ' дня назад'; 
+  const time = date.toLocaleTimeString().split(':').slice(0, -1).join(':');
+  const imagesItems = itemsCart.filter(({_id}) =>  orderItem.ingredients.some(id => _id === id));
+  const cartIngredient = countImgIngredients(imagesItems, orderItem.ingredients);
+  const costFull = cartIngredient.reduce((acc, currentItem)=> (acc + currentItem.fullPrice) ,0);
+
+  return {
+    item: orderItem,
+    time: time,
+    costFull: costFull,
+    todayOrNotetoday: todayOrNotetoday,
+    cartIngredient: cartIngredient
+  }
+}
+
 function OrdersList({ orders, itemsCart, setUseModalState }) {
   const location = useLocation();
   const history = useHistory();
 
-  const onClick = (item) => {
+  const onClick = (itemObject, item) => {
     history.push({
       pathname: '/feed/' + item._id,
       state: { 
@@ -34,20 +53,19 @@ function OrdersList({ orders, itemsCart, setUseModalState }) {
         ingredientId: item._id
       }
     })
-    setUseModalState(item, "ingredient")
+    setUseModalState(itemObject, "ingredient")
   }
 
   return (
     <ul>
       {orders.map(item => {
-        const date = new Date(item.createdAt);
-        const nowDate = new Date();
-        const getDate = () => nowDate.getDate() - date.getDate();
-        const todayOrNotetoday = getDate() === 0 ? 'Сегодня' : getDate() === 1 ? 'Вчера' : getDate() + ' дня назад';   
-        const time = date.toLocaleTimeString().split(':').slice(0, -1).join(':');
-        const imagesItems = itemsCart.filter(({_id}) =>  item.ingredients.some(id => _id === id));
-        const cartIngredient = countImgIngredients(imagesItems, item.ingredients);
-        const costFull = cartIngredient.reduce((acc, currentItem)=> (acc + currentItem.fullPrice) ,0);
+
+       const  { 
+          time,
+          costFull,
+          todayOrNotetoday,
+          cartIngredient
+        } = createrOrderObject(item, itemsCart)
 
         return (
         <li key={item._id} className={styles.conteiner} onClick={ () => onClick({
@@ -56,7 +74,7 @@ function OrdersList({ orders, itemsCart, setUseModalState }) {
           time,
           costFull,
           todayOrNotetoday
-          })}>
+          }, item)}>
           <div className={styles.numberWrapper}>
             <p className="text text_type_digits-default">{'#' + item.number}</p>
             <p className="text text_type_main-default text_color_inactive">{`${todayOrNotetoday} ${time} i-GMT+3`}</p>

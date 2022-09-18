@@ -6,6 +6,7 @@ import { ResetPassworldPage } from './reset-password-page';
 import { ProfilePage } from './profile-page';
 import { IngredientsPage } from './ingredients-page';
 import { FeedPage } from './feed-page';
+import { OrderFullCardPage } from './order-full-card-page';
 
 export {
   Constructor,
@@ -15,6 +16,7 @@ export {
   ResetPassworldPage,
   ProfilePage,
   IngredientsPage,
-  FeedPage
+  FeedPage,
+  OrderFullCardPage
 }
 
