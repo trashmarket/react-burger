@@ -79,8 +79,7 @@ function App() {
             />
           </Route>
           <Route path='/feed/:id' exact>
-            {/* <OrderFullCardPage/> */}
-            <h1>hello</h1>
+            <OrderFullCardPage/>
           </Route>
           <Route path='/'exact>
             <Constructor

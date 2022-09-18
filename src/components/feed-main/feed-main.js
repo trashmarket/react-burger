@@ -13,12 +13,26 @@ import {
 import  OrdersList  from '../orders-list/orders-list';
 import Modal from "../modal/modal";
 import { OrderFullCard } from '../order-full-card/order-full-card';
+import { Route, useLocation, useHistory } from 'react-router-dom';
 
 
 export default function FeedMain({setUseModalState, ingredient, onClose}) {
   const { orders, total, totalToday }  = useSelector(selectOrders);
   const { items } = useSelector(selectCart);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  useEffect(()=>{
+    if (
+      history.location?.pathname &&
+      history.location?.state?.ingredientId &&
+      history.location.pathname.indexOf(history.location.state.ingredientId)
+    ) {
+      history.replace({
+        pathname: history.location.pathname,
+      });
+    }
+  }, [])
 
   useEffect(() => {
     dispatch({
