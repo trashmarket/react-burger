@@ -63,22 +63,24 @@ function App() {
 
   useEffect(()=>{
     dispatch(getItems());
+    console.log(background)
   },[])
   
   return (
     <>
         <AppHeader/>
         <Switch location={background || location}>
-          <Route path='/feed/:id'exact>
-            {/* <OrderFullCardPage/> */}
-            <h1>hello</h1>
-          </Route>
-          <Route path='/feed'>
+
+          <Route path='/feed' exact>
             <FeedPage
               setUseModalState={setUseModalState}
               ingredient={ingredient}
               onClose={onClose}
             />
+          </Route>
+          <Route path='/feed/:id' exact>
+            {/* <OrderFullCardPage/> */}
+            <h1>hello</h1>
           </Route>
           <Route path='/'exact>
             <Constructor
