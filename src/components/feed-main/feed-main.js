@@ -39,6 +39,8 @@ export default function FeedMain({setUseModalState, ingredient, onClose}) {
       type: WS_CONNECTION_START_ALL_ORDER
     })
     return () => {
+      console.log('hellofeddClosed')
+
       dispatch({
         type: WS_CONNECTION_CLOSED
       })

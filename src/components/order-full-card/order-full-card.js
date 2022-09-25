@@ -5,7 +5,7 @@ import styles from './order-full-card.module.css';
 function OrderFullCard({ingredient}) {
   console.log(ingredient.cartIngredient)
   return (
-    <>
+    <div className={styles.continer}>
       <p className={`text text_type_digits-default ${styles.number}`}>#{ingredient.item.number}</p>
       <h3 className="text text_type_main-medium">{ingredient.item.name}</h3>
       <p className={`${styles.color} text text_type_main-small`} >Выполнен</p>
@@ -40,7 +40,7 @@ function OrderFullCard({ingredient}) {
           <CurrencyIcon type="primary"/>
         </span>
       </p>
-    </>
+    </div>
   )
   
 }

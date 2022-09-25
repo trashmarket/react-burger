@@ -181,6 +181,12 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
           onClick={() => {
             postRequest();
             if (success){
+              history.push({
+                pathname: '/ingredients/' + 'order',
+                state: { 
+                  background: location,
+                }
+              })
               setUseModalState(true, 'constructor')
             }
           }}

@@ -7,6 +7,7 @@ import {
 
  const initionState = {
   wsConnectede: false,
+  getItemsSucces: false,
   orders: [],
   total: 0,
   totalToday: 0
@@ -42,7 +43,8 @@ export const wsReduser = (state = initionState, action) => {
         ...state,
         orders: action.restParsedData.orders,
         total: action.restParsedData.total,
-        totalToday: action.restParsedData.totalToday
+        totalToday: action.restParsedData.totalToday,
+        getItemsSucces: true
       };
     }
 

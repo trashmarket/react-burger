@@ -17,7 +17,7 @@ export const socketMiddleware = (wsUrl) => {
       const { type } = action;
       
       if ( type === WS_CONNECTION_START_ALL_ORDER ) {
-        socket = new WebSocket(wsUrl + 'all');
+        socket = new WebSocket(wsUrl + '/' + 'all');
       }
 
       if ( type === WS_CONNECTION_START_PRIVATE_ORDER ) {
@@ -41,11 +41,11 @@ export const socketMiddleware = (wsUrl) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-
           dispatch({ type: WS_GET_ITEMS_MESSAGE, restParsedData });
         };
 
         socket.onclose = event => {
+          console.log('helloCloseSocket')
           dispatch({ type: WS_CONNECTION_CLOSED, payload: event });
           socket = null 
         };

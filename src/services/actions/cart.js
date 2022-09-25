@@ -1,6 +1,6 @@
 import { baseUrl } from "../../utils/constants";
 import { checkResponse } from "../../utils/utils";
-import { postRequest } from "../../utils/request"
+import { postRequest, postOrderRequest } from "../../utils/request"
 export const GET_ITEMS_FAILED = "GET_ITEMS_FAILED";
 export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
@@ -44,7 +44,7 @@ export const postOrder = (url, ingredientsId) => (dispatch) => {
     type: APPLY_ORDER_DETAILS_REQUEST,
   });
 
-  postRequest(url, ingredientsId)
+  postOrderRequest(url, ingredientsId)
     .then(checkResponse)
     .then((result) =>
       dispatch({

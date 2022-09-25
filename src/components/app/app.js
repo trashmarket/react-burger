@@ -10,7 +10,8 @@ import {
   ProfilePage,
   IngredientsPage,
   FeedPage,
-  OrderFullCardPage
+  OrderFullCardPage,
+  ProfileOrderPage
 } from '../../pages'
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import ProtectedRoute from '../protected-route';
@@ -106,6 +107,9 @@ function App() {
           </Route>
           <ProtectedRoute path='/profile'exact>
             <ProfilePage/>
+          </ProtectedRoute>
+          <ProtectedRoute path='/profile/orders' exact>
+            <ProfileOrderPage/>
           </ProtectedRoute>
         </Switch>
     </>

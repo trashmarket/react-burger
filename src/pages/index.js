@@ -7,6 +7,7 @@ import { ProfilePage } from './profile-page';
 import { IngredientsPage } from './ingredients-page';
 import { FeedPage } from './feed-page';
 import { OrderFullCardPage } from './order-full-card-page';
+import { ProfileOrderPage } from './profile-orders-page';
 
 export {
   Constructor,
@@ -17,6 +18,7 @@ export {
   ProfilePage,
   IngredientsPage,
   FeedPage,
-  OrderFullCardPage
+  OrderFullCardPage,
+  ProfileOrderPage
 }
 

@@ -17,7 +17,7 @@ function Modal({ onClose, children }) {
   React.useEffect(() => {
     document.addEventListener("keydown", (e) => onClose(e, null, background.pathname));
     return () => {
-      document.removeEventListener("keydown", (e) => onClose(e, null, background.pathname));
+    document.removeEventListener("keydown", (e) => onClose(e, null, background.pathname));
     };
   }, []);
 
