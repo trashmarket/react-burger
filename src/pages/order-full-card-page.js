@@ -2,8 +2,8 @@ import { useEffect, useState, useMemo } from 'react';
 import { OrderFullCard } from '../components/order-full-card/order-full-card';
 import {
   selectOrders,
-  WS_CONNECTION_START_ALL_ORDER,
-  WS_CONNECTION_CLOSED
+  WS_CONNECTION_START_ALL,
+  WS_CLOSE
   } from '../services/actions/ws-action';
 import { selectCart } from '../services/actions/cart'
 import { useParams } from 'react-router-dom';
@@ -20,12 +20,12 @@ export function OrderFullCardPage() {
 
   useEffect(() => {
     dispatch({
-      type: WS_CONNECTION_START_ALL_ORDER
+      type: WS_CONNECTION_START_ALL
     })
 
     return () => {
       dispatch({
-        type: WS_CONNECTION_CLOSED
+        type: WS_CLOSE
       })
     }
   }, [])

@@ -1,14 +1,13 @@
 import {
-  WS_CONNECTION_START_ALL_ORDER,
-  WS_CONNECTION_START_PRIVATE_ORDER,
   WS_GET_ITEMS_MESSAGE,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED
+  WS_CONNECTION_CLOSED,
+  WS_CLOSE
 } from "../actions/ws-action";
 import { getCookie } from '../../utils/utils'
 
-export const socketMiddleware = (wsUrl) => {
+export const socketMiddleware = (wsUrl, typeAction, isAuth = false) => {
   return store => {
     let socket = null;
 
@@ -16,15 +15,9 @@ export const socketMiddleware = (wsUrl) => {
       const { dispatch, getState } = store;
       const { type } = action;
       
-      if ( type === WS_CONNECTION_START_ALL_ORDER ) {
-        socket = new WebSocket(wsUrl + '/' + 'all');
-      }
-
-      if ( type === WS_CONNECTION_START_PRIVATE_ORDER ) {
-        socket = new WebSocket(wsUrl + '?token=' + getCookie('token'));
-      }
-
-      if ( type === WS_CONNECTION_CLOSED && socket) {
+      if ( type === typeAction ) {
+        socket = isAuth ? new WebSocket(wsUrl + '?token=' + getCookie('token')) : new WebSocket(wsUrl + '/' + 'all');
+      } else if ( type === WS_CLOSE && socket) {
         socket.close();
       }
 

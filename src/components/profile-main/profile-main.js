@@ -6,6 +6,7 @@ import styles from './profile-main.module.css';
 import { patchUserAuth, postLogOut } from '../../services/actions/person';
 import {baseUrl} from '../../utils/constants';
 import { getCookie } from '../../utils/utils';
+import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 
 const selectPerson = state => state.person;
 

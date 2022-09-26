@@ -2,8 +2,8 @@ import styles from './feed-main.module.css';
 import { useSelector, useDispatch} from 'react-redux';
 import {
   selectOrders,
-  WS_CONNECTION_START_ALL_ORDER,
-  WS_CONNECTION_CLOSED
+  WS_CONNECTION_START_ALL,
+  WS_CLOSE
   } from '../../services/actions/ws-action';
 import { selectCart } from '../../services/actions/cart'
 import { 
@@ -14,7 +14,6 @@ import  OrdersList  from '../orders-list/orders-list';
 import Modal from "../modal/modal";
 import { OrderFullCard } from '../order-full-card/order-full-card';
 import { Route, useLocation, useHistory } from 'react-router-dom';
-
 
 export default function FeedMain({setUseModalState, ingredient, onClose}) {
   const { orders, total, totalToday }  = useSelector(selectOrders);
@@ -35,14 +34,16 @@ export default function FeedMain({setUseModalState, ingredient, onClose}) {
   }, [])
 
   useEffect(() => {
+    console.log('hellofeddOpened')
+
     dispatch({
-      type: WS_CONNECTION_START_ALL_ORDER
+      type: WS_CONNECTION_START_ALL
     })
     return () => {
       console.log('hellofeddClosed')
 
       dispatch({
-        type: WS_CONNECTION_CLOSED
+        type: WS_CLOSE
       })
     }
   }, [dispatch])
