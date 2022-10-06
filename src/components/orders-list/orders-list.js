@@ -48,7 +48,7 @@ function OrdersList({ orders, itemsCart, setUseModalState }) {
 
   const onClick = (itemObject, item) => {
     history.push({
-      pathname: path + item._id,
+      pathname: path + '/' + item._id,
       state: { 
         background: location,
         ingredientId: item._id,

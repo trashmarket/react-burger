@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createrOrderObject } from '../components/orders-list/orders-list'
 import styles from './order-full-card-page.module.css'
 
-export function OrderFullCardPage() {
+export function OrderFullCardPage({ action }) {
   const { orders, getItemsSucces }  = useSelector(selectOrders);
   const { items } = useSelector(selectCart);
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export function OrderFullCardPage() {
 
   useEffect(() => {
     dispatch({
-      type: WS_CONNECTION_START_ALL
+      type: action
     })
 
     return () => {

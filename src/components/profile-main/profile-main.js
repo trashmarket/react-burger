@@ -30,7 +30,9 @@ function ProfileMain(props) {
       history.location?.state?.ingredientId &&
       history.location.pathname.indexOf(history.location.state.ingredientId)
     ) {
-      props.setUseModalState(history.location.state.itemObject, "ingredient")
+      history.replace({
+        pathname: history.location.pathname,
+      });
     }
   }, [])
 

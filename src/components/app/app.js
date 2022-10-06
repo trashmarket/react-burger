@@ -19,7 +19,7 @@ import AppHeader from "../app-header/app-header";
 import { getUserAuth, selectPerson } from '../../services/actions/person';
 import { baseUrl } from '../../utils/constants';
 import { getItems } from "../../services/actions/cart";
-import { WS_CONNECTION_START_ALL } from '../../services/actions/ws-action'
+import { WS_CONNECTION_START_ALL, WS_CONNECTION_START_PRIVET } from '../../services/actions/ws-action'
 
 
 function App() {
@@ -79,7 +79,7 @@ function App() {
           />
         </Route>
         <Route path="/feed/:id" exact>
-          <OrderFullCardPage />
+          <OrderFullCardPage action={WS_CONNECTION_START_ALL}/>
         </Route>
         <Route path="/" exact>
           <Constructor
@@ -103,6 +103,9 @@ function App() {
         </Route>
         <Route path="/forgot-password" exact>
           <ForgotPasswordPage />
+        </Route>
+        <Route path="/profile/orders/:id" exact>
+          <OrderFullCardPage action={WS_CONNECTION_START_PRIVET}/>
         </Route>
         <ProtectedRoute path="/profile">
           <ProfilePage
