@@ -40,7 +40,7 @@ const checkResponse = (response) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
- function deleteCookie(name) {
+function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 }
 

@@ -1,28 +1,47 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react";
+import OrdersList from "../components/orders-list/orders-list";
+import { selectCart } from "../services/actions/cart"
 import {
   selectOrders,
   WS_CONNECTION_START_PRIVET,
   WS_CLOSE
   } from './../services/actions/ws-action';
 import { useSelector, useDispatch} from 'react-redux';
-  
-export function ProfileOrderPage() {
+import { getCookie } from '../utils/utils'
+import styles from './profile-orders-page.module.css';
+
+
+export function ProfileOrderPage({setUseModalState}) {
   const dispatch = useDispatch();
+  const { items } = useSelector(selectCart);
   const { orders } = useSelector(selectOrders);
+  const [ordersReverse, setOrderReverse] = useState(null);
+
 
   useEffect(()=>{
     dispatch({
       type: WS_CONNECTION_START_PRIVET
     })
-
+    console.log(getCookie('token'))
     return () => {
-      console.log('helloProfileClosed')
-
       dispatch({
         type: WS_CLOSE
       })
     }
   },[])
 
-  return (<h1>Hello</h1>)
+  useEffect(() => {
+    setOrderReverse(orders.reverse())
+  }, [orders])
+
+  return (
+    ordersReverse &&
+    <div className={styles.ordersWrapper}>
+      <OrdersList
+        orders={ordersReverse}
+        itemsCart={items}
+        setUseModalState={setUseModalState}
+      />
+    </div>
+  );
 }

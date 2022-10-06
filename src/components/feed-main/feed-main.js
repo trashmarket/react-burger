@@ -19,7 +19,6 @@ export default function FeedMain({setUseModalState, ingredient, onClose}) {
   const { orders, total, totalToday }  = useSelector(selectOrders);
   const { items } = useSelector(selectCart);
   const dispatch = useDispatch();
-  const location = useLocation();
   const history = useHistory();
   useEffect(()=>{
     if (

@@ -19,7 +19,7 @@ import AppHeader from "../app-header/app-header";
 import { getUserAuth, selectPerson } from '../../services/actions/person';
 import { baseUrl } from '../../utils/constants';
 import { getItems } from "../../services/actions/cart";
-
+import { WS_CONNECTION_START_ALL } from '../../services/actions/ws-action'
 
 
 function App() {
@@ -69,49 +69,49 @@ function App() {
   
   return (
     <>
-        <AppHeader/>
-        <Switch location={background || location}>
-
-          <Route path='/feed' exact>
-            <FeedPage
-              setUseModalState={setUseModalState}
-              ingredient={ingredient}
-              onClose={onClose}
-            />
-          </Route>
-          <Route path='/feed/:id' exact>
-            <OrderFullCardPage/>
-          </Route>
-          <Route path='/'exact>
-            <Constructor
-             setUseModalState={setUseModalState}
-             ingredient={ingredient}
-             onClose={onClose}
-             constructor={constructor}
-             />
-          </Route>
-          <Route path='/ingredients/:id'exact>
-            <IngredientsPage/>
-          </Route>
-          <Route path='/register'exact>
-            <RegisterPage/>
-          </Route>
-          <Route path='/login'exact>
-            <LoginPage/>
-          </Route>
-          <Route path='/reset-password'exact>
-            <ResetPassworldPage/>
-          </Route>
-          <Route path='/forgot-password'exact>
-            <ForgotPasswordPage/>
-          </Route>
-          <ProtectedRoute path='/profile'exact>
-            <ProfilePage/>
-          </ProtectedRoute>
-          <ProtectedRoute path='/profile/orders' exact>
-            <ProfileOrderPage/>
-          </ProtectedRoute>
-        </Switch>
+      <AppHeader />
+      <Switch location={background || location}>
+        <Route path="/feed" exact>
+          <FeedPage
+            setUseModalState={setUseModalState}
+            ingredient={ingredient}
+            onClose={onClose}
+          />
+        </Route>
+        <Route path="/feed/:id" exact>
+          <OrderFullCardPage />
+        </Route>
+        <Route path="/" exact>
+          <Constructor
+            setUseModalState={setUseModalState}
+            ingredient={ingredient}
+            onClose={onClose}
+            constructor={constructor}
+          />
+        </Route>
+        <Route path="/ingredients/:id" exact>
+          <IngredientsPage />
+        </Route>
+        <Route path="/register" exact>
+          <RegisterPage />
+        </Route>
+        <Route path="/login" exact>
+          <LoginPage />
+        </Route>
+        <Route path="/reset-password" exact>
+          <ResetPassworldPage />
+        </Route>
+        <Route path="/forgot-password" exact>
+          <ForgotPasswordPage />
+        </Route>
+        <ProtectedRoute path="/profile">
+          <ProfilePage
+            setUseModalState={setUseModalState}
+            ingredient={ingredient}
+            onClose={onClose}
+          />
+        </ProtectedRoute>
+      </Switch>
     </>
   );
 }

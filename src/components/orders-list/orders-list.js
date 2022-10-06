@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, memo } from 'react';
 import styles from './orders-list.module.css';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 
 const countImgIngredients = (sortCarts, ingredients) => {
  return sortCarts.map( imagesItem => ingredients.reduce((acc, ingredientId)=>{
@@ -25,7 +25,7 @@ const countImgIngredients = (sortCarts, ingredients) => {
 export const createrOrderObject = (orderItem, itemsCart) => {
   const date = new Date(orderItem.createdAt);
   const nowDate = new Date();
-  const getDate = () => nowDate.getDate() - date.getDate();
+  const getDate = () => Math.round((Date.parse(new Date) - Date.parse(orderItem.createdAt)) / 86400000 );
   const todayOrNotetoday = getDate() === 0 ? 'Сегодня' : getDate() === 1 ? 'Вчера' : getDate() + ' дня назад'; 
   const time = date.toLocaleTimeString().split(':').slice(0, -1).join(':');
   const imagesItems = itemsCart.filter(({_id}) =>  orderItem.ingredients.some(id => _id === id));
@@ -44,13 +44,15 @@ export const createrOrderObject = (orderItem, itemsCart) => {
 function OrdersList({ orders, itemsCart, setUseModalState }) {
   const location = useLocation();
   const history = useHistory();
+  const { path } = useRouteMatch();
 
   const onClick = (itemObject, item) => {
     history.push({
-      pathname: '/feed/' + item._id,
+      pathname: path + item._id,
       state: { 
         background: location,
-        ingredientId: item._id
+        ingredientId: item._id,
+        itemObject
       }
     })
     setUseModalState(itemObject, "ingredient")

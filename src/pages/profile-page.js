@@ -1,8 +1,8 @@
 import ProfileMain from "../components/profile-main/profile-main"
 
-function ProfilePage() {
+function ProfilePage(props) {
 
-  return (<ProfileMain />);
+  return (<ProfileMain {...props}/>);
 }
 
 export {ProfilePage};

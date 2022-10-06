@@ -1,6 +1,5 @@
 import { postRequest, getUserRequest, patchUserRequest, upadateToken } from "../../utils/request"
-import { checkResponse, setCookieCompleteDoble } from "../../utils/utils";
-import { setCookie } from '../../utils/utils'
+import { checkResponse, setCookieCompleteDoble, deleteCookie } from "../../utils/utils";
 import { authToken } from '../../utils/constants'
 
 export const APPLY_PERSON_REQUEST = 'APPLY_NEW_PERSON_REQUEST';
@@ -70,7 +69,6 @@ return function updateUserAction(dispatch) {
   getUserRequest(url)
     .then(checkResponse)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: APPLY_PERSON_SUCCESS,
         person: res,
@@ -84,6 +82,7 @@ return function updateUserAction(dispatch) {
         });
         return;
       }
+
       dispatch({
         type: APPLY_PERSON_FAILED,
       });
