@@ -38,7 +38,6 @@ export const socketMiddleware = (wsUrl, typeAction, isAuth = false) => {
         };
 
         socket.onclose = event => {
-          console.log('helloCloseSocket')
           dispatch({ type: WS_CONNECTION_CLOSED, payload: event });
           socket = null 
         };

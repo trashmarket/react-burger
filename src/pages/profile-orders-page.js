@@ -7,7 +7,6 @@ import {
   WS_CLOSE
   } from './../services/actions/ws-action';
 import { useSelector, useDispatch} from 'react-redux';
-import { getCookie } from '../utils/utils'
 import styles from './profile-orders-page.module.css';
 
 
@@ -22,7 +21,6 @@ export function ProfileOrderPage({setUseModalState}) {
     dispatch({
       type: WS_CONNECTION_START_PRIVET
     })
-    console.log(getCookie('token'))
     return () => {
       dispatch({
         type: WS_CLOSE

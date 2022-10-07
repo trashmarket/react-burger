@@ -64,7 +64,6 @@ function App() {
 
   useEffect(()=>{
     dispatch(getItems());
-    console.log(background)
   },[])
   
   return (

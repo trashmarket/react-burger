@@ -33,14 +33,10 @@ export default function FeedMain({setUseModalState, ingredient, onClose}) {
   }, [])
 
   useEffect(() => {
-    console.log('hellofeddOpened')
-
     dispatch({
       type: WS_CONNECTION_START_ALL
     })
     return () => {
-      console.log('hellofeddClosed')
-
       dispatch({
         type: WS_CLOSE
       })

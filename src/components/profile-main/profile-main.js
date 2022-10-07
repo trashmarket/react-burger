@@ -45,7 +45,6 @@ function ProfileMain(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.type)
     setValueEmail('...сохранение');
     setValueName('...сохранение');
     dispatch(patchUserAuth(baseUrl + 'auth/user', {
