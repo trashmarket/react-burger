@@ -104,9 +104,9 @@ function App() {
         <Route path="/forgot-password" exact>
           <ForgotPasswordPage />
         </Route>
-        <Route path="/profile/orders/:id" exact>
+        <ProtectedRoute path="/profile/orders/:id" exact>
           <OrderFullCardPage action={WS_CONNECTION_START_PRIVET}/>
-        </Route>
+        </ProtectedRoute>
         <ProtectedRoute path="/profile">
           <ProfilePage
             setUseModalState={setUseModalState}

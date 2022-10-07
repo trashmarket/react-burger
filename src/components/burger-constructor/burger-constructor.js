@@ -97,30 +97,32 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   }, [])
 
   useEffect(() => {
-    if (orderButton) {
-      if (passRequestFailed) {
-        console.log('hello failed');
-        history.replace({
-          pathname: '/login',
-          state: {fromLogin: [...selectedItems]}
-        })
-      }
-  
-      if (location.state?.fromLogin) {
-        dispatch({
-          type: GET_CURENT_LOCAL_STATE,
-          locationState: location.state.fromLogin
-        })
-      }
+    if (passRequestFailed) {
+      console.log("hello failed");
+      history.replace({
+        pathname: "/login",
+        state: { fromLogin: [...selectedItems] },
+      });
     }
-    
-  }, [success, passRequestFailed, basketIngredients, selectedItems, orderButton])
+
+    if (location.state?.fromLogin) {
+      dispatch({
+        type: GET_CURENT_LOCAL_STATE,
+        locationState: location.state.fromLogin,
+      });
+    }
+  }, [
+    success,
+    passRequestFailed,
+    basketIngredients,
+    selectedItems,
+    orderButton,
+  ]);
 
 
   const postRequest = useCallback(() => {
     if (!success) {
       dispatch(getUserAuth(baseUrl + 'auth/user'));
-      SetOrderButton(true);
     }
     
     if (success) {
