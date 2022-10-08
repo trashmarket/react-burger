@@ -21,7 +21,6 @@ export const postPerson = (url, form) => (dispatch) => {
   postRequest(url, form)
     .then(checkResponse)
     .then((res) => {
-      console.log(res)
       dispatch({
         type: APPLY_PERSON_SUCCESS,
         person: res,
@@ -33,7 +32,6 @@ export const postPerson = (url, form) => (dispatch) => {
       dispatch({
         type: APPLY_PERSON_FAILED,
       });
-      console.log(error);
     });
   }
 
@@ -54,7 +52,6 @@ export const postLogOut = (url, refreshToken) => (dispatch) => {
       dispatch({
         type: APPLY_PERSON_EXIT_FAILED
       })
-      console.log(error);
     });
 }
 
@@ -88,7 +85,6 @@ return function updateUserAction(dispatch) {
       dispatch({
         type: APPLY_PERSON_FAILED,
       });
-      console.log(error);
     });
 };
 }
@@ -118,7 +114,6 @@ export const patchUserAuth = (url, body) => {
       dispatch({
         type: APPLY_PERSON_FAILED
       });
-      console.log(error);
     })  
 }
 }

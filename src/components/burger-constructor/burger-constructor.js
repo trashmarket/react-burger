@@ -34,7 +34,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
-  const [orderButton, SetOrderButton] = useState(null);
+  const [orderButton, setOrderButton] = useState(null);
   const {success, passRequestFailed} = useSelector(selectPerson);
   const history = useHistory();
   const location = useLocation();
@@ -97,12 +97,15 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   }, [])
 
   useEffect(() => {
-    if (passRequestFailed) {
-      console.log("hello failed");
+    if (passRequestFailed && basketIngredients.ingredientsId.length && orderButton) {
       history.replace({
         pathname: "/login",
         state: { fromLogin: [...selectedItems] },
       });
+    }
+
+    if (success && basketIngredients.ingredientsId.length && orderButton && selectedItems.length) {
+      dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
     }
 
     if (location.state?.fromLogin) {
@@ -111,6 +114,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
         locationState: location.state.fromLogin,
       });
     }
+    
   }, [
     success,
     passRequestFailed,
@@ -124,10 +128,11 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
     if (!success) {
       dispatch(getUserAuth(baseUrl + 'auth/user'));
     }
-    
+  
     if (success) {
-      dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
+      // dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
     }
+    setOrderButton(true)
   }, [basketIngredients, success]);
 
   return (
@@ -182,7 +187,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
           size="large"
           onClick={() => {
             postRequest();
-            if (success){
+
               history.push({
                 pathname: '/ingredients/' + 'order',
                 state: { 
@@ -190,7 +195,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
                 }
               })
               setUseModalState(true, 'constructor')
-            }
+
           }}
         >
           Оформить заказ
