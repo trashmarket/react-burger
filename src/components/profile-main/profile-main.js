@@ -1,39 +1,29 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './profile-main.module.css';
 import { patchUserAuth, postLogOut } from '../../services/actions/person';
 import {baseUrl} from '../../utils/constants';
-import { getCookie } from '../../utils/utils';
-import { BrowserRouter as Router, Switch, Route, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import { getCookie, checkHistory } from '../../utils/utils';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { ProfileOrderPage } from '../../pages/profile-orders-page'
 import Modal from '../modal/modal';
 import { OrderFullCard } from '../order-full-card/order-full-card';
-import OrderDetails from "../order-details/order-details";
+
 const selectPerson = state => state.person;
 
 function ProfileMain(props) {
   const [valueName, setValueName] = useState('...загрузка');
   const [valuePass, setValuePass] = useState('');
   const [valueEmail, setValueEmail] = useState('...загрузка');
-  const location = useLocation();
-  const background = location.state?.background;
   const history = useHistory();
 
   const dispatch = useDispatch();
   const personStore = useSelector(selectPerson);
 
   useEffect(()=>{
-    if (
-      history.location?.pathname &&
-      history.location?.state?.ingredientId &&
-      history.location.pathname.indexOf(history.location.state.ingredientId)
-    ) {
-      history.replace({
-        pathname: history.location.pathname,
-      });
-    }
+    checkHistory(history)
   }, [])
 
   useEffect(() => {

@@ -74,8 +74,6 @@ return function updateUserAction(dispatch) {
     .catch((error) => {
       if (error.message === "jwt expired") {
         upadateToken().then((res) => {
-          deleteCookie('token');
-          deleteCookie('refreshToken');
           setCookieCompleteDoble(res);
           updateUserAction(dispatch);
         });

@@ -28,6 +28,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { baseUrl } from '../../utils/constants'
 import { getUserAuth, selectPerson } from '../../services/actions/person'
 import { useHistory, useLocation } from 'react-router-dom';
+import { checkHistory } from '../../utils/utils' 
 
 
 function BurgerConstructor({ setUseModalState, bull, onClose }) {
@@ -84,16 +85,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   );
   
   useEffect(() => {
-      
-    if (
-      history.location?.pathname &&
-      history.location?.state?.ingredientId &&
-      history.location.pathname.indexOf(history.location.state.ingredientId)
-    ) {
-      history.replace({
-        pathname: history.location.pathname,
-      });
-    }
+    checkHistory(history);
   }, [])
 
   useEffect(() => {
@@ -129,9 +121,6 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
       dispatch(getUserAuth(baseUrl + 'auth/user'));
     }
   
-    if (success) {
-      // dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
-    }
     setOrderButton(true)
   }, [basketIngredients, success]);
 
@@ -189,11 +178,11 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
             postRequest();
 
               history.push({
-                pathname: '/ingredients/' + 'order',
-                state: { 
+                pathname: "/ingredients/" + "order",
+                state: {
                   background: location,
-                }
-              })
+                },
+              });
               setUseModalState(true, 'constructor')
 
           }}

@@ -3,7 +3,6 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import styles from './order-full-card.module.css';
 
 function OrderFullCard({ingredient}) {
-  console.log(ingredient.cartIngredient)
   return (
     <div className={styles.continer}>
       <p className={`text text_type_digits-default ${styles.number}`}>#{ingredient.item.number}</p>

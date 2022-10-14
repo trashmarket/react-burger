@@ -7,13 +7,13 @@ import {
   } from '../../services/actions/ws-action';
 import { selectCart } from '../../services/actions/cart'
 import { 
-  useEffect,
-  useState
+  useEffect
  } from 'react';
 import  OrdersList  from '../orders-list/orders-list';
 import Modal from "../modal/modal";
 import { OrderFullCard } from '../order-full-card/order-full-card';
-import { Route, useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { checkHistory } from '../../utils/utils'
 
 export default function FeedMain({setUseModalState, ingredient, onClose}) {
   const { orders, total, totalToday }  = useSelector(selectOrders);
@@ -21,15 +21,7 @@ export default function FeedMain({setUseModalState, ingredient, onClose}) {
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(()=>{
-    if (
-      history.location?.pathname &&
-      history.location?.state?.ingredientId &&
-      history.location.pathname.indexOf(history.location.state.ingredientId)
-    ) {
-      history.replace({
-        pathname: history.location.pathname,
-      });
-    }
+    checkHistory(history);
   }, [])
 
   useEffect(() => {
