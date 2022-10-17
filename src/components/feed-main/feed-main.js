@@ -26,7 +26,8 @@ export default function FeedMain({setUseModalState, ingredient, onClose}) {
 
   useEffect(() => {
     dispatch({
-      type: WS_CONNECTION_START_ALL
+      type: WS_CONNECTION_START_ALL,
+      payload: '/all'
     })
     return () => {
       dispatch({

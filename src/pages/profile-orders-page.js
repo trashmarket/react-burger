@@ -3,7 +3,7 @@ import OrdersList from "../components/orders-list/orders-list";
 import { selectCart } from "../services/actions/cart"
 import {
   selectOrders,
-  WS_CONNECTION_START_PRIVET,
+  WS_CONNECTION_START_PRIVATE,
   WS_CLOSE
   } from './../services/actions/ws-action';
 import { useSelector, useDispatch} from 'react-redux';
@@ -19,7 +19,8 @@ export function ProfileOrderPage({setUseModalState}) {
 
   useEffect(()=>{
     dispatch({
-      type: WS_CONNECTION_START_PRIVET
+      type: WS_CONNECTION_START_PRIVATE,
+      payload: '?token='
     })
     return () => {
       dispatch({

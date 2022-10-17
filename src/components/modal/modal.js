@@ -15,9 +15,12 @@ function Modal({ onClose, children }) {
   const location = useLocation()
   
   React.useEffect(() => {
-    document.addEventListener("keydown", (e) => onClose(e, null, background.pathname));
+    const handelClick = (e) => {
+      onClose(e, null, background.pathname)
+    }
+    document.addEventListener("keydown", handelClick);
     return () => {
-    document.removeEventListener("keydown", (e) => onClose(e, null, background.pathname));
+    document.removeEventListener("keydown", handelClick);
     };
   }, []);
 

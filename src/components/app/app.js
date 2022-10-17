@@ -1,6 +1,5 @@
 import { useEffect , useState} from "react";
 import { Provider, useDispatch } from "react-redux";
-import { store } from '../../services/store';
 import {
   Constructor,
   LoginPage,
@@ -11,15 +10,12 @@ import {
   IngredientsPage,
   FeedPage,
   OrderFullCardPage,
-  ProfileOrderPage
 } from '../../pages'
-import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import ProtectedRoute from '../protected-route';
 import AppHeader from "../app-header/app-header";
-import { getUserAuth, selectPerson } from '../../services/actions/person';
-import { baseUrl } from '../../utils/constants';
 import { getItems } from "../../services/actions/cart";
-import { WS_CONNECTION_START_ALL, WS_CONNECTION_START_PRIVET } from '../../services/actions/ws-action'
+import { WS_CONNECTION_START_ALL, WS_CONNECTION_START_PRIVATE } from '../../services/actions/ws-action'
 
 
 function App() {
@@ -104,7 +100,7 @@ function App() {
           <ForgotPasswordPage />
         </Route>
         <ProtectedRoute path="/profile/orders/:id" exact>
-          <OrderFullCardPage action={WS_CONNECTION_START_PRIVET}/>
+          <OrderFullCardPage action={WS_CONNECTION_START_PRIVATE}/>
         </ProtectedRoute>
         <ProtectedRoute path="/profile">
           <ProfilePage

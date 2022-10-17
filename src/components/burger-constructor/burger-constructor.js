@@ -86,6 +86,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   
   useEffect(() => {
     checkHistory(history);
+    // setUseModalState(null);
   }, [])
 
   useEffect(() => {
@@ -97,6 +98,13 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
     }
 
     if (success && basketIngredients.ingredientsId.length && orderButton && selectedItems.length) {
+      history.push({
+        pathname: "/ingredients/" + "order",
+        state: {
+          background: location,
+        },
+      });
+      setUseModalState(true, 'constructor')
       dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
     }
 
@@ -176,15 +184,6 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
           size="large"
           onClick={() => {
             postRequest();
-
-              history.push({
-                pathname: "/ingredients/" + "order",
-                state: {
-                  background: location,
-                },
-              });
-              setUseModalState(true, 'constructor')
-
           }}
         >
           Оформить заказ
