@@ -74,7 +74,7 @@ function App() {
           />
         </Route>
         <Route path="/feed/:id" exact>
-          <OrderFullCardPage action={WS_CONNECTION_START_ALL}/>
+          <OrderFullCardPage action={WS_CONNECTION_START_ALL} payload='/all'/>
         </Route>
         <Route path="/" exact>
           <Constructor
@@ -100,7 +100,7 @@ function App() {
           <ForgotPasswordPage />
         </Route>
         <ProtectedRoute path="/profile/orders/:id" exact>
-          <OrderFullCardPage action={WS_CONNECTION_START_PRIVATE}/>
+          <OrderFullCardPage action={WS_CONNECTION_START_PRIVATE} payload='?token='/>
         </ProtectedRoute>
         <ProtectedRoute path="/profile">
           <ProfilePage
