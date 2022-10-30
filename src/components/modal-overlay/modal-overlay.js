@@ -6,10 +6,11 @@ import { useDispatch } from "react-redux";
 import {  useHistory } from 'react-router-dom';
 
 function ModalOverlay({children, onClose}){
+  const {background} = useHistory().location.state;
 
 
   return(
-    <div className={styles.overlay} onClick={(e) => onClose(e, styles.overlay)}>
+    <div className={styles.overlay} onClick={(e) => onClose(e, styles.overlay, background.pathname)}>
       {children}
     </div>
   )

@@ -31,7 +31,9 @@ const personReduser = (state = initialState, action) => {
     case CLEAN_SUCCES_CONSTRUCTOR: {
       return {
         ...state,
-        success: false
+        passRequestFailed: false,
+        passRequest: false,
+        isLoaded: false
       }
     }
 

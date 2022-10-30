@@ -1,7 +1,8 @@
 import React, {
   useMemo,
   useCallback,
-  useEffect
+  useEffect,
+  useState
 } from "react";
 import {
   ConstructorElement,
@@ -25,14 +26,16 @@ import {
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { baseUrl } from '../../utils/constants'
-import { getUserAuth, selectPerson, CLEAN_SUCCES_CONSTRUCTOR } from '../../services/actions/person'
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { getUserAuth, selectPerson } from '../../services/actions/person'
+import { useHistory, useLocation } from 'react-router-dom';
+import { checkHistory } from '../../utils/utils' 
 
 
 function BurgerConstructor({ setUseModalState, bull, onClose }) {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
     (state) => state.cart
   );
+  const [orderButton, setOrderButton] = useState(null);
   const {success, passRequestFailed} = useSelector(selectPerson);
   const history = useHistory();
   const location = useLocation();
@@ -82,48 +85,51 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   );
   
   useEffect(() => {
-      // dispatch({
-      //   type: CLEAN_SUCCES_CONSTRUCTOR
-      // })
-      
-    if (
-      history.location?.pathname &&
-      history.location?.state?.ingredientId &&
-      history.location.pathname.indexOf(history.location.state.ingredientId)
-    ) {
-      history.replace({
-        pathname: history.location.pathname,
-      });
-    }
+    checkHistory(history);
+    // setUseModalState(null);
   }, [])
 
   useEffect(() => {
-
-    if (passRequestFailed) {
+    if (passRequestFailed && basketIngredients.ingredientsId.length && orderButton) {
       history.replace({
-        pathname: '/login',
-        state: {fromLogin: [...selectedItems]}
-      })
+        pathname: "/login",
+        state: { fromLogin: [...selectedItems] },
+      });
+    }
+
+    if (success && basketIngredients.ingredientsId.length && orderButton && selectedItems.length) {
+      history.push({
+        pathname: "/ingredients/" + "order",
+        state: {
+          background: location,
+        },
+      });
+      setUseModalState(true, 'constructor')
+      dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
     }
 
     if (location.state?.fromLogin) {
       dispatch({
         type: GET_CURENT_LOCAL_STATE,
-        locationState: location.state.fromLogin
-      })
+        locationState: location.state.fromLogin,
+      });
     }
     
-  }, [success, passRequestFailed, basketIngredients, selectedItems])
+  }, [
+    success,
+    passRequestFailed,
+    basketIngredients,
+    selectedItems,
+    orderButton,
+  ]);
 
 
   const postRequest = useCallback(() => {
     if (!success) {
       dispatch(getUserAuth(baseUrl + 'auth/user'));
     }
-    
-    if (success) {
-      dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
-    }
+  
+    setOrderButton(true)
   }, [basketIngredients, success]);
 
   return (
@@ -178,9 +184,6 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
           size="large"
           onClick={() => {
             postRequest();
-            if (success){
-              setUseModalState(true, 'constructor')
-            }
           }}
         >
           Оформить заказ

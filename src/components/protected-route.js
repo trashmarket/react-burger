@@ -6,12 +6,10 @@ import { useState, useEffect } from 'react';
 
 export default function ProtectedRoute({ children, ...rest }) {
   const { isLoaded, success } = useSelector(selectPerson);
-  console.log(success)
   const dispatch = useDispatch();
 
   useEffect(()=>{
     dispatch(getUserAuth(baseUrl + 'auth/user'));
-    console.log('hello')
   }, [])
 
   if (!isLoaded) {

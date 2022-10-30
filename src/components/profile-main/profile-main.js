@@ -1,22 +1,30 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './profile-main.module.css';
 import { patchUserAuth, postLogOut } from '../../services/actions/person';
 import {baseUrl} from '../../utils/constants';
-import { getCookie } from '../../utils/utils';
+import { getCookie, checkHistory } from '../../utils/utils';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import { ProfileOrderPage } from '../../pages/profile-orders-page'
+import Modal from '../modal/modal';
+import { OrderFullCard } from '../order-full-card/order-full-card';
 
 const selectPerson = state => state.person;
 
-function ProfileMain() {
+function ProfileMain(props) {
   const [valueName, setValueName] = useState('...загрузка');
   const [valuePass, setValuePass] = useState('');
   const [valueEmail, setValueEmail] = useState('...загрузка');
-
+  const history = useHistory();
 
   const dispatch = useDispatch();
   const personStore = useSelector(selectPerson);
+
+  useEffect(()=>{
+    checkHistory(history)
+  }, [])
 
   useEffect(() => {
     if (personStore.success) {
@@ -27,7 +35,6 @@ function ProfileMain() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.type)
     setValueEmail('...сохранение');
     setValueName('...сохранение');
     dispatch(patchUserAuth(baseUrl + 'auth/user', {
@@ -73,9 +80,7 @@ function ProfileMain() {
               </NavLink>
             </li>
             <li className="pb-3 pt-3">
-              <a className={styles.navLink}
-                  onClick={() => exitProfile()}
-              >
+              <a className={styles.navLink} onClick={() => exitProfile()}>
                 Выход
               </a>
             </li>
@@ -85,34 +90,46 @@ function ProfileMain() {
           В этом разделе вы можете изменить&nbsp;свои&nbsp;персональные данные
         </p>
       </div>
-      <form className={styles.inputWrapper} onSubmit={onSubmit}>
-        <Input
-          placeholder="Имя"
-          value={valueName}
-          onChange={(e) => setValueName(e.target.value)}
-          icon="EditIcon"
-        />
-        <Input
-          placeholder="Логин"
-          value={valueEmail}
-          onChange={(e) => setValueEmail(e.target.value)}
-          icon="EditIcon"
-        />
-        <Input
-          placeholder="Пароль"
-          value={valuePass}
-          onChange={(e) => setValuePass(e.target.value)}
-          icon="EditIcon"
-        />
-        <div>
-          <Button type="primary" size="medium" onClick={resetClick}>
-            отмена
-          </Button>
-          <Button type="primary" size="medium">
-            сохранить
-          </Button>
-        </div>
-      </form>
+      <Switch>
+        <Route path="/profile" exact>
+          <form className={styles.inputWrapper} onSubmit={onSubmit}>
+            <Input
+              placeholder="Имя"
+              value={valueName}
+              onChange={(e) => setValueName(e.target.value)}
+              icon="EditIcon"
+            />
+            <Input
+              placeholder="Логин"
+              value={valueEmail}
+              onChange={(e) => setValueEmail(e.target.value)}
+              icon="EditIcon"
+            />
+            <Input
+              placeholder="Пароль"
+              value={valuePass}
+              onChange={(e) => setValuePass(e.target.value)}
+              icon="EditIcon"
+            />
+            <div>
+              <Button type="primary" size="medium" onClick={resetClick}>
+                отмена
+              </Button>
+              <Button type="primary" size="medium">
+                сохранить
+              </Button>
+            </div>
+          </form>
+        </Route>
+        <Route path="/profile/orders" >
+          <ProfileOrderPage {...props}/>
+        </Route>
+      </Switch>
+      {props.ingredient && (
+        <Modal onClose={props.onClose}>
+          <OrderFullCard ingredient={props.ingredient}/>
+        </Modal>
+      )}
     </main>
   );
 }

@@ -10,4 +10,5 @@
     padding-top: 141px;
     justify-content: center;
     overflow: hidden;
+    z-index: 14;
 }

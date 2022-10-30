@@ -1,6 +1,5 @@
 import { postRequest, getUserRequest, patchUserRequest, upadateToken } from "../../utils/request"
-import { checkResponse, setCookieCompleteDoble } from "../../utils/utils";
-import { setCookie } from '../../utils/utils'
+import { checkResponse, setCookieCompleteDoble, deleteCookie } from "../../utils/utils";
 import { authToken } from '../../utils/constants'
 
 export const APPLY_PERSON_REQUEST = 'APPLY_NEW_PERSON_REQUEST';
@@ -22,7 +21,6 @@ export const postPerson = (url, form) => (dispatch) => {
   postRequest(url, form)
     .then(checkResponse)
     .then((res) => {
-      console.log(res)
       dispatch({
         type: APPLY_PERSON_SUCCESS,
         person: res,
@@ -34,7 +32,6 @@ export const postPerson = (url, form) => (dispatch) => {
       dispatch({
         type: APPLY_PERSON_FAILED,
       });
-      console.log(error);
     });
   }
 
@@ -55,7 +52,6 @@ export const postLogOut = (url, refreshToken) => (dispatch) => {
       dispatch({
         type: APPLY_PERSON_EXIT_FAILED
       })
-      console.log(error);
     });
 }
 
@@ -70,7 +66,6 @@ return function updateUserAction(dispatch) {
   getUserRequest(url)
     .then(checkResponse)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: APPLY_PERSON_SUCCESS,
         person: res,
@@ -84,10 +79,10 @@ return function updateUserAction(dispatch) {
         });
         return;
       }
+
       dispatch({
         type: APPLY_PERSON_FAILED,
       });
-      console.log(error);
     });
 };
 }
@@ -117,7 +112,6 @@ export const patchUserAuth = (url, body) => {
       dispatch({
         type: APPLY_PERSON_FAILED
       });
-      console.log(error);
     })  
 }
 }

@@ -6,15 +6,21 @@ import { modalType } from "../../utils/types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { GET_ITEM_CART } from "../../services/actions/cart";
-import {  useHistory } from 'react-router-dom';
+import {  useHistory, useLocation } from 'react-router-dom';
 
 const modalRoot = document.getElementById("modal-root");
 
 function Modal({ onClose, children }) {
+  const {background} = useHistory().location.state;
+  const location = useLocation()
+  
   React.useEffect(() => {
-    document.addEventListener("keydown", onClose);
+    const handelClick = (e) => {
+      onClose(e, null, background.pathname)
+    }
+    document.addEventListener("keydown", handelClick);
     return () => {
-      document.removeEventListener("keydown", onClose);
+    document.removeEventListener("keydown", handelClick);
     };
   }, []);
 
@@ -25,7 +31,7 @@ function Modal({ onClose, children }) {
         <div
           className={styles.close}
           onClick={(e) => {
-            onClose(e, 'button')
+            onClose(e, 'button', background.pathname)
           }
             
           }

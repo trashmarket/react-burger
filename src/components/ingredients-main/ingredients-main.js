@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import styles from "./ingredients-main.module.css";
 import { useParams } from 'react-router-dom';
-import { getItems } from "../../services/actions/cart";
+
 
 
 export default function IngredientsMain() {
@@ -12,14 +12,9 @@ export default function IngredientsMain() {
     } = useSelector((state) => state.cart);
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   dispatch(getItems())
-  // }, [])
-  
   useEffect(() => {
     setItem(items.find(item => item._id === id));  
   }, [items])
-  console.log(item)
 
   return (item) && (
     <div className={styles.container}>

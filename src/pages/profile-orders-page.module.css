@@ -1,0 +1,21 @@
+.ordersWrapper {
+  width: 68%;
+  overflow-y:scroll;
+  position: relative;
+  height: 790px;
+  position: relative;
+  top: -77px;
+  margin-left: auto;
+}
+
+.ordersWrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ordersWrapper::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
+
+.ordersWrapper::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}

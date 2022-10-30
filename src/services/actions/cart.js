@@ -1,6 +1,6 @@
 import { baseUrl } from "../../utils/constants";
 import { checkResponse } from "../../utils/utils";
-import { postRequest } from "../../utils/request"
+import { postOrderRequest } from "../../utils/request"
 export const GET_ITEMS_FAILED = "GET_ITEMS_FAILED";
 export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
 export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
@@ -15,6 +15,8 @@ export const GET_DROP_BUN = "GET_DROP_BUN";
 export const GET_DRAG_DROP_LI = "GET_DRAG_DROP_LI";
 export const GET_CURRENT_CLICK_TAB = "GET_CURRENT_CLICK_TAB";
 export const GET_CURENT_LOCAL_STATE = "GET_CURENT_LOCAL_STATE";
+
+export const selectCart = state => state.cart
 
 export const getItems = () => (dispatch) => {
   dispatch({
@@ -42,7 +44,7 @@ export const postOrder = (url, ingredientsId) => (dispatch) => {
     type: APPLY_ORDER_DETAILS_REQUEST,
   });
 
-  postRequest(url, ingredientsId)
+  postOrderRequest(url, ingredientsId)
     .then(checkResponse)
     .then((result) =>
       dispatch({

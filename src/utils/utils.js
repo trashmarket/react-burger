@@ -7,6 +7,18 @@ const checkResponse = (response) => {
   return response.json().then((res) => Promise.reject(res)) 
 };
 
+const checkHistory = (history) => {
+  if (
+    history.location?.pathname &&
+    history.location?.state?.ingredientId &&
+    history.location.pathname.indexOf(history.location.state.ingredientId)
+  ) {
+    history.replace({
+      pathname: history.location.pathname,
+    });
+  }
+}
+
  function setCookie(name, value, props) {
   props = props || {};
   let exp = props.expires;
@@ -40,14 +52,14 @@ const checkResponse = (response) => {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
- function deleteCookie(name) {
+function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 }
 
 export function setCookieCompleteDoble(res) {
   let authToken = res.accessToken.split('Bearer ')[1];
-  setCookie('token', authToken);
-  setCookie('refreshToken', res.refreshToken);
+  setCookie('token', authToken, {path: '/'});
+  setCookie('refreshToken', res.refreshToken, {path: '/'});
 }
 
-export {sort, checkResponse, setCookie, getCookie, deleteCookie}
+export {sort, checkResponse, setCookie, getCookie, deleteCookie, checkHistory}
