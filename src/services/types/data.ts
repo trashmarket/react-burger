@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export type TItems = {
   readonly _id: string;
   readonly name: string;
@@ -11,6 +13,10 @@ export type TItems = {
   readonly image_mobile: string;
   readonly image_large: string;
 }
+
+export type TItemSelect = {
+  readonly uuid: string;
+} & TItems
 
 export type TOrderDetails = {
   success: boolean;

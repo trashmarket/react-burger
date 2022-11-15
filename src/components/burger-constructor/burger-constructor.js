@@ -20,9 +20,9 @@ import {
   GET_CURENT_LOCAL_STATE,
   GET_DROP_BUN,
   GET_DROP_ITEM,
-  GET_INCREMENT_CART,
-  postOrder,
-} from "../../services/actions/cart";
+  GET_INCREMENT_CART
+} from "../../services/constants";
+import { postOrder } from '../../services/actions/cart'
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { baseUrl } from '../../utils/constants'

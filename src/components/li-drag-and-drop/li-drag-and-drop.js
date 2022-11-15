@@ -8,7 +8,7 @@ import {
 import {
   GET_DECREMENT_CATR,
   GET_DRAG_DROP_LI
-} from "../../services/actions/cart";
+} from "../../services/constants";
 
 import styles from './li-drag-and-drop.module.css'
 import { useDispatch, useSelector } from "react-redux";

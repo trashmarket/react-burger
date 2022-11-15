@@ -1,22 +1,22 @@
 import { baseUrl } from "../../utils/constants";
 import { checkResponse } from "../../utils/utils";
 import { postOrderRequest } from "../../utils/request"
-export const GET_ITEMS_FAILED = "GET_ITEMS_FAILED";
-export const GET_ITEMS_REQUEST = "GET_ITEMS_REQUEST";
-export const GET_ITEMS_SUCCESS = "GET_ITEMS_SUCCESS";
-export const GET_INCREMENT_CART = "GET_INCREMENT_CART";
-export const GET_DECREMENT_CATR = "GET_DECREMENT_CATR";
-export const APPLY_ORDER_DETAILS_SUCCESS = "APPLY_ORDER_DETAILS_SUCCESS";
-export const APPLY_ORDER_DETAILS_REQUEST = "APPLY_ORDER_DETAILS_REQUEST";
-export const APPLY_ORDER_DETAILS_FAILED = "APPLY_ORDER_DETAILS_FAILED";
-export const GET_CURRENT_TAB = "GET_CURRENT_TAB";
-export const GET_DROP_ITEM = "GET_DROP_ITEM";
-export const GET_DROP_BUN = "GET_DROP_BUN";
-export const GET_DRAG_DROP_LI = "GET_DRAG_DROP_LI";
-export const GET_CURRENT_CLICK_TAB = "GET_CURRENT_CLICK_TAB";
-export const GET_CURENT_LOCAL_STATE = "GET_CURENT_LOCAL_STATE";
+import {
+  GET_ITEMS_FAILED,
+  GET_ITEMS_REQUEST,
+  GET_ITEMS_SUCCESS,
+  APPLY_ORDER_DETAILS_SUCCESS,
+  APPLY_ORDER_DETAILS_REQUEST,
+  APPLY_ORDER_DETAILS_FAILED,
+  GET_CURRENT_CLICK_TAB,
+} from "../constants";
 
 export const selectCart = state => state.cart
+
+export const clickTab = (currentTabClick) => ({
+  type: GET_CURRENT_CLICK_TAB,
+  currentTabClick 
+})
 
 export const getItems = () => (dispatch) => {
   dispatch({
@@ -60,8 +60,3 @@ export const postOrder = (url, ingredientsId) => (dispatch) => {
       console.log(errorMessage);
     });
 };
-
-export const clickTab = (currentTabClick) => ({
-  type: GET_CURRENT_CLICK_TAB,
-  currentTabClick 
-})

@@ -1,5 +1,6 @@
 import update from 'immutability-helper';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
+import { TItemSelect, TItems, TOrderDetails } from '../types/data';
 import {
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
@@ -17,7 +18,24 @@ import {
   GET_CURENT_LOCAL_STATE
 } from "../constants";
 
-const initialState = {
+type TInitialState = {
+  items: ReadonlyArray<TItems>;
+  itemsRequest: boolean;
+  itemsFailed: boolean;
+  errorStatus: string;
+  selectedItems: Array<TItemSelect>;
+  basketIngredients: {
+    cost: number;
+    ingredientsId: Array<string>;
+  };
+  orderDetails?: TOrderDetails;
+  orderDetailsRequest: boolean;
+  orderDetailsFailed: boolean;
+  currentTab: string;
+  currentTabClick: string;
+}
+
+const initialState: TInitialState = {
   items: [],
   itemsRequest: false,
   itemsFailed: false,
@@ -31,14 +49,14 @@ const initialState = {
     ingredientsId: []
   },
 
-  orderDetails: {},
+  orderDetails: undefined,
   orderDetailsRequest: false,
   orderDetailsFailed: false,
   currentTab: 'one',
   currentTabClick: ''
 };
 
-export const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case GET_ITEMS_FAILED: {
       return {
@@ -67,11 +85,11 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         basketIngredients: {
-          cost: state.selectedItems.reduce((previousValue, currentValue) => {
+          cost: state.selectedItems.reduce((previousValue, currentValue: TItemSelect) => {
             if (currentValue.type === 'bun') return previousValue + currentValue.price * 2;
             return previousValue + currentValue.price;
           },0),
-          ingredientsId: [...state.selectedItems.map(item => item._id)]                     
+          ingredientsId: [...state.selectedItems.map((item: TItemSelect) => item._id)]                     
         }
       };
     }
@@ -129,7 +147,7 @@ export const cartReducer = (state = initialState, action) => {
     case GET_DROP_BUN: {
       return {
         ...state,
-        selectedItems: [action.item, ...state.selectedItems.filter(item => item.type !== action.itemType )]
+        selectedItems: [action.item, ...state.selectedItems.filter((item: TItemSelect) => item.type !== action.itemType )]
       }
     }
     case GET_DRAG_DROP_LI: {

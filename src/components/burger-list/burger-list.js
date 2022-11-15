@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import BurgerCard from "../burger-card/burger-card";
 import styles from "./burger-list.module.css";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
 import { sort } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_CURRENT_TAB } from "../../services/actions/cart";
+import { GET_CURRENT_TAB } from "../../services/constants";
 
 function BurgerList({ setUseModalState }) {
   const dispatch = useDispatch();
