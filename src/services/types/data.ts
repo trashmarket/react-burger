@@ -14,6 +14,11 @@ export type TItems = {
   readonly image_large: string;
 }
 
+export type TpasswordMessage = {
+  readonly success: boolean;
+  readonly message: string;
+}
+
 export type TItemSelect = {
   readonly uuid: string;
 } & TItems

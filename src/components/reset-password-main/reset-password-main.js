@@ -61,7 +61,7 @@ function ResetPassworldPage() {
         <form className={styles.resetForm} onSubmit={handleSubmit}>
           <legend className="text text_type_main-medium">Восстановление пароля</legend>
           <Input
-            type="email"
+            type="text"
             value={newPass}
             placeholder='Введите новый пароль'
             onChange={e => setNewPass(e.target.value)}
