@@ -3,7 +3,7 @@ import BurgerCard from "../burger-card/burger-card";
 import styles from "./burger-list.module.css";
 import { sort } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_CURRENT_TAB } from "../../services/constants";
+import { getcCurrentTabAction } from '../../services/actions/cart'
 
 function BurgerList({ setUseModalState }) {
   const dispatch = useDispatch();
@@ -33,25 +33,16 @@ function BurgerList({ setUseModalState }) {
         elementScroll >= bunRef.current.offsetTop &&
         elementScroll <= sauceRef.current.offsetTop
       ) {
-        dispatch({
-          type: GET_CURRENT_TAB,
-          currentTab: "one",
-        });
+        dispatch(getcCurrentTabAction('one'));
       }
       if (
         elementScroll >= sauceRef.current.offsetTop - 30 &&
         elementScroll <= mainRef.current.offsetTop
       ) {
-        dispatch({
-          type: GET_CURRENT_TAB,
-          currentTab: "two",
-        });
+        dispatch(getcCurrentTabAction('two'));
       }
       if (elementScroll >= mainRef.current.offsetTop) {
-        dispatch({
-          type: GET_CURRENT_TAB,
-          currentTab: "three",
-        });
+        dispatch(getcCurrentTabAction('three'));
       }
     });
   }, [currentTabClick]);

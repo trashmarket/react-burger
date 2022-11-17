@@ -17,12 +17,14 @@ import OrderDetails from "../order-details/order-details";
 import { useDispatch, useSelector } from "react-redux";
 import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop.js";
 import {
-  GET_CURENT_LOCAL_STATE,
-  GET_DROP_BUN,
-  GET_DROP_ITEM,
   GET_INCREMENT_CART
 } from "../../services/constants";
-import { postOrder } from '../../services/actions/cart'
+import { 
+  postOrder,
+  dropBunAction,
+  dropItemAction,
+  getCurrentLocalStateAction
+ } from '../../services/actions/cart'
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
 import { baseUrl } from '../../utils/constants'
@@ -45,17 +47,9 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
     accept: "ingredient",
     drop(item) {
       if (item.type === "bun") {
-        dispatch({
-          type: GET_DROP_BUN,
-          itemType: item.type,
-          item:{...item, uuid:uuidv4()}
-        });
+        dispatch(dropBunAction(item));
       } else {
-        dispatch({
-          type: GET_DROP_ITEM,
-          itemType: item.type,
-          item: {...item, uuid:uuidv4()}
-        });
+        dispatch(dropItemAction(item));
       }
       dispatch({
         type: GET_INCREMENT_CART,
@@ -109,10 +103,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
     }
 
     if (location.state?.fromLogin) {
-      dispatch({
-        type: GET_CURENT_LOCAL_STATE,
-        locationState: location.state.fromLogin,
-      });
+      dispatch(getCurrentLocalStateAction(location));
     }
     
   }, [

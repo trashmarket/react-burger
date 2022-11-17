@@ -20,7 +20,7 @@ function OrderDetails() {
   return (
     <div className={styles.content}>
       <h2 className="text text_type_digits-large">
-        {orderDetails.order && orderDetails.order.number}
+        {orderDetails?.order && orderDetails.order.number}
       </h2>
       <p className="text text_type_main-medium">идентификатор заказа</p>
       <img className={`${orderDetailsRequest && styles.rotation}`}  src={done} alt="done" width={120} height={120}/>

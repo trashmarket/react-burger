@@ -5,10 +5,7 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {
-  GET_DECREMENT_CATR,
-  GET_DRAG_DROP_LI
-} from "../../services/constants";
+import { dragDropLiAction, getDecrementCartAction } from '../../services/actions/cart'
 
 import styles from './li-drag-and-drop.module.css'
 import { useDispatch, useSelector } from "react-redux";
@@ -57,11 +54,7 @@ const LiDragAndDrop = ({name, price, image, index, _id}) => {
       }
       // Time to actually perform the action
       
-      dispatch({
-        type: GET_DRAG_DROP_LI,
-        dragIndex: dragIndex + 1,  
-        hoverIndex: hoverIndex + 1 
-      })
+      dispatch(dragDropLiAction(dragIndex, hoverIndex))
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
@@ -89,12 +82,7 @@ const LiDragAndDrop = ({name, price, image, index, _id}) => {
         price={price}
         thumbnail={image}
         handleClose={() =>
-          dispatch({
-            type: GET_DECREMENT_CATR,
-            index: index,
-            cost: price,
-            id: _id,
-          })
+          dispatch(getDecrementCartAction(index, price, _id))
         }
       />
     </li>
