@@ -19,6 +19,13 @@ export type TpasswordMessage = {
   readonly message: string;
 }
 
+export type TPostEmailBody = {
+  email: string;
+} | {
+  password: string;
+  token: string;
+}
+
 export type TItemSelect = {
   readonly uuid: string;
 } & TItems

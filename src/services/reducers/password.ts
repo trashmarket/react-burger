@@ -2,7 +2,7 @@ import {
   APPLY_PASS_REQUEST,
   APPLY_PASS_FAILED,
   APPLY_PASS_SUCCES
-} from '../actions/password'
+} from '../constants'
 import { TpasswordMessage } from '../types/data'
 
 type TinitialState = {
