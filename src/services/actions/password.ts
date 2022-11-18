@@ -1,4 +1,3 @@
-import { type } from "os";
 import { postRequest } from "../../utils/request"
 import { checkResponse } from "../../utils/utils";
 import { 

@@ -3,7 +3,7 @@ import styles from './login-main.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link,  Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { postPerson, selectPerson, getUserAuth, CLEAN_SUCCES_CONSTRUCTOR  } from '../../services/actions/person';
+import { postPerson, selectPerson, getUserAuth } from '../../services/actions/person';
 import { baseUrl } from '../../utils/constants';
 
  function LoginMain() {

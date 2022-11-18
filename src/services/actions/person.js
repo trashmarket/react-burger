@@ -1,15 +1,15 @@
 import { postRequest, getUserRequest, patchUserRequest, upadateToken } from "../../utils/request"
 import { checkResponse, setCookieCompleteDoble, deleteCookie } from "../../utils/utils";
 import { authToken } from '../../utils/constants'
-
-export const APPLY_PERSON_REQUEST = 'APPLY_NEW_PERSON_REQUEST';
-export const APPLY_PERSON_FAILED = 'APPLY_NEW_PERSON_FAILED';
-export const APPLY_PERSON_SUCCESS = 'APPLY_NEW_PERSON_SUCCESS';
-export const MAKE_PERSON_TOKE = 'MAKE_PERSON_TOKE';
-export const APPLY_PERSON_EXIT_REQUEST = 'APPLY_PERSON_EXIT_REQUEST';
-export const APPLY_PERSON_EXIT_FAILED = 'APPLY_PERSON_EXIT_FAILED';
-export const APPLY_PERSON_EXIT_SUCCESS = 'APPLY_PERSON_EXIT_SUCCESS';
-export const CLEAN_SUCCES_CONSTRUCTOR = 'CLEAN_SUCCES_CONSTRUCTOR';
+import {
+  APPLY_PERSON_REQUEST,
+  APPLY_PERSON_FAILED,
+  APPLY_PERSON_SUCCESS,
+  APPLY_PERSON_EXIT_REQUEST,
+  APPLY_PERSON_EXIT_FAILED,
+  APPLY_PERSON_EXIT_SUCCESS,
+  CLEAN_SUCCES_CONSTRUCTOR
+} from '../constants'
 
 export const selectPerson = state => state.person;
 

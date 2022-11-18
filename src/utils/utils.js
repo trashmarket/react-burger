@@ -7,6 +7,11 @@ const checkResponse = (response) => {
   return response.json().then((res) => Promise.reject(res)) 
 };
 
+export const checkResponseCart = (response) => {
+  if (response.ok) return response.json();
+  return Promise.reject(response.status);
+}
+
 const checkHistory = (history) => {
   if (
     history.location?.pathname &&

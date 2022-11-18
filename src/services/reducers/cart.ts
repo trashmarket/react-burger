@@ -22,7 +22,7 @@ type TInitialState = {
   items: ReadonlyArray<TItems>;
   itemsRequest: boolean;
   itemsFailed: boolean;
-  errorStatus: string;
+  errorStatus: number | string;
   selectedItems: Array<TItemSelect>;
   basketIngredients: {
     cost: number;

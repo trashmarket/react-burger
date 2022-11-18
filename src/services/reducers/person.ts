@@ -1,3 +1,4 @@
+import { type } from 'os'
 import {
   APPLY_PERSON_REQUEST,
   APPLY_PERSON_FAILED,
@@ -8,7 +9,27 @@ import {
   CLEAN_SUCCES_CONSTRUCTOR
 } from '../constants'
 
-const initialState = {
+type TInitialState = {
+  passRequest: boolean;
+  passRequestFailed: boolean;
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    email?: string;
+    name?: string;
+  }
+  isLoaded: boolean;
+  exitRequest: boolean;
+  exitSuccess: boolean;
+  exitFailed: boolean;
+  exitBody: {
+    success?: boolean;
+    message?: string;
+  }
+}
+
+const initialState: TInitialState = {
   passRequest: false,
   passRequestFailed: false,
   success: false,
@@ -23,7 +44,7 @@ const initialState = {
   exitBody: {}  
 }
 
-const personReduser = (state = initialState, action) => {
+const personReduser = (state = initialState, action: any) => {
   switch(action.type) {
 
     case CLEAN_SUCCES_CONSTRUCTOR: {
