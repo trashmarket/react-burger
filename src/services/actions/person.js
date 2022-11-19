@@ -66,6 +66,7 @@ return function updateUserAction(dispatch) {
   getUserRequest(url)
     .then(checkResponse)
     .then((res) => {
+      console.log(res);
       dispatch({
         type: APPLY_PERSON_SUCCESS,
         person: res,

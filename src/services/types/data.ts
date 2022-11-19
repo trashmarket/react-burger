@@ -19,6 +19,16 @@ export type TpasswordMessage = {
   readonly message: string;
 }
 
+export type TExitBody = {
+  success?: boolean;
+  message?: string;
+}
+
+export type TUser = {
+  email?: string;
+  name?: string;
+}
+
 export type TPostEmailBody = {
   email: string;
 } | {

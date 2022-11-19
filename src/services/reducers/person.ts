@@ -1,4 +1,4 @@
-import { type } from 'os'
+import { TUser, TExitBody } from '../types/data'
 import {
   APPLY_PERSON_REQUEST,
   APPLY_PERSON_FAILED,
@@ -15,18 +15,12 @@ type TInitialState = {
   success: boolean;
   accessToken: string;
   refreshToken: string;
-  user: {
-    email?: string;
-    name?: string;
-  }
+  user: TUser;
   isLoaded: boolean;
   exitRequest: boolean;
   exitSuccess: boolean;
   exitFailed: boolean;
-  exitBody: {
-    success?: boolean;
-    message?: string;
-  }
+  exitBody: TExitBody
 }
 
 const initialState: TInitialState = {
