@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createrOrderObject } from '../components/orders-list/orders-list'
 import styles from './order-full-card-page.module.css'
+import { startWsConnectionAction, closeWsAction } from '../services/actions/ws-action'
 
 export function OrderFullCardPage({ action, payload }) {
   const { orders, getItemsSucces }  = useSelector(selectOrders);
@@ -19,15 +20,11 @@ export function OrderFullCardPage({ action, payload }) {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    dispatch({
-      type: action,
-      payload
-    })
+
+    dispatch(startWsConnectionAction(action, payload))
 
     return () => {
-      dispatch({
-        type: WS_CLOSE
-      })
+      dispatch(closeWsAction())
     }
   }, [])
 

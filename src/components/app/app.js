@@ -15,7 +15,7 @@ import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import ProtectedRoute from '../protected-route';
 import AppHeader from "../app-header/app-header";
 import { getItems } from "../../services/actions/cart";
-import { WS_CONNECTION_START_ALL, WS_CONNECTION_START_PRIVATE } from '../../services/actions/ws-action'
+import { WS_CONNECTION_START_ALL, WS_CONNECTION_START_PRIVATE } from '../../services/constants'
 
 
 function App() {

@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import { compose, createStore, applyMiddleware } from "redux";
 import { socketMiddleware } from './middleware/socket-middleware';
 import { wsUrl } from '../utils/constants';
-import { 
+import {
   WS_CONNECTION_START_PRIVATE,
   WS_CONNECTION_START_ALL,
   WS_GET_ITEMS_MESSAGE,
@@ -11,7 +11,7 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_CLOSE
-   } from './actions/ws-action'
+   } from './constants'
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
