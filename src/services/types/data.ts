@@ -1,5 +1,15 @@
 import { type } from "os";
 
+export type TWsOrders = {
+  _id: string;
+  ingredients: Array<string>;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+}
+
 export type TItems = {
   readonly _id: string;
   readonly name: string;

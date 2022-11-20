@@ -4,8 +4,17 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_ITEMS_MESSAGE
  } from '../constants';
+import { TWsOrders } from '../types/data' 
 
- const initionState = {
+ type TInitionState = {
+  wsConnectede: boolean;
+  getItemsSucces: boolean;
+  orders: Array<TWsOrders>;
+  total: number;
+  totalToday: number
+ }
+
+ const initionState: TInitionState = {
   wsConnectede: false,
   getItemsSucces: false,
   orders: [],
@@ -13,7 +22,7 @@ import {
   totalToday: 0
  }
 
-export const wsReduser = (state = initionState, action) => {
+export const wsReduser = (state = initionState, action: any) => {
   switch(action.type) {
 
     case WS_CONNECTION_SUCCESS: {
