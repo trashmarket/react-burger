@@ -1,16 +1,15 @@
 import { useEffect, useState, useMemo } from 'react';
 import { OrderFullCard } from '../components/order-full-card/order-full-card';
-import {
-  selectOrders,
-  WS_CONNECTION_START_ALL,
-  WS_CLOSE
-  } from '../services/actions/ws-action';
 import { selectCart } from '../services/actions/cart'
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createrOrderObject } from '../components/orders-list/orders-list'
 import styles from './order-full-card-page.module.css'
-import { startWsConnectionAction, closeWsAction } from '../services/actions/ws-action'
+import { 
+  selectOrders,
+  startWsConnectionAction,
+  closeWsAction
+ } from '../services/actions/ws-action';
 
 export function OrderFullCardPage({ action, payload }) {
   const { orders, getItemsSucces }  = useSelector(selectOrders);

@@ -53,6 +53,14 @@ interface IApplyPersonExitFailedAction {
   readonly type: typeof APPLY_PERSON_EXIT_FAILED
 }
 
+export type TPersonActions = 
+  | IApplyPersonExitFailedAction
+  | IApplyPersonExitSuccessAction
+  | IApplyPersonExitRequestAction
+  | IApplyPersonFailedActiopn
+  | IApplyPersonRequestAction
+  | IApplyPersonSuccesAction
+
 const applyPersonSuccesAction = (person: TPostResponse): IApplyPersonSuccesAction => ({
   type: APPLY_PERSON_SUCCESS,
   person  

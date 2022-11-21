@@ -1,10 +1,11 @@
 import styles from './feed-main.module.css';
 import { useSelector, useDispatch} from 'react-redux';
-import {
+import { 
   selectOrders,
-  WS_CONNECTION_START_ALL,
-  WS_CLOSE
-  } from '../../services/actions/ws-action';
+  startWsConnectionAction,
+  closeWsAction
+ } from '../../services/actions/ws-action';
+import { WS_CONNECTION_START_ALL } from '../../services/constants'
 import { selectCart } from '../../services/actions/cart'
 import { 
   useEffect
@@ -25,14 +26,9 @@ export default function FeedMain({setUseModalState, ingredient, onClose}) {
   }, [])
 
   useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START_ALL,
-      payload: '/all'
-    })
+    dispatch(startWsConnectionAction(WS_CONNECTION_START_ALL, '/all'))
     return () => {
-      dispatch({
-        type: WS_CLOSE
-      })
+      dispatch(closeWsAction())
     }
   }, [dispatch])
   

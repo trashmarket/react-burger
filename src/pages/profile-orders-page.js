@@ -3,9 +3,12 @@ import OrdersList from "../components/orders-list/orders-list";
 import { selectCart } from "../services/actions/cart"
 import {
   selectOrders,
-  WS_CONNECTION_START_PRIVATE,
-  WS_CLOSE
+  startWsConnectionAction,
+  closeWsAction
   } from './../services/actions/ws-action';
+import {
+  WS_CONNECTION_START_PRIVATE,
+} from '../services/constants'
 import { useSelector, useDispatch} from 'react-redux';
 import styles from './profile-orders-page.module.css';
 
@@ -18,14 +21,9 @@ export function ProfileOrderPage({setUseModalState}) {
 
 
   useEffect(()=>{
-    dispatch({
-      type: WS_CONNECTION_START_PRIVATE,
-      payload: '?token='
-    })
+    dispatch(startWsConnectionAction(WS_CONNECTION_START_PRIVATE, '?token='))
     return () => {
-      dispatch({
-        type: WS_CLOSE
-      })
+      dispatch(closeWsAction())
     }
   },[])
 

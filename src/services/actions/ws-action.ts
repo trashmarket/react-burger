@@ -24,6 +24,10 @@ interface ICloseWsAction {
   readonly type: typeof WS_CLOSE;
 }
 
+export type TWsActions = 
+  | IStartWsConnectionAction
+  | ICloseWsAction
+
 export const startWsConnectionAction = (type: TWsConnection, payload: string): IStartWsConnectionAction => ({
   type,
   payload
