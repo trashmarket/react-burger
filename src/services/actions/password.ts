@@ -8,9 +8,14 @@ import {
 import {
   TPostEmailBody,
   TpasswordMessage
-} from '../types/data'
+} from '../types/data';
+import { 
+  AppDispatch,
+  RootState,
+  AppThunk
+ } from '../types';
 
-export const selectPassword = (state: any) => state.password;
+export const selectPassword = (state: RootState) => state.password;
 
 interface IapplyPassSuccesAction {
   readonly type: typeof APPLY_PASS_SUCCES;
@@ -43,7 +48,7 @@ const applyPassSuccesAction = (res: TpasswordMessage): IapplyPassSuccesAction =>
   message: res
 })
 
-export const postEmail = (url: string, email: TPostEmailBody) => (dispatch: any) => {
+export const postEmail: AppThunk = (url: string, email: TPostEmailBody) => (dispatch: AppDispatch) => {
   dispatch(applyPassRequest());
 
   postRequest(url, email)

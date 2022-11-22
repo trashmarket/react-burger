@@ -2,8 +2,9 @@ import {
   APPLY_PASS_REQUEST,
   APPLY_PASS_FAILED,
   APPLY_PASS_SUCCES
-} from '../constants'
-import { TpasswordMessage } from '../types/data'
+} from '../constants';
+import { TpasswordMessage } from '../types/data';
+import { TPassWordActions } from '../actions/password';
 
 type TinitialState = {
   passRequest: boolean;
@@ -19,7 +20,7 @@ const initialState: TinitialState = {
   passwordMessage: undefined
 }
 
-export const passReducer = (state = initialState, action: any) => {
+export const passReducer = (state = initialState, action: TPassWordActions): TinitialState => {
   switch(action.type) {
     case APPLY_PASS_REQUEST: {
       return {

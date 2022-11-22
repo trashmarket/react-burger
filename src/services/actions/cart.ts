@@ -19,9 +19,14 @@ import {
   GET_INCREMENT_CART
 } from "../constants";
 import { v4 as uuidv4 } from 'uuid';
-import { AppThunk } from '../types'
-import { TOrderDetails } from '../types/data'
-export const selectCart = (state: any) => state.cart;
+import { AppThunk, AppDispatch, RootState } from '../types';
+import { TOrderDetails } from '../types/data';
+
+export const selectCart = (state: RootState) => state.cart;
+
+type TingredientsId = {
+  ingredients: Array<string>
+}
 
 interface IgetDecrementCartAction {
   readonly type: typeof GET_DECREMENT_CATR;
@@ -183,7 +188,7 @@ export type TcartActions =
   | IApplyOrderDetailsSucces
   | IApplyOrderDetailsFailed
   
-export const getItems: AppThunk = () => (dispatch: any) => {
+export const getItems: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch(getItemsRequest());
    
   fetch(`${baseUrl}ingredients`)
@@ -197,17 +202,13 @@ export const getItems: AppThunk = () => (dispatch: any) => {
     });
 };
 
-export const postOrder = (url: string, ingredientsId: any) => (dispatch: any) => {
+export const postOrder: AppThunk = (url: string, ingredientsId: TingredientsId) => (dispatch: AppDispatch) => {
   dispatch(applyOrderDetailsRequestAction());
 
   postOrderRequest(url, ingredientsId)
     .then(checkResponse)
     .then((result) =>
-      dispatch({
-        type: APPLY_ORDER_DETAILS_SUCCESS,
-        orderDetails: result,
-        currentModal: "orderDetails",
-      })
+      dispatch(applyOrderDetailsSuccesAction(result))
     )
     .catch((errorMessage) => {
       dispatch(applyOrderDetailsFailedAction());
