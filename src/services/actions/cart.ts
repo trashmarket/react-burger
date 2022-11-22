@@ -2,8 +2,6 @@ import { baseUrl } from "../../utils/constants";
 import { checkResponse, checkResponseCart } from "../../utils/utils";
 import { postOrderRequest } from "../../utils/request";
 import { TItems, TItemSelect } from '../types/data';
-import { ThunkAction } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import {
   GET_ITEMS_FAILED,
   GET_ITEMS_REQUEST,
@@ -17,11 +15,12 @@ import {
   GET_CURENT_LOCAL_STATE,
   GET_DRAG_DROP_LI,
   GET_CURRENT_TAB,
-  GET_DECREMENT_CATR
+  GET_DECREMENT_CATR,
+  GET_INCREMENT_CART
 } from "../constants";
 import { v4 as uuidv4 } from 'uuid';
-import { type } from "os";
-
+import { AppThunk } from '../types'
+import { TOrderDetails } from '../types/data'
 export const selectCart = (state: any) => state.cart;
 
 interface IgetDecrementCartAction {
@@ -78,6 +77,28 @@ interface IGetItemsFailed {
   readonly status: number
 }
 
+interface IGetIncrementCart {
+  type: typeof GET_INCREMENT_CART 
+}
+
+interface IApplyOrderDetailsRequest {
+  type: typeof APPLY_ORDER_DETAILS_REQUEST  
+}
+
+interface IApplyOrderDetailsSucces {
+  type: typeof APPLY_ORDER_DETAILS_SUCCESS;
+  orderDetails: TOrderDetails;
+  currentModal: string
+}
+
+interface IApplyOrderDetailsFailed {
+  type: typeof APPLY_ORDER_DETAILS_FAILED;
+}
+
+export const getIncrementCartAction = ():IGetIncrementCart => ({
+  type: GET_INCREMENT_CART
+})
+
 export const getDecrementCartAction = (index: number, price: number, _id: string): IgetDecrementCartAction => ({
   type: GET_DECREMENT_CATR,
   index: index,
@@ -130,6 +151,20 @@ const getItemsSucces = (data: Array<TItems>): IGetItemsSucces => ({
 const getItemsFailed = (status: number): IGetItemsFailed => ({
   type: GET_ITEMS_FAILED,
   status
+});
+
+const applyOrderDetailsRequestAction = (): IApplyOrderDetailsRequest => ({
+  type: APPLY_ORDER_DETAILS_REQUEST
+}); 
+
+const applyOrderDetailsSuccesAction = (orderDetails: TOrderDetails): IApplyOrderDetailsSucces => ({
+  type: APPLY_ORDER_DETAILS_SUCCESS,
+  orderDetails,
+  currentModal: "orderDetails"
+});
+
+const applyOrderDetailsFailedAction = (): IApplyOrderDetailsFailed => ({
+  type: APPLY_ORDER_DETAILS_FAILED
 })
 
 export type TcartActions = 
@@ -143,9 +178,12 @@ export type TcartActions =
   | IGetItemsRequest
   | IGetItemsSucces
   | IGetItemsFailed
+  | IGetIncrementCart
+  | IApplyOrderDetailsRequest
+  | IApplyOrderDetailsSucces
+  | IApplyOrderDetailsFailed
   
-
-export const getItems = () => (dispatch: any) => {
+export const getItems: AppThunk = () => (dispatch: any) => {
   dispatch(getItemsRequest());
    
   fetch(`${baseUrl}ingredients`)
@@ -160,9 +198,7 @@ export const getItems = () => (dispatch: any) => {
 };
 
 export const postOrder = (url: string, ingredientsId: any) => (dispatch: any) => {
-  dispatch({
-    type: APPLY_ORDER_DETAILS_REQUEST,
-  });
+  dispatch(applyOrderDetailsRequestAction());
 
   postOrderRequest(url, ingredientsId)
     .then(checkResponse)
@@ -174,9 +210,7 @@ export const postOrder = (url: string, ingredientsId: any) => (dispatch: any) =>
       })
     )
     .catch((errorMessage) => {
-      dispatch({
-        type: APPLY_ORDER_DETAILS_FAILED,
-      });
+      dispatch(applyOrderDetailsFailedAction());
       console.log(errorMessage);
     });
 };

@@ -23,7 +23,8 @@ import {
   postOrder,
   dropBunAction,
   dropItemAction,
-  getCurrentLocalStateAction
+  getCurrentLocalStateAction,
+  getIncrementCartAction
  } from '../../services/actions/cart'
 import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid';
@@ -51,9 +52,7 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
       } else {
         dispatch(dropItemAction(item));
       }
-      dispatch({
-        type: GET_INCREMENT_CART,
-      });
+      dispatch(getIncrementCartAction());
     },
   });
 
@@ -80,7 +79,6 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   
   useEffect(() => {
     checkHistory(history);
-    // setUseModalState(null);
   }, [])
 
   useEffect(() => {

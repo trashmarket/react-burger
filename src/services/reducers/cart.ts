@@ -17,6 +17,7 @@ import {
   GET_CURRENT_CLICK_TAB,
   GET_CURENT_LOCAL_STATE
 } from "../constants";
+import { TcartActions } from '../actions/cart'
 
 type TInitialState = {
   items: ReadonlyArray<TItems>;
@@ -33,6 +34,7 @@ type TInitialState = {
   orderDetailsFailed: boolean;
   currentTab: string;
   currentTabClick: string;
+  currentModal: string
 }
 
 const initialState: TInitialState = {
@@ -53,10 +55,11 @@ const initialState: TInitialState = {
   orderDetailsRequest: false,
   orderDetailsFailed: false,
   currentTab: 'one',
-  currentTabClick: ''
+  currentTabClick: '',
+  currentModal: ''
 };
 
-export const cartReducer = (state = initialState, action: any) => {
+export const cartReducer = (state = initialState, action: TcartActions): TInitialState => {
   switch (action.type) {
     case GET_ITEMS_FAILED: {
       return {
