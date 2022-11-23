@@ -16,6 +16,7 @@ export const socketMiddleware = (wsUrl, typesAction, isAuth = false) => {
 
       if (socket) {
         socket.onopen = event => {
+        
           dispatch({ type: onOpen });
         };
 
@@ -27,6 +28,7 @@ export const socketMiddleware = (wsUrl, typesAction, isAuth = false) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
+          console.log(restParsedData);
           dispatch({ type: onMessage, restParsedData });
         };
 
