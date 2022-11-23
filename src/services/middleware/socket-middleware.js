@@ -16,11 +16,11 @@ export const socketMiddleware = (wsUrl, typesAction, isAuth = false) => {
 
       if (socket) {
         socket.onopen = event => {
-          dispatch({ type: onOpen, payload: event });
+          dispatch({ type: onOpen });
         };
 
         socket.onerror = event => {
-          dispatch({ type: onError, payload: event });
+          dispatch({ type: onError });
         };
 
         socket.onmessage = event => {

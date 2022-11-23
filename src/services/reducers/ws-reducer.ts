@@ -13,6 +13,13 @@ import { TWsOrders } from '../types/data'
   total: number;
   totalToday: number
  }
+ import { 
+  AppDispatch,
+  RootState,
+  AppThunk
+ } from '../types';
+
+ import { TWsActions } from '../actions/ws-action'
 
  const initionState: TInitionState = {
   wsConnectede: false,
@@ -22,7 +29,7 @@ import { TWsOrders } from '../types/data'
   totalToday: 0
  }
 
-export const wsReduser = (state = initionState, action: any) => {
+export const wsReduser = (state = initionState, action: TWsActions) => {
   switch(action.type) {
 
     case WS_CONNECTION_SUCCESS: {

@@ -9,8 +9,13 @@ import {
   APPLY_PERSON_EXIT_FAILED,
   APPLY_PERSON_EXIT_SUCCESS
 } from '../constants';
+import { 
+  AppDispatch,
+  RootState,
+  AppThunk
+ } from '../types';
 
-export const selectPerson = (state: any) => state.person;
+export const selectPerson = (state: RootState) => state.person;
 
 type TForm = {
   readonly email: string;
@@ -25,6 +30,8 @@ type TRefreshToken = {
 type TPostResponse = {
   readonly accessToken: string;
   readonly refreshToken: string;
+  readonly success: boolean;
+  readonly user: TUser
 } & TUser
 
 interface IApplyPersonSuccesAction {
@@ -87,7 +94,7 @@ const applyPersonExitFailedAction = (): IApplyPersonExitFailedAction => ({
   type: APPLY_PERSON_EXIT_FAILED
 })
 
-export const postPerson = (url: string, form: TForm) => (dispatch: any) => {
+export const postPerson: AppThunk = (url: string, form: TForm) => (dispatch: AppDispatch) => {
   dispatch(applyPersonRequestAction());
 
   postRequest(url, form)
@@ -101,7 +108,7 @@ export const postPerson = (url: string, form: TForm) => (dispatch: any) => {
     });
   }
 
-export const postLogOut = (url: string, refreshToken: TRefreshToken) => (dispatch: any) => {
+export const postLogOut: AppThunk = (url: string, refreshToken: TRefreshToken) => (dispatch: AppDispatch) => {
   dispatch(applyPersonExitRequest());
 
   postRequest(url, refreshToken)
@@ -114,9 +121,9 @@ export const postLogOut = (url: string, refreshToken: TRefreshToken) => (dispatc
     });
 }
 
-export const getUserAuth = (url: string) => {
+export const getUserAuth: AppThunk = (url: string) => {
 
-return function updateUserAction(dispatch: any) {
+return function updateUserAction(dispatch: AppDispatch) {
 
   dispatch(applyPersonRequestAction());
 
@@ -139,8 +146,8 @@ return function updateUserAction(dispatch: any) {
 };
 }
 
-export const patchUserAuth = (url: string, body: TForm) => {
-  return function updateUserAction(dispatch: any) {
+export const patchUserAuth: AppThunk = (url: string, body: TForm) => {
+  return function updateUserAction(dispatch: AppDispatch) {
   dispatch(applyPersonRequestAction());
 
   patchUserRequest(url, body)

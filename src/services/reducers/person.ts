@@ -8,6 +8,7 @@ import {
   APPLY_PERSON_EXIT_SUCCESS,
   CLEAN_SUCCES_CONSTRUCTOR
 } from '../constants'
+import { TPersonActions } from '../actions/person'
 
 type TInitialState = {
   passRequest: boolean;
@@ -18,7 +19,7 @@ type TInitialState = {
   user: TUser;
   isLoaded: boolean;
   exitRequest: boolean;
-  exitSuccess: boolean;
+  exitSuccess?: boolean;
   exitFailed: boolean;
   exitBody: TExitBody
 }
@@ -38,17 +39,8 @@ const initialState: TInitialState = {
   exitBody: {}  
 }
 
-const personReduser = (state = initialState, action: any) => {
+const personReduser = (state = initialState, action: TPersonActions): TInitialState => {
   switch(action.type) {
-
-    case CLEAN_SUCCES_CONSTRUCTOR: {
-      return {
-        ...state,
-        passRequestFailed: false,
-        passRequest: false,
-        isLoaded: false
-      }
-    }
 
     case APPLY_PERSON_REQUEST: {
       return {

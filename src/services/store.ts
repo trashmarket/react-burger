@@ -21,8 +21,16 @@ declare global {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose 
 
+type TWsActions = {
+  onOpen: typeof WS_CONNECTION_SUCCESS;
+  onClosed: typeof WS_CONNECTION_CLOSED;
+  onError: typeof WS_CONNECTION_ERROR;
+  onMessage: typeof WS_GET_ITEMS_MESSAGE;
+  onClose: typeof WS_CLOSE;
+  wsType?: typeof WS_CONNECTION_START_ALL | typeof WS_CONNECTION_START_PRIVATE;
+}
 
-const wsActions = {
+const wsActions: TWsActions = {
   onOpen: WS_CONNECTION_SUCCESS,
   onClosed: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,
