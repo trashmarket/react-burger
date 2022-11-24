@@ -2,23 +2,19 @@ import React, {
   useMemo,
   useCallback,
   useEffect,
-  useState
+  useState,
+  FC
 } from "react";
 import {
   ConstructorElement,
   CurrencyIcon,
   Button,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop.js";
-import {
-  GET_INCREMENT_CART
-} from "../../services/constants";
 import { 
   postOrder,
   dropBunAction,
@@ -27,26 +23,27 @@ import {
   getIncrementCartAction
  } from '../../services/actions/cart'
 import { useDrop } from "react-dnd";
-import { v4 as uuidv4 } from 'uuid';
-import { baseUrl } from '../../utils/constants'
-import { getUserAuth, selectPerson } from '../../services/actions/person'
+import { baseUrl } from '../../utils/constants';
+import { getUserAuth, selectPerson } from '../../services/actions/person';
 import { useHistory, useLocation } from 'react-router-dom';
-import { checkHistory } from '../../utils/utils' 
-import { selectCart } from '../../services/actions/cart'
+import { checkHistory } from '../../utils/utils'; 
+import { selectCart } from '../../services/actions/cart';
+import { TBurgerConstructor } from '../../services/types-components';
+import { TItems, TItemSelect } from '../../services/types/data'
 
-function BurgerConstructor({ setUseModalState, bull, onClose }) {
+ const BurgerConstructor:FC<TBurgerConstructor> = ({ setUseModalState, bull, onClose }) => {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
-    (state) => state.cart
+    selectCart
   );
-  const [orderButton, setOrderButton] = useState(null);
+  const [orderButton, setOrderButton] = useState<boolean | null>(null);
   const {success, passRequestFailed} = useSelector(selectPerson);
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<{fromLogin:Array<TItemSelect>}>();
   const dispatch = useDispatch();
 
   const [collected, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item:TItems) {
       if (item.type === "bun") {
         dispatch(dropBunAction(item));
       } else {
@@ -101,7 +98,6 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
     }
 
     if (location.state?.fromLogin) {
-      console.log(location.state)
       dispatch(getCurrentLocalStateAction(location));
     }
     
@@ -175,9 +171,8 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
           onClick={() => {
             postRequest();
           }}
-        >
-          Оформить заказ
-        </Button>
+          htmlType='button'
+        >Оформить заказ</Button>
       </div>
       }
       {bull && (
@@ -189,8 +184,5 @@ function BurgerConstructor({ setUseModalState, bull, onClose }) {
   );
 }
 
-BurgerConstructor.propTypes = {
-  onClose: PropTypes.func.isRequired,
-}
 
 export default BurgerConstructor;

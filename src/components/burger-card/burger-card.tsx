@@ -6,11 +6,10 @@ import {
 import styles from "./burger-card.module.css";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import PropTypes from 'prop-types';
-import {ingredientType} from '../../utils/types';
 import { useLocation, useHistory } from 'react-router-dom';
 import { TypeBurgerCardProp } from '../../services/types-components'
-import { selectCart } from '../../services/actions/cart'
+import { selectCart } from '../../services/actions/cart';
+
 const BurgerCard = React.memo<TypeBurgerCardProp>((props) => {
   const { selectedItems } = useSelector(selectCart);
   const location = useLocation();
