@@ -1,6 +1,6 @@
 import { TItems } from './types/data';
 
-type TSetUseModalState<T> = (item: T, typeState?: string) => void;
+export type TSetUseModalState<T> = (item: T, typeState?: string) => void;
 type TOnClose = (e: any, typeCode: null | string, path: string) => void;
 
 export interface TypeBurgerCardProp {
