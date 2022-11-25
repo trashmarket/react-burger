@@ -4,7 +4,6 @@ import BurgerList from "../burger-list/burger-list";
 import styles from "./burger-ingredients.module.css";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useSelector } from "react-redux";
 import { TSetUseModalState, TOnClose } from '../../services/types-components';
 import { TItems } from '../../services/types/data';
 
@@ -15,10 +14,6 @@ type TBurgerIngredients = {
 }
 
 const BurgerIngredients: FC<TBurgerIngredients> = ({setUseModalState, ingredient, onClose}) => {
-
-  React.useEffect(()=>{
-    console.log(ingredient);
-  },[ingredient])
 
   return (
     <section className={styles.wrapper}>
