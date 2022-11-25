@@ -112,10 +112,10 @@ function ProfileMain(props) {
               icon="EditIcon"
             />
             <div>
-              <Button type="primary" size="medium" onClick={resetClick}>
+              <Button type="primary" size="medium" onClick={resetClick} htmlType='button'>
                 отмена
               </Button>
-              <Button type="primary" size="medium">
+              <Button type="primary" size="medium" htmlType='button'>
                 сохранить
               </Button>
             </div>

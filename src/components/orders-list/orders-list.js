@@ -31,7 +31,6 @@ export const createrOrderObject = (orderItem, itemsCart) => {
   const imagesItems = itemsCart.filter(({_id}) =>  orderItem.ingredients.some(id => _id === id));
   const cartIngredient = countImgIngredients(imagesItems, orderItem.ingredients);
   const costFull = cartIngredient.reduce((acc, currentItem)=> (acc + currentItem.fullPrice) ,0);
-
   return {
     item: orderItem,
     time: time,

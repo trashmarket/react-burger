@@ -60,7 +60,7 @@ import { baseUrl } from '../../utils/constants';
             value={valuePass}
             placeholder='Пароль'
             onChange={e => setValuePass(e.target.value)}/>
-          <Button type="primary" size="medium">
+          <Button type="primary" size="medium" htmlType='submit'>
             Войти
           </Button>
         </form>
