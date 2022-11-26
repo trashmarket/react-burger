@@ -7,8 +7,7 @@ import {  useHistory } from 'react-router-dom';
 
 function ModalOverlay({children, onClose}){
   const {background} = useHistory().location.state;
-
-
+  console.log(background);
   return(
     <div className={styles.overlay} onClick={(e) => onClose(e, styles.overlay, background.pathname)}>
       {children}

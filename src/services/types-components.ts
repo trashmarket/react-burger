@@ -35,3 +35,10 @@ export interface IFeedMain {
    readonly ingredient: TCartIngredient | null;
    readonly onClose: TOnClose;
 }
+
+export type TBackgroundState = {
+  hash: string;
+  key: string;
+  pathname: string;
+  search: string;
+}
