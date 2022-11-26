@@ -7,8 +7,8 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { TSetUseModalState, TOnClose } from '../../services/types-components';
 import { TItems } from '../../services/types/data';
 
-type TBurgerIngredients = {
-  readonly setUseModalState: TSetUseModalState<TItems>;
+export type TBurgerIngredients = {
+  readonly setUseModalState: TSetUseModalState<TItems | boolean>;
   readonly ingredient: TItems | null;
   readonly onClose: TOnClose;
 }
