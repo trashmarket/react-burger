@@ -10,12 +10,8 @@ export default function IngredientsMain() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    setItem(
-      items.find((item) => {
-        item._id === id;
-      })
-    );
-  }, [items]);
+     setItem(items.find(item => item._id === id));  
+  }, [items, item, id])
 
   return (
     item !== true &&

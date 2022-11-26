@@ -14,7 +14,7 @@ import styles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { useDispatch, useSelector } from "../../services/hooks";
-import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop.js";
+import LiDragAndDrop from "../li-drag-and-drop/li-drag-and-drop";
 import { 
   postOrder,
   dropBunAction,
