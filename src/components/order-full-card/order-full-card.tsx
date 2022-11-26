@@ -1,9 +1,13 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import { TItemObjectList } from '../../services/types-components';
 import styles from './order-full-card.module.css';
+import React, {FC} from 'react';
 
-function OrderFullCard({ingredient}) {
-  console.log (ingredient)
+type TOrderFullCard = {
+  ingredient: TItemObjectList
+}
+
+const OrderFullCard: FC<TOrderFullCard> = ({ingredient}) => {
   return (
     <div className={styles.continer}>
       <p className={`text text_type_digits-default ${styles.number}`}>#{ingredient.item.number}</p>

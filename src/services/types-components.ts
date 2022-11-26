@@ -4,13 +4,13 @@ import { TItems, TWsOrders } from './types/data';
 export type TSetUseModalState<T> = (item: T, typeState?: string) => void;
 export type TOnClose = (e: any, typeCode: null | string, path: string) => void;
 
-type TCartIngredient = {
+export type TCartIngredient = {
   count: number;
   fullPrice: number
 
 } & TItems
 
-type TItemObjectList = {
+export type TItemObjectList = {
   item: TWsOrders;
   cartIngredient: Array<TCartIngredient>;
   time: string;
@@ -32,7 +32,7 @@ export interface TBurgerConstructor {
 
 export interface IFeedMain {
    readonly setUseModalState: TSetUseModalState<TItemObjectList>;
-   readonly ingredient: TCartIngredient | null;
+   readonly ingredient: TItemObjectList | null;
    readonly onClose: TOnClose;
 }
 
