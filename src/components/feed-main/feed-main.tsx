@@ -15,8 +15,9 @@ import  OrdersList  from '../orders-list/orders-list';
 import Modal from "../modal/modal";
 import { OrderFullCard } from '../order-full-card/order-full-card';
 import { useHistory } from 'react-router-dom';
-import { checkHistory } from '../../utils/utils'
-import { IFeedMain } from '../../services/types-components'
+import { checkHistory } from '../../utils/utils';
+import { IFeedMain } from '../../services/types-components';
+
  const FeedMain: FC<IFeedMain> = ({setUseModalState, ingredient, onClose}) => {
   const { orders, total, totalToday }  = useSelector(selectOrders);
   const { items } = useSelector(selectCart);

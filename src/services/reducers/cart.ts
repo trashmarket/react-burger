@@ -20,7 +20,7 @@ import {
 import { TcartActions } from '../actions/cart'
 
 type TInitialState = {
-  items: ReadonlyArray<TItems>;
+  items: Array<TItems>;
   itemsRequest: boolean;
   itemsFailed: boolean;
   errorStatus: number | string;
