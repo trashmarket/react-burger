@@ -6,11 +6,10 @@ import {
   APPLY_PERSON_EXIT_REQUEST,
   APPLY_PERSON_EXIT_FAILED,
   APPLY_PERSON_EXIT_SUCCESS,
-  CLEAN_SUCCES_CONSTRUCTOR
 } from '../constants'
 import { TPersonActions } from '../actions/person'
 
-type TInitialState = {
+export type TInitialStatePerson = {
   passRequest: boolean;
   passRequestFailed: boolean;
   success: boolean;
@@ -24,13 +23,16 @@ type TInitialState = {
   exitBody: TExitBody
 }
 
-const initialState: TInitialState = {
+const initialState: TInitialStatePerson = {
   passRequest: false,
   passRequestFailed: false,
   success: false,
   accessToken: '',
   refreshToken: '',
-  user: {},
+  user: {
+    email: '',
+    name: ''
+  },
   isLoaded: false,
 
   exitRequest: false,
@@ -39,7 +41,7 @@ const initialState: TInitialState = {
   exitBody: {}  
 }
 
-const personReduser = (state = initialState, action: TPersonActions): TInitialState => {
+const personReduser = (state = initialState, action: TPersonActions): TInitialStatePerson => {
   switch(action.type) {
 
     case APPLY_PERSON_REQUEST: {
@@ -85,7 +87,10 @@ const personReduser = (state = initialState, action: TPersonActions): TInitialSt
         exitFailed: false,
         exitSuccess: action.exitBody.success,
         success: false,
-        user: {}
+        user: {
+          name: '',
+          email: ''
+        }
       };
     }
 

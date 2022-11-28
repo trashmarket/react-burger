@@ -36,8 +36,8 @@ export type TExitBody = {
 }
 
 export type TUser = {
-  email?: string;
-  name?: string;
+  email: string;
+  name: string;
 }
 
 export type TPostEmailBody = {
