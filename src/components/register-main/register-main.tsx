@@ -69,7 +69,7 @@ function RegisterMain() {
             value={valuePass}
             placeholder='Пароль'
             onChange={e => setValuePass(e.target.value)}/>
-          <Button type="primary" size="medium" htmlType='button'>
+          <Button type="primary" size="medium" htmlType='submit'>
             Зарегистрироваться
           </Button>
         </form>
