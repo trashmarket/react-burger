@@ -24,7 +24,7 @@ function App() {
   const background = location.state && location.state.background;
 
   const [ingredient, setIngredient] = useState<TItems | null | boolean>(null);
-  const [constructor, setConstructor] = useState<TItems | null | boolean>(false);
+  const [ConstructorBool, setConstructorBool] = useState<TItems | null | boolean >(false);
   const history = useHistory()
 
   function setUseModalState(item:TItems | null | boolean, typeState?: string) {
@@ -32,8 +32,8 @@ function App() {
       ? setIngredient(item)
       : setIngredient(null);
     item && "constructor" === typeState
-      ? setConstructor(item)
-      : setConstructor(false);
+      ? setConstructorBool(item)
+      : setConstructorBool(false);
   }
 
   function goback(path: string) {
@@ -43,7 +43,7 @@ function App() {
     setUseModalState(null)    
   }
 
-  function onClose(e: any , typeCode: string, path: string) {
+  function onClose(e: any , typeCode: string | null, path: string) {
     if (e.key === "Escape") {
       goback(path)
     }
@@ -81,7 +81,7 @@ function App() {
             setUseModalState={setUseModalState}
             ingredient={ingredient}
             onClose={onClose}
-            constructor={constructor}
+            ConstructorBool={ConstructorBool}
           />
         </Route>
         <Route path="/ingredients/:id" exact>

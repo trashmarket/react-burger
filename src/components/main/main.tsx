@@ -5,12 +5,18 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TBurgerIngredients } from '../burger-ingredients/burger-ingredients'
+import { TItems } from '../../services/types/data';
+import { TSetUseModalState, TOnClose } from '../../services/types-components';
 
-type TMain = {
-  constructor: boolean;
-} & TBurgerIngredients
+export type TMain = {
+  ConstructorBool: boolean | TItems | null;
+} & {
+  readonly setUseModalState: TSetUseModalState<TItems | boolean>;
+  readonly ingredient: TItems | null | boolean ;
+  onClose: TOnClose;
+}
 
-const Main: FC<TMain> = ({setUseModalState, ingredient, onClose, constructor}) => {
+const Main: FC<TMain> = ({setUseModalState, ingredient, onClose, ConstructorBool}) => {
 
   return (
     <main className={styles.main}>
@@ -24,7 +30,7 @@ const Main: FC<TMain> = ({setUseModalState, ingredient, onClose, constructor}) =
           />
           <BurgerConstructor
             setUseModalState={setUseModalState}
-            bull={constructor}
+            bool={ConstructorBool}
             onClose={onClose}
           />
         </DndProvider>

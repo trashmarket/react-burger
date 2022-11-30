@@ -9,7 +9,7 @@ import { TItems } from '../../services/types/data';
 
 export type TBurgerIngredients = {
   readonly setUseModalState: TSetUseModalState<TItems | boolean>;
-  readonly ingredient: TItems | null;
+  readonly ingredient: TItems | null | boolean;
   readonly onClose: TOnClose;
 }
 

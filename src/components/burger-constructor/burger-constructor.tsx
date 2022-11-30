@@ -31,7 +31,7 @@ import { selectCart } from '../../services/actions/cart';
 import { TBurgerConstructor } from '../../services/types-components';
 import { TItems, TItemSelect } from '../../services/types/data'
 
- const BurgerConstructor:FC<TBurgerConstructor> = ({ setUseModalState, bull, onClose }) => {
+ const BurgerConstructor:FC<TBurgerConstructor> = ({ setUseModalState, bool, onClose }) => {
   const { basketIngredients, currentModal, selectedItems } = useSelector(
     selectCart
   );
@@ -175,7 +175,7 @@ import { TItems, TItemSelect } from '../../services/types/data'
         >Оформить заказ</Button>
       </div>
       }
-      {bull && (
+      {bool && (
         <Modal onClose={onClose}>
           <OrderDetails />
         </Modal>

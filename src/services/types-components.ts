@@ -26,7 +26,7 @@ export interface TypeBurgerCardProp {
 
 export interface TBurgerConstructor {
   readonly setUseModalState: TSetUseModalState<boolean>;
-  readonly bull: boolean;
+  readonly bool: boolean | TItems | null;
   readonly onClose: TOnClose;
 }
 

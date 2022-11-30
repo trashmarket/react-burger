@@ -3,11 +3,11 @@ import styles from './ingredient-details.module.css';
 import { TItems } from '../../services/types/data';
 
 type TIngredientDetails = {
-  ingredient: TItems
+  ingredient: TItems | null | boolean ;
 }
 
 const IngredientDetails: FC<TIngredientDetails> = ({ingredient}) => {
-  
+  if (typeof ingredient !== 'boolean' &&  ingredient !== null ) 
   return (
     <div className={styles.container}>
       <h2 className="text text_type_main-large">Детали ингредиента</h2>
@@ -40,6 +40,7 @@ const IngredientDetails: FC<TIngredientDetails> = ({ingredient}) => {
       </div>
     </div>
   );
+  else return null
 }
 
 export default IngredientDetails;
