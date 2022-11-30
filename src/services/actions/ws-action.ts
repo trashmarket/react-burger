@@ -18,7 +18,7 @@ type TrestParseData = {
   readonly totalToday: number;
 }
 
-type TWsConnection = 
+export type TWsConnection = 
   | typeof WS_CONNECTION_START_ALL
   | typeof  WS_CONNECTION_START_PRIVATE
   | typeof WS_CONNECTION_SUCCESS

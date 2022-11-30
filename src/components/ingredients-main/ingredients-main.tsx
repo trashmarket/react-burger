@@ -13,10 +13,10 @@ export default function IngredientsMain() {
      setItem(items.find(item => item._id === id));  
   }, [items, item, id])
 
-  return (
-    item !== true &&
-    item !== undefined &&
-    item !== false && (
+   
+  if  (item !== true &&
+      item !== undefined &&
+      item !== false) return(
       <div className={styles.container}>
         <h2 className={`text text_type_main-large ${styles.title}`}>
           Детали ингредиента
@@ -45,5 +45,6 @@ export default function IngredientsMain() {
         </div>
       </div>
     )
-  );
+    return null;
+  
 }
