@@ -62,7 +62,7 @@ const OrdersList: FC<TOrdersList> =  ({ orders, itemsCart, setUseModalState }) =
         itemObject
       }
     })
-    setUseModalState(itemObject, "ingredient")
+    setUseModalState(itemObject, "ingredientObjectList")
   }
 
   return (

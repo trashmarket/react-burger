@@ -16,21 +16,26 @@ import ProtectedRoute from '../protected-route';
 import AppHeader from "../app-header/app-header";
 import { getItems } from "../../services/actions/cart";
 import { WS_CONNECTION_START_ALL, WS_CONNECTION_START_PRIVATE } from '../../services/constants'
-import { TItems } from '../../services/types/data'
+import { TItems } from '../../services/types/data';
+import { TItemObjectList } from '../../services/types-components'
 
 function App() {
   const location = useLocation<{background: any}>()
   const dispatch = useDispatch();
   const background = location.state && location.state.background;
 
-  const [ingredient, setIngredient] = useState<TItems | null | boolean>(null);
+  const [ingredientObjectList, setIngredientObjectList] = useState< TItemObjectList | null >(null);
+  const [ingredientConstructor, setIngredientConstructor] = useState< TItems | null | boolean>(null);
   const [ConstructorBool, setConstructorBool] = useState<TItems | null | boolean >(false);
   const history = useHistory()
 
-  function setUseModalState(item:TItems | null | boolean, typeState?: string) {
+  function setUseModalState(item:any, typeState?: string) {
     item && "ingredient" === typeState
-      ? setIngredient(item)
-      : setIngredient(null);
+      ? setIngredientConstructor(item)
+      : setIngredientConstructor(null);
+    item && 'ingredientObjectList' === typeState 
+      ? setIngredientObjectList(item)
+      : setIngredientObjectList(null)
     item && "constructor" === typeState
       ? setConstructorBool(item)
       : setConstructorBool(false);
@@ -69,7 +74,7 @@ function App() {
         <Route path="/feed" exact>
           <FeedPage
             setUseModalState={setUseModalState}
-            ingredient={ingredient}
+            ingredient={ingredientObjectList}
             onClose={onClose}
           />
         </Route>
@@ -79,7 +84,7 @@ function App() {
         <Route path="/" exact>
           <Constructor
             setUseModalState={setUseModalState}
-            ingredient={ingredient}
+            ingredient={ingredientConstructor}
             onClose={onClose}
             ConstructorBool={ConstructorBool}
           />
@@ -105,7 +110,7 @@ function App() {
         <ProtectedRoute path="/profile">
           <ProfilePage
             setUseModalState={setUseModalState}
-            ingredient={ingredient}
+            ingredient={ingredientObjectList}
             onClose={onClose}
           />
         </ProtectedRoute>
