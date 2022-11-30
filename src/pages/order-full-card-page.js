@@ -34,7 +34,8 @@ export function OrderFullCardPage({ action, payload }) {
   }, [getItemsSucces])
 
   const objectCart = useMemo(()=> {
-    if (order) return createrOrderObject(order, items)
+    if (order) return createrOrderObject(order, items);
+    else return 404
   } , [order])
 
   return objectCart && (
