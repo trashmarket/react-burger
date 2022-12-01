@@ -24,7 +24,7 @@ import { TOrderDetails } from '../types/data';
 
 export const selectCart = (state: RootState) => state.cart;
 
-type TingredientsId = {
+export type TingredientsId = {
   ingredients: Array<string>
 }
 

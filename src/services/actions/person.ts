@@ -17,13 +17,13 @@ import {
 
 export const selectPerson = (state: RootState) => state.person;
 
-type TForm = {
+export type TForm = {
   readonly email: string;
   readonly password: string;
   readonly name?: string;
 }
 
-type TRefreshToken = {
+export type TRefreshToken = {
   readonly token: string
 }
 

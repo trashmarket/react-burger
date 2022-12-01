@@ -14,7 +14,7 @@ import { selectPerson } from "../../services/actions/person";
 import { TSetUseModalState, TItemObjectList, TOnClose } from '../../services/types-components'; 
 
 
-type TProfileMain = {
+export type TProfileMain = {
   setUseModalState: TSetUseModalState<TItemObjectList>;
   onClose: TOnClose;
   ingredient: null | TItemObjectList;
