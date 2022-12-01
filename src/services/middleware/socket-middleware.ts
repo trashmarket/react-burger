@@ -9,6 +9,7 @@ export const socketMiddleware = (wsUrl: string, typesAction: TWsActions, isAuth 
     let socket: any = null;
 
     return (next: Dispatch) => action => {
+
       const { dispatch, getState } = store;
       const { type, payload } = action;
       const { onOpen, onClose, onError, onMessage, onClosed, wsType} = typesAction
@@ -19,22 +20,22 @@ export const socketMiddleware = (wsUrl: string, typesAction: TWsActions, isAuth 
       }
 
       if (socket) {
-        socket.onopen = (event: any) => {
+        socket.onopen = () => {
           dispatch(connectionWsAction(onOpen));
         };
 
-        socket.onerror = (event: any) => {
+        socket.onerror = () => {
           dispatch(connectionWsAction(onError));
         };
 
-        socket.onmessage = (event: any) => {
+        socket.onmessage = (event: MessageEvent) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
           dispatch({ type: onMessage, restParsedData });
         };
 
-        socket.onclose = (event: any) => {
+        socket.onclose = () => {
           dispatch(connectionWsAction(onClosed));
           socket = null 
         };

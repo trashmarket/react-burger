@@ -4,12 +4,12 @@ const sort = (item: TItems, type: string) => {
   if (item.type === type) return item;
 };
 
-const checkResponse = (response: any) => {
+const checkResponse = (response: Response) => {
 if (response.ok) return response.json();
 return response.json().then((res:any) => Promise.reject(res)) 
 };
 
-export const checkResponseCart = (response:any) => {
+export const checkResponseCart = (response: Response) => {
 if (response.ok) return response.json();
 return Promise.reject(response.status);
 }
@@ -26,7 +26,7 @@ if (
 }
 }
 
-type TpropsCookie = { [key: string]: any } & { expires?: number | Date | string } ;
+type TpropsCookie = { [key: string]: number | Date | string | boolean}  ;
 function setCookie(name: string, value: string | null, props:TpropsCookie) {
 props = props || {};
 let exp = props.expires;

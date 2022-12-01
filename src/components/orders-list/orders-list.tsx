@@ -10,7 +10,8 @@ type TOrdersList = {
   itemsCart: Array<TItems>;
   setUseModalState: TSetUseModalState<TItemObjectList>;
 }
-const countImgIngredients = (sortCarts: Array<TItems>, ingredients: Array<any>) => {
+const countImgIngredients = (sortCarts: Array<TItems>, ingredients: string[]) => {
+
 
  return sortCarts.map( imagesItem => ingredients.reduce((acc: TCartIngredient , ingredientId: string)=>{
     if (imagesItem._id === ingredientId) {
@@ -27,12 +28,26 @@ const countImgIngredients = (sortCarts: Array<TItems>, ingredients: Array<any>) 
         fullPrice: acc.fullPrice ? acc.fullPrice + acc.price : imagesItem.price
       }  
     } else return acc
-  },{}))
+  },  {
+    count: 0,
+    fullPrice: 0,
+   _id: '',
+   name: '',
+   type: '',
+   proteins: 0,
+   fat: 0,
+   carbohydrates: 0,
+   calories: 0,
+   price: 0,
+   image: '',
+   image_mobile: '',
+   image_large: '',
+   __v: 0,
+  }))
 }
 
 export const createrOrderObject = (orderItem:TWsOrders, itemsCart: Array<TItems>) => {
   const date = new Date(orderItem.createdAt);
-  const nowDate = new Date();
   const getDate = () => Math.round((new Date().getTime() - Date.parse(orderItem.createdAt)) / 86400000 );
   const todayOrNotetoday = getDate() === 0 ? 'Сегодня' : getDate() === 1 ? 'Вчера' : getDate() + ' дня назад'; 
   const time = date.toLocaleTimeString().split(':').slice(0, -1).join(':');

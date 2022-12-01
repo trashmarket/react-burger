@@ -1,8 +1,9 @@
 import { type } from 'os';
 import { TItems, TWsOrders } from './types/data';
+import { MouseEvent } from 'react';
 
 export type TSetUseModalState<T> = (item: T, typeState?: string) => void;
-export type TOnClose = (e: any, typeCode: null | string, path: string) => void;
+export type TOnClose = (e: MouseEvent | KeyboardEvent, typeCode: null | string, path: string) => void;
 
 export type TCartIngredient = {
   count: number;

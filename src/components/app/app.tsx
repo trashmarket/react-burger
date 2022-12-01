@@ -17,7 +17,7 @@ import AppHeader from "../app-header/app-header";
 import { getItems } from "../../services/actions/cart";
 import { WS_CONNECTION_START_ALL, WS_CONNECTION_START_PRIVATE } from '../../services/constants'
 import { TItems } from '../../services/types/data';
-import { TItemObjectList } from '../../services/types-components'
+import { TItemObjectList, TOnClose } from '../../services/types-components'
 
 function App() {
   const location = useLocation<{background: any}>()
@@ -48,7 +48,7 @@ function App() {
     setUseModalState(null)    
   }
 
-  function onClose(e: any , typeCode: string | null, path: string) {
+  const onClose: TOnClose = (e: any , typeCode: string | null, path: string) => {
     if (e.key === "Escape") {
       goback(path)
     }

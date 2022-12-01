@@ -24,18 +24,20 @@ type TLiDragAndDrop = Omit<TItems,
     index: number
   }
 
+
+
 const LiDragAndDrop: FC<TLiDragAndDrop> = ({name, price, image, index, _id}) => {
   const ref = useRef<HTMLLIElement>(null)
   const dispatch = useDispatch();
 
-  const [{ handlerId }, drop] = useDrop({
+  const [ handlerId , drop] = useDrop<TLiDragAndDrop>({
     accept: 'li-card',
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       }
     },
-    hover(item: any, monitor) {
+    hover(item, monitor) {
       if (!ref.current) {
         return
       }

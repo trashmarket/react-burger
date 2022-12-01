@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import styles from "./modal.module.css";
-import React, {FC, KeyboardEventHandler} from "react";
+import React, {FC, PropsWithChildren} from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {  useHistory, useLocation } from 'react-router-dom';
 import { TOnClose } from "../../services/types-components";
@@ -10,12 +10,10 @@ const modalRoot = document.getElementById("modal-root") as HTMLElement;
 
 type TModal = {
   onClose: TOnClose;
-  children: any;
 }
 
-const Modal: FC<TModal> = ({ onClose, children }) => {
+const Modal: FC<PropsWithChildren<TModal>> = ({ onClose, children }) => {
   const {background} = useHistory<{background:any}>().location.state;
-  const location = useLocation()
   
   React.useEffect(() => {
     const handelClick = (e: KeyboardEvent) => {

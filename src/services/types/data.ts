@@ -25,10 +25,7 @@ export type TItems = {
   readonly __v: number;
 }
 
-export type TpasswordMessage = {
-  readonly success: boolean;
-  readonly message: string;
-}
+export type TpasswordMessage = Required<TExitBody>
 
 export type TExitBody = {
   success?: boolean;

@@ -19,7 +19,7 @@ const BurgerList: FC<TsetProps> = ({ setUseModalState }) => {
   const dispatch = useDispatch();
   const { items, itemsRequest, itemsFailed, errorStatus, currentTabClick } =
     useSelector(selectCart);
-  const ulRef = useRef<any>(null);
+  const ulRef = useRef<HTMLUListElement>(null);
   const bunRef = useRef<HTMLHeadingElement>(null);
   const sauceRef = useRef<HTMLHeadingElement>(null);
   const mainRef = useRef<HTMLHeadingElement>(null);
@@ -34,41 +34,39 @@ const BurgerList: FC<TsetProps> = ({ setUseModalState }) => {
     if (currentTabClick === "main" && mainRef.current) {
       mainRef.current.scrollIntoView({ behavior: "smooth" });
     }
-
-    ulRef.current.addEventListener(
-      "scroll",
-      (e: React.UIEvent<HTMLUListElement>) => {
-        const elementScroll = e.currentTarget.scrollTop;
-
-        if (sauceRef.current !== null && bunRef.current !== null) {
-          if (
-            elementScroll >= bunRef.current.offsetTop &&
-            elementScroll <= sauceRef.current.offsetTop
-          ) {
-            dispatch(getcCurrentTabAction("one"));
-          }
-        }
-
-        if (mainRef.current !== null && sauceRef.current !== null) {
-          if (
-            elementScroll >= sauceRef.current.offsetTop - 30 &&
-            elementScroll <= mainRef.current.offsetTop
-          ) {
-            dispatch(getcCurrentTabAction("two"));
-          }
-        }
-
-        if (mainRef.current !== null) {
-          if (elementScroll >= mainRef.current.offsetTop) {
-            dispatch(getcCurrentTabAction("three"));
-          }
-        }
-      }
-    );
+    
   }, [currentTabClick]);
 
+  const handelClick = (e: React.UIEvent<HTMLUListElement>) => {
+    const elementScroll = e.currentTarget.scrollTop;
+
+    if (sauceRef.current !== null && bunRef.current !== null) {
+      if (
+        elementScroll >= bunRef.current.offsetTop &&
+        elementScroll <= sauceRef.current.offsetTop
+      ) {
+        dispatch(getcCurrentTabAction("one"));
+      }
+    }
+
+    if (mainRef.current !== null && sauceRef.current !== null) {
+      if (
+        elementScroll >= sauceRef.current.offsetTop - 30 &&
+        elementScroll <= mainRef.current.offsetTop
+      ) {
+        dispatch(getcCurrentTabAction("two"));
+      }
+    }
+
+    if (mainRef.current !== null) {
+      if (elementScroll >= mainRef.current.offsetTop) {
+        dispatch(getcCurrentTabAction("three"));
+      }
+    }
+  }
+
   return (
-    <ul className={styles.list} ref={ulRef}>
+    <ul className={styles.list} ref={ulRef} onScroll={handelClick}>
       {itemsRequest && <div>...ЗАГРУЗКА</div>}
       {itemsFailed && <div>{errorStatus}</div>}
       <li>
