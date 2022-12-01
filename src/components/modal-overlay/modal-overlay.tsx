@@ -1,8 +1,5 @@
 import React, {PropsWithChildren, FC} from "react";
 import styles from './modal-overlay.module.css';
-import {modalType} from "../../utils/types";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { TOnClose, TBackgroundState } from '../../services/types-components'
 

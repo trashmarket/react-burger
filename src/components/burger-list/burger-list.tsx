@@ -1,10 +1,7 @@
 import React, {
-  useCallback,
   useEffect,
   useRef,
   FC,
-  SyntheticEvent,
-  MouseEvent,
 } from "react";
 import BurgerCard from "../burger-card/burger-card";
 import styles from "./burger-list.module.css";
