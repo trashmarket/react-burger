@@ -21,6 +21,7 @@
 
 .navLink {
   color: #8585AD;
+  cursor: pointer;
 }
 
 .navLinkActive {
