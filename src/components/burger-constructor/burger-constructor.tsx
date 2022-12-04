@@ -95,6 +95,7 @@ import { TItems, TItemSelect } from '../../services/types/data'
       });
       setUseModalState(true, 'constructor')
       dispatch(postOrder(`${baseUrl}orders`, {ingredients: basketIngredients.ingredientsId}));
+      setOrderButton(null);
     }
 
     if (location.state?.fromLogin) {
