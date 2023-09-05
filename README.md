@@ -6,6 +6,6 @@
 * Technologies
 * Plans for further improvement of the project
 
-** 🌐 Link **
+**🌐 Link**
 
 [Project React-Burger](https://react-burger-rho.vercel.app/)
