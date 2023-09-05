@@ -9,3 +9,6 @@
 **🌐 Link**
 
 [Project React-Burger](https://react-burger-rho.vercel.app/)
+
+**Introduction**
+React Burger is an educational project aimed at demonstrating how routing, user authentication, and drag-and-drop technology work. I hope you enjoy exploring this layout and seeing how it all comes together!
